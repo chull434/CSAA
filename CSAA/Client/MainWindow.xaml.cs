@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Client.Requests;
+using CSAA.Models;
 
 namespace Client
 {
@@ -23,6 +25,18 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
+
+            var AccountRequest = new AccountRequest();
+            var user = new User // UI Part
+            {
+                Name = "Test User",
+                Email = "testuser@localhost",
+                Password = "password",
+                product_owner = true,
+                scrum_master = true,
+                developer = true
+            };
+            AccountRequest.Register(user);
         }
     }
 }
