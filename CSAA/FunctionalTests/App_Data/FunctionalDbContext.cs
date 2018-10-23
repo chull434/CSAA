@@ -7,7 +7,11 @@ namespace FunctionalTests.App_Data
     {
         public FunctionalDbContext() : base()
         {
-            Database.SetInitializer<FunctionalDbContext>(new DropCreateDatabaseAlways<FunctionalDbContext>());
+            foreach (var user in Users)
+            {
+                Users.Remove(user);
+            }
+            SaveChanges();
         }
     }
 }

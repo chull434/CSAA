@@ -29,7 +29,7 @@ namespace FunctionalTests.Steps
         public void WhenIRegisterWithTheFollowingDetails(Table table)
         {
             var AccountRequest = new AccountRequest();
-            var user = new User // UI Part
+            var user = new User
             {
                 Name = "Test User",
                 Email = "testuser@localhost",
