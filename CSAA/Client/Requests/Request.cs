@@ -6,7 +6,7 @@ namespace Client.Requests
 {
     public class Request
     {
-        protected HttpClient client;
+        protected IHttpClient client;
 
         public Request()
         {
@@ -15,6 +15,11 @@ namespace Client.Requests
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public Request(IHttpClient client)
+        {
+            this.client = client;
         }
     }
 }

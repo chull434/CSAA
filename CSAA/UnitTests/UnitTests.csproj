@@ -97,6 +97,10 @@
       <Project>{dd90cc7f-5bdd-42d2-a7e0-e49e2d476d6c}</Project>
       <Name>Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CSAA\CSAA.csproj">
+      <Project>{13AC3CA3-A4C8-4AB2-8B6B-35E3BEBEBC3C}</Project>
+      <Name>CSAA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Server\Server.csproj">
       <Project>{ef3c07e7-7142-47b0-85d3-0ad8b9ed8c7a}</Project>
       <Name>Server</Name>
