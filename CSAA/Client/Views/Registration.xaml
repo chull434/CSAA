@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Views"
         mc:Ignorable="d"
-        Title="Registration" Height="450" Width="695.378" Background="#CCD1D1"
-        AllowsTransparency="True">
+        Title="Registration" Height="450" Width="695.378" Background="#CCD1D1">
 
 
     <Window.Resources>
@@ -38,10 +37,10 @@
         <TextBox x:Name="txt_FirstName" HorizontalAlignment="Left" Height="23" Margin="179,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <TextBox x:Name="txt_Surname" HorizontalAlignment="Left" Height="23" Margin="179,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="23" Margin="179,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="179,235,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
-        <PasswordBox x:Name="passwordBox_Copy" HorizontalAlignment="Left" Margin="179,267,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
+        <PasswordBox x:Name="pwb_Input" HorizontalAlignment="Left" Margin="179,235,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
+        <PasswordBox x:Name="pwb_Input_Confirm" HorizontalAlignment="Left" Margin="179,267,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_preference" Content="Select Your Role Preferences" HorizontalAlignment="Left" Margin="427,94,0,0" VerticalAlignment="Top" Height="46" Width="230" FontSize="16" FontFamily="Calibri" FontWeight="Bold"/>
-        <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="37,322,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold"/>
+        <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="37,322,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
         <Button x:Name="btn_HomeScreen"  Content="Home Screen" HorizontalAlignment="Left" Margin="246,322,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="423,253,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
         <Label x:Name="lbl_TitleRegistration" Content="Registration" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="294" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
