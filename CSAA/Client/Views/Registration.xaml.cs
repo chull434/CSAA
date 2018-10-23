@@ -34,6 +34,8 @@ namespace Client.Views
 
         private void btn_Register_Click(object sender, RoutedEventArgs e)
         {
+            lbl_InvalidPassword.Visibility = Visibility.Hidden;
+            lbl_InvalidFields.Visibility = Visibility.Hidden;
             String firstName = txt_FirstName.Text;
             String secondName = txt_Surname.Text;
 
@@ -61,17 +63,22 @@ namespace Client.Views
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Passwords do not match");
+                        //System.Windows.MessageBox.Show("Passwords do not match");
+                        lbl_InvalidPassword.Visibility = Visibility.Visible;
                     }
                 } 
                 else
                 {
-                    System.Windows.MessageBox.Show("Invalid Email");
+                    //System.Windows.MessageBox.Show("Invalid Email");
+                    lbl_InvalidFields.Content = "Invalid Email";
+                    lbl_InvalidFields.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Please populate all fields");
+                //System.Windows.MessageBox.Show("Please populate all fields");
+                lbl_InvalidFields.Content = "Please Populate all fields";
+                lbl_InvalidFields.Visibility = Visibility.Visible;
             }
         }
     }

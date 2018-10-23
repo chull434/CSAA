@@ -40,10 +40,12 @@
         <PasswordBox x:Name="pwb_Input" HorizontalAlignment="Left" Margin="179,235,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <PasswordBox x:Name="pwb_Input_Confirm" HorizontalAlignment="Left" Margin="179,267,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_preference" Content="Select Your Role Preferences" HorizontalAlignment="Left" Margin="427,94,0,0" VerticalAlignment="Top" Height="46" Width="230" FontSize="16" FontFamily="Calibri" FontWeight="Bold"/>
-        <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="37,322,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
-        <Button x:Name="btn_HomeScreen"  Content="Home Screen" HorizontalAlignment="Left" Margin="246,322,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="423,253,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
+        <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="37,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
+        <Button x:Name="btn_HomeScreen"  Content="Home Screen" HorizontalAlignment="Left" Margin="246,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="423,265,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
         <Label x:Name="lbl_TitleRegistration" Content="Registration" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="294" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
+        <Label x:Name="lbl_InvalidFields" Content="Please populate all above fields" HorizontalAlignment="Left" Height="26" Margin="179,192,0,0" VerticalAlignment="Top" Width="216" Foreground="Red" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
+        <Label x:Name="lbl_InvalidPassword" Content="Passwords do not match" HorizontalAlignment="Left" Height="26" Margin="179,291,0,0" VerticalAlignment="Top" Width="216" Foreground="#FFFA0000" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
 
 
     </Grid>
