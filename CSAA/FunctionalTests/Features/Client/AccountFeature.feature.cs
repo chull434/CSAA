@@ -125,6 +125,62 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [TechTalk.SpecRun.ScenarioAttribute("Login", SourceLine=25)]
+        public virtual void Login()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login", null, ((string[])(null)));
+#line 26
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Name",
+                        "Test User"});
+            table3.AddRow(new string[] {
+                        "Email",
+                        "testuser@localhost"});
+            table3.AddRow(new string[] {
+                        "Password",
+                        "password"});
+            table3.AddRow(new string[] {
+                        "product_owner",
+                        "Yes"});
+            table3.AddRow(new string[] {
+                        "scrum_master",
+                        "Yes"});
+            table3.AddRow(new string[] {
+                        "developer",
+                        "Yes"});
+#line 28
+ testRunner.Given("a user exists:", ((string)(null)), table3, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table4.AddRow(new string[] {
+                        "Email",
+                        "testuser@localhost"});
+            table4.AddRow(new string[] {
+                        "Password",
+                        "password"});
+#line 37
+ testRunner.When("I login with the following details:", ((string)(null)), table4, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table5.AddRow(new string[] {
+                        "Email",
+                        "testuser@localhost"});
+#line 42
+ testRunner.Then("the user is logged in:", ((string)(null)), table5, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [TechTalk.SpecRun.TestRunCleanup()]
         public virtual void TestRunCleanup()
         {

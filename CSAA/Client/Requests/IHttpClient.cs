@@ -14,5 +14,7 @@ namespace Client.Requests
         HttpRequestHeaders DefaultRequestHeaders { get; }
         Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value);
         Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent);
+
+        void SetAuthorizationToken(string token);
     }
 }
