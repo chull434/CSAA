@@ -8,6 +8,7 @@ using FunctionalTests.App_Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Server.App_Data;
 using TechTalk.SpecFlow;
+using FunctionalTests.Utils;
 
 namespace FunctionalTests.Steps
 {
@@ -28,15 +29,16 @@ namespace FunctionalTests.Steps
         [When(@"I register with the following details:")]
         public void WhenIRegisterWithTheFollowingDetails(Table table)
         {
+            var dictionary = table.ToDictionary();
             var AccountRequest = new AccountRequest();
             var user = new User
             {
-                Name = "Test User",
-                Email = "testuser@localhost",
-                Password = "password",
-                product_owner = true,
-                scrum_master = true,
-                developer = true
+                Name = dictionary["Name"],
+                Email = dictionary["Email"],
+                Password = dictionary["Password"],
+                product_owner = dictionary["product_owner"].ToBoolean(),
+                scrum_master = dictionary["scrum_master"].ToBoolean(),
+                developer = dictionary["developer"].ToBoolean()
             };
             AccountRequest.Register(user);
         }
@@ -44,7 +46,8 @@ namespace FunctionalTests.Steps
         [Then(@"the a user account is created with the following details:")]
         public void ThenTheAUserAccountIsCreatedWithTheFollowingDetails(Table table)
         {
-            var user = context.Users.FirstOrDefault(u => u.UserName == "Test User");
+            var dictionary = table.ToDictionary();
+            var user = context.Users.FirstOrDefault(u => u.UserName == dictionary["Name"]);
             Assert.IsNotNull(user);
         }
     }
