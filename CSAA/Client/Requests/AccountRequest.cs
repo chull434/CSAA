@@ -8,15 +8,24 @@ namespace Client.Requests
 {
     public class AccountRequest : Request
     {
+        public AccountRequest() : base()
+        {
+
+        }
+
+        public AccountRequest(IHttpClient client) : base(client)
+        {
+
+        }
+
         public bool Register(User user)
         {
             return RegisterAsync(user).GetAwaiter().GetResult();
         }
 
-        public async Task<bool> RegisterAsync(User user)
+        private async Task<bool> RegisterAsync(User user)
         {
             var response = await client.PostAsJsonAsync("api/Account/Register", user).ConfigureAwait(false);
-            var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
             return response.IsSuccessStatusCode;
