@@ -63,20 +63,17 @@ namespace Client.Views
                     }
                     else
                     {
-                        //System.Windows.MessageBox.Show("Passwords do not match");
                         lbl_InvalidPassword.Visibility = Visibility.Visible;
                     }
                 } 
                 else
                 {
-                    //System.Windows.MessageBox.Show("Invalid Email");
                     lbl_InvalidFields.Content = "Invalid Email";
                     lbl_InvalidFields.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                //System.Windows.MessageBox.Show("Please populate all fields");
                 lbl_InvalidFields.Content = "Please Populate all fields";
                 lbl_InvalidFields.Visibility = Visibility.Visible;
             }

@@ -5,27 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Views"
         mc:Ignorable="d"
-        Title="Registration" Height="450" Width="695.378" Background="#CCD1D1">
+        Title="Registration" Height="720" Width="1280" Background="#c6d5c2">
 
 
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="#173654" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="3" Background="#3498D8" BorderBrush="#ccc" BorderThickness="1" >
-                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="1" >
+                            <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value="#FF0058B9"/>
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property= "Background" Value="#FF032F60"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9bafb9">
         <Label x:Name="lbl_FirstName" Content="First Name" HorizontalAlignment="Left" Margin="35,94,0,0" VerticalAlignment="Top" Height="34" Width="122" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_Surname" Content="Surname" HorizontalAlignment="Left" Margin="35,128,0,0" VerticalAlignment="Top" Height="34" Width="122" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_Email" Content="Email" HorizontalAlignment="Left" Margin="35,162,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Width="55"/>
@@ -40,13 +48,11 @@
         <PasswordBox x:Name="pwb_Input" HorizontalAlignment="Left" Margin="179,235,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <PasswordBox x:Name="pwb_Input_Confirm" HorizontalAlignment="Left" Margin="179,267,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_preference" Content="Select Your Role Preferences" HorizontalAlignment="Left" Margin="427,94,0,0" VerticalAlignment="Top" Height="46" Width="230" FontSize="16" FontFamily="Calibri" FontWeight="Bold"/>
-        <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="37,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
-        <Button x:Name="btn_HomeScreen"  Content="Home Screen" HorizontalAlignment="Left" Margin="246,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="423,265,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
+        <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="35,332,0,32" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
+        <Button x:Name="btn_HomeScreen"  Content="Home Screen" HorizontalAlignment="Left" Margin="244,332,0,40" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="427,249,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
         <Label x:Name="lbl_TitleRegistration" Content="Registration" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="294" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_InvalidFields" Content="Please populate all above fields" HorizontalAlignment="Left" Height="26" Margin="179,192,0,0" VerticalAlignment="Top" Width="216" Foreground="Red" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
         <Label x:Name="lbl_InvalidPassword" Content="Passwords do not match" HorizontalAlignment="Left" Height="26" Margin="179,291,0,0" VerticalAlignment="Top" Width="216" Foreground="#FFFA0000" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
-
-
     </Grid>
 </Window>
