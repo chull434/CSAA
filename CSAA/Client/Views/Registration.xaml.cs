@@ -38,17 +38,20 @@ namespace Client.Views
             lbl_InvalidFields.Visibility = Visibility.Hidden;
             String firstName = txt_FirstName.Text;
             String secondName = txt_Surname.Text;
+            bool isEmptyFields = !(string.IsNullOrEmpty(txt_FirstName.Text.ToString())) && !(string.IsNullOrEmpty(txt_Surname.Text.ToString())) && !(string.IsNullOrEmpty(txt_Email.Text.ToString()));
+            bool isPasswordValid = !(string.IsNullOrEmpty(pwb_Input.Password)) && !(string.IsNullOrEmpty(pwb_Input_Confirm.Password)) && pwb_Input.Password == pwb_Input_Confirm.Password;
 
-            //check for empty fields
-            if (!(string.IsNullOrEmpty(txt_FirstName.Text.ToString())) && !(string.IsNullOrEmpty(txt_Surname.Text.ToString())) && !(string.IsNullOrEmpty(txt_Email.Text.ToString())))
+
+            if (isEmptyFields)
             {
-                //check if email format is valid
+
+
                 if (CheckEmail(txt_Email.Text))
                 {
-                    //check if password field is populated and passwords match
-                    if (!(string.IsNullOrEmpty(pwb_Input.Password) && string.IsNullOrEmpty(pwb_Input_Confirm.Password)) && pwb_Input.Password == pwb_Input_Confirm.Password)
-                    {   
-                        //Register new user with fields
+
+                    if (isPasswordValid)
+                    {
+                        
                         var AccountRequest = new AccountRequest();
                         var user = new User
                         {
@@ -65,7 +68,7 @@ namespace Client.Views
                     {
                         lbl_InvalidPassword.Visibility = Visibility.Visible;
                     }
-                } 
+                }
                 else
                 {
                     lbl_InvalidFields.Content = "Invalid Email";
