@@ -13,5 +13,6 @@ namespace Client.Requests
         Uri BaseAddress { get; set; }
         HttpRequestHeaders DefaultRequestHeaders { get; }
         Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value);
+        Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent);
     }
 }

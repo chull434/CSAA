@@ -36,7 +36,7 @@ namespace Client.Requests
             return LoginAsync(email, password).GetAwaiter().GetResult();
         }
 
-        public async Task<bool> LoginAsync(string email, string password)
+        private async Task<bool> LoginAsync(string email, string password)
         {
             var loginData = new Dictionary<string, string>();
             loginData.Add("grant_type", "password");

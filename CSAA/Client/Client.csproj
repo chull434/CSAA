@@ -127,15 +127,9 @@
       <Name>CSAA</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Kong.jpg" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Views\Images\Kongu.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Views\images\Kong.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
