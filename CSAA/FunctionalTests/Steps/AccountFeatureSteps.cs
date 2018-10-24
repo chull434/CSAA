@@ -47,7 +47,8 @@ namespace FunctionalTests.Steps
         public void ThenTheAUserAccountIsCreatedWithTheFollowingDetails(Table table)
         {
             var dictionary = table.ToDictionary();
-            var user = context.Users.FirstOrDefault(u => u.UserName == dictionary["Name"]);
+            var username = dictionary["Name"];
+            var user = context.Users.FirstOrDefault(u => u.UserName == username);
             Assert.IsNotNull(user);
         }
     }
