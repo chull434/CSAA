@@ -67,18 +67,30 @@ namespace Client.Views
                     else
                     {
                         lbl_InvalidPassword.Visibility = Visibility.Visible;
+                        if (!(isPasswordValid))
+                        {
+                            lbl_InvalidPassword.Visibility = Visibility.Visible;
+                        }
                     }
                 }
                 else
                 {
                     lbl_InvalidFields.Content = "Invalid Email";
                     lbl_InvalidFields.Visibility = Visibility.Visible;
+                    if (!(isPasswordValid))
+                    {
+                        lbl_InvalidPassword.Visibility = Visibility.Visible;
+                    }
                 }
             }
             else
             {
                 lbl_InvalidFields.Content = "Please Populate all fields";
                 lbl_InvalidFields.Visibility = Visibility.Visible;
+                if (!(isPasswordValid))
+                {
+                    lbl_InvalidPassword.Visibility = Visibility.Visible;
+                }
             }
         }
     }
