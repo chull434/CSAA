@@ -41,7 +41,7 @@ namespace Client
             */
 
             //This is for registration testing only remove for login window - JY-MD
-            Registration registration = new Registration();
+            HomeScreen registration = new HomeScreen();
             App.Current.MainWindow = registration;
             this.Close();
             registration.Show();
