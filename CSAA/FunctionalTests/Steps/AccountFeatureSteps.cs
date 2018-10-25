@@ -2,8 +2,6 @@
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using Client.Requests;
-using CSAA.Models;
 using FunctionalTests.App_Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
@@ -40,6 +38,8 @@ namespace FunctionalTests.Steps
         {
             app.Close();
         }
+
+        #region When Steps
 
         [When(@"I click ""(.*)""")]
         public void WhenIClick(string value)
@@ -84,6 +84,10 @@ namespace FunctionalTests.Steps
             }
         }
 
+        #endregion
+
+        #region Then Steps
+
         [Then(@"I am on the ""(.*)"" page")]
         public void ThenIAmOn(string value)
         {
@@ -118,5 +122,7 @@ namespace FunctionalTests.Steps
                 Assert.IsTrue(lbl.Visible);
             }
         }
+
+        #endregion
     }
 }
