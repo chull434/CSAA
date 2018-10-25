@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.Requests
 {
-    class ProjectRequest : Request
+    public class ProjectRequest : Request
     {
         public ProjectRequest() : base()
         {
