@@ -63,10 +63,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Requests\AccountRequest.cs" />
     <Compile Include="Requests\HttpClient.cs" />
+    <Compile Include="Requests\IAccountRequest.cs" />
     <Compile Include="Requests\IHttpClient.cs" />
     <Compile Include="Requests\Request.cs" />
+    <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\PasswordBoxAssistant.cs" />
+    <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>

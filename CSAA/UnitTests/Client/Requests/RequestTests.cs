@@ -39,7 +39,7 @@ namespace UnitTests.Client.Requests.RequestTests
     public class when_I_Construct_with_HttpClient : Context
     {
         static Request request;
-        public static IHttpClient httpClient;
+        static IHttpClient httpClient;
 
         Establish context = () =>
         {

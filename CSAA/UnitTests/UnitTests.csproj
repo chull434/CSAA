@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="Client\Requests\AccountRequestTests.cs" />
     <Compile Include="Client\Requests\RequestTests.cs" />
-    <Compile Include="Client\Views\RegistrationViewTests.cs" />
+    <Compile Include="Client\ViewsModels\RegistrationViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
