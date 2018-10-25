@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using CSAA.Models;
-using Server.Models;
 
 namespace Server.App_Data
 {
@@ -11,5 +10,6 @@ namespace Server.App_Data
         }
 
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<ProjectTeamMember> ProjectTeamMembers { get; set; }
     }
 }

@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using CSAA.Models;
+using Server.App_Data;
 
-namespace Server.App_Data
+namespace Server.Models
 {
-    public class ProjectRepository : IRepository<Project>
+    public class ProjectTeamMemberRepository : IRepository<ProjectTeamMember>
     {
         ServerDbContext context;
 
-        public ProjectRepository(ServerDbContext context)
+        public ProjectTeamMemberRepository(ServerDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Project> GetAll()
+        public IEnumerable<ProjectTeamMember> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Project GetByID(string id)
+        public ProjectTeamMember GetByID(string id)
         {
             throw new NotImplementedException();
         }
 
-        public void Insert(Project project)
+        public void Insert(ProjectTeamMember member)
         {
-            context.Projects.Add(project);
+            context.ProjectTeamMembers.Add(member);
         }
 
         public void Delete(string id)
