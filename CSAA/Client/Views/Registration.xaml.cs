@@ -31,22 +31,14 @@ namespace Client.Views
         {
             lbl_InvalidPassword.Visibility = Visibility.Hidden;
             lbl_InvalidFields.Visibility = Visibility.Hidden;
+            
+            var FieldsValid = EmptyFieldValidation();
+            var EmailValid = false;
+            if (FieldsValid) EmailValid = EmailValidation();
+            var PasswordValid = PasswordValidation();
 
-            var ModelStateValid = true;
-
-            ModelStateValid = EmptyFieldValidation();
-
-            if(ModelStateValid)
-            {
-                ModelStateValid = EmailValidation();
-            }
-
-            ModelStateValid = PasswordValidation();
-
-            if (ModelStateValid)
-            {
+            if (FieldsValid && EmailValid && PasswordValid)
                 Register();
-            }
         }
 
         private void Register()

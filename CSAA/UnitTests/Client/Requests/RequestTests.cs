@@ -7,7 +7,7 @@ using Client.Requests;
 using Machine.Specifications;
 using NSubstitute;
 
-namespace UnitTests.Client.RequestTests
+namespace UnitTests.Client.Requests.RequestTests
 {
     public class Context
     {
