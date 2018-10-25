@@ -66,6 +66,7 @@
     <Compile Include="Requests\AccountRequest.cs" />
     <Compile Include="Requests\HttpClient.cs" />
     <Compile Include="Requests\IHttpClient.cs" />
+    <Compile Include="Requests\ProjectRequest.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="Views\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
