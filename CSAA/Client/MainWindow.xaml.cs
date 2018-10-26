@@ -48,7 +48,7 @@ namespace Client
             registration.Show();
             */
 
-            LoginUI Login = new LoginUI();
+            Login Login = new Login();
             App.Current.MainWindow = Login;
             this.Close();
             Login.Show();
