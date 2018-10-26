@@ -11,8 +11,8 @@ namespace Server.Areas.API
     public class ProjectController : ApiController
     {
         private ServerDbContext context;
-        private ProjectRepository repository;
-        private ProjectService service;
+        private IRepository<Project> repository;
+        private IProjectService service;
 
         public ProjectController()
         {
@@ -21,6 +21,13 @@ namespace Server.Areas.API
             service = new ProjectService(repository);
         }
 
+        public ProjectController(IRepository<Project> repository, IProjectService service)
+        {
+            this.repository = repository;
+            this.service = service;
+        }
+
+        // GET api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
         {

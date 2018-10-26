@@ -11,22 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Client.Requests;
+using Client.ViewModels;
 
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for LoginUI.xaml
+    /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class LoginUI : Window
+    public partial class Login : Window
     {
-        public LoginUI()
+        public Login()
         {
+            DataContext = new LoginViewModel();
             InitializeComponent();
-        }
-
-        private void btn_Register_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

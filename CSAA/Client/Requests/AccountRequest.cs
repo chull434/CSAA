@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CSAA.Models;
 
 namespace Client.Requests
 {
-    public class AccountRequest : Request
+    public class AccountRequest : Request, IAccountRequest
     {
+        #region Constructors
+
         public AccountRequest() : base()
         {
 
@@ -18,17 +19,13 @@ namespace Client.Requests
 
         }
 
+        #endregion
+
+        #region Public Methods
+
         public bool Register(User user)
         {
             return RegisterAsync(user).GetAwaiter().GetResult();
-        }
-
-        private async Task<bool> RegisterAsync(User user)
-        {
-            var response = await client.PostAsJsonAsync("api/Account/Register", user).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-
-            return response.IsSuccessStatusCode;
         }
 
         public bool Login(string email, string password)
@@ -36,32 +33,54 @@ namespace Client.Requests
             return LoginAsync(email, password).GetAwaiter().GetResult();
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private async Task<bool> RegisterAsync(User user)
+        {
+            var response = await client.PostAsJsonAsync("api/Account/Register", user).ConfigureAwait(false);
+            return await CheckResponse(response).ConfigureAwait(false);
+        }
+
         private async Task<bool> LoginAsync(string email, string password)
         {
-            var loginData = new Dictionary<string, string>();
-            loginData.Add("grant_type", "password");
-            loginData.Add("username", email);
-            loginData.Add("password", password);
+            var loginData = new Dictionary<string, string>
+            {
+                {"grant_type", "password"},
+                { "username", email},
+                { "password", password}
+            };
 
             var response = await client.PostAsync("/token", new FormUrlEncodedContent(loginData)).ConfigureAwait(false);
 
-            object message = null;
+            await CheckResponse(response).ConfigureAwait(false); ;
 
+            var message = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
+            client.SetAuthorizationToken(message.access_token);
+
+            return true;
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private static async Task<bool> CheckResponse(HttpResponseMessage response)
+        {
             if (response.IsSuccessStatusCode)
             {
-                message = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
+                return true;
             }
             else
             {
-                message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+                return false;
             }
-
-            response.EnsureSuccessStatusCode();
-
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", message.access_token);
-
-            return response.IsSuccessStatusCode;
         }
+
+        #endregion
     }
 
     public class LoginData

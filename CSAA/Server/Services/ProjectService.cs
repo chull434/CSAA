@@ -8,11 +8,11 @@ using Server.Models;
 
 namespace Server.Services
 {
-    public class ProjectService
+    public class ProjectService : IProjectService
     {
-        private ProjectRepository repository;
+        private IRepository<Project> repository;
 
-        public ProjectService(ProjectRepository repository)
+        public ProjectService(IRepository<Project> repository)
         {
             this.repository = repository;
         }
