@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using Client.Requests;
+using Client.Views;
 using CSAA.Models;
 
 namespace Client.ViewModels
@@ -35,16 +36,30 @@ namespace Client.ViewModels
         private readonly DelegateCommand _register;
         public ICommand Register => _register;
 
+        private readonly DelegateCommand _login;
+        public ICommand Login => _login;
+
         public RegistrationViewModel()
         {
             AccountRequest = new AccountRequest();
             _register = new DelegateCommand(OnRegister);
+            _login = new DelegateCommand(OnLogin);
         }
 
         public RegistrationViewModel(IAccountRequest AccountRequest)
         {
             this.AccountRequest = AccountRequest;
             _register = new DelegateCommand(OnRegister);
+            _login = new DelegateCommand(OnLogin);
+        }
+
+        private void OnLogin(object commandParameter)
+        {
+            var login = new Login();
+            var registration = App.Current.MainWindow;
+            App.Current.MainWindow = login;
+            login.Show();
+            registration.Close();
         }
 
         private void OnRegister(object commandParameter)
@@ -58,10 +73,11 @@ namespace Client.ViewModels
             var PasswordValid = PasswordValidation();
 
             if (FieldsValid && EmailValid && PasswordValid)
-                RegisterUser();
+                if (RegisterUser())
+                    OnLogin(null);
         }
 
-        private void RegisterUser()
+        private bool RegisterUser()
         {
             var user = new User
             {
@@ -72,7 +88,7 @@ namespace Client.ViewModels
                 scrum_master = ScumMaster,
                 developer = Developer
             };
-            AccountRequest.Register(user);
+            return AccountRequest.Register(user);
         }
 
         private bool PasswordValidation()

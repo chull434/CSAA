@@ -10,27 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Client.Views;
 using Client.Requests;
-using CSAA.Models;
+using Client.ViewModels;
 
-namespace Client
+namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Login : Window
     {
-        public MainWindow()
+        public Login()
         {
+            DataContext = new LoginViewModel();
             InitializeComponent();
-
-            Login Login = new Login();
-            App.Current.MainWindow = Login;
-            this.Close();
-            Login.Show();
         }
     }
 }

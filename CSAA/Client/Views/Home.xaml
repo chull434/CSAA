@@ -1,0 +1,105 @@
+﻿<Window x:Class="Client.Views.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.Views"
+        mc:Ignorable="d"
+        Title="Home" Height="720" Width="1280" Background="#f1f1f1">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#173654" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="1" >
+                            <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value="#FF0058B9"/>
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property= "Background" Value="#FF032F60"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate >
+                        <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
+                <MenuItem Header="Option A" DockPanel.Dock="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Option B" DockPanel.Dock="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Option C" DockPanel.Dock="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Settings" DockPanel.Dock="left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+            </Menu>
+            <StackPanel x:Name="IntroText" Margin="25,25,25,0">
+                <TextBlock x:Name="txtblk_WelcomeHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+               Introduction
+                </TextBlock>
+                <TextBlock x:Name="txtblk_Welcome" HorizontalAlignment="Stretch" Margin="0,0,0,0" Background="#9bafb9" TextWrapping="Wrap" Padding="10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="100" Width="auto">          
+               Welcome to KinguKongu!<LineBreak></LineBreak><LineBreak></LineBreak> To get started, create a new project and begin adding team members
+                </TextBlock>
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="25,25,12.5,0" Grid.Column="0">
+                    <TextBlock x:Name="txtblk_ProjectListHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Project List                    
+                    </TextBlock>
+                    <ListBox Name="lb_ProjectList" HorizontalContentAlignment="Stretch" Background="#9bafb9">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Title}" />
+                                    <ProgressBar Margin="0,5,10,5" Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel Margin="12.5,25,25,0" Grid.Column="1">
+                    <TextBlock x:Name="txtblk_AssignedTaskHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Assigned Tasks
+                    </TextBlock>
+                    <ListBox Name="lb_AssignedTasks" HorizontalContentAlignment="Stretch" Background="#9bafb9">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Title}" />
+                                    <TextBlock FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="{Binding Project}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+
+</Window>
