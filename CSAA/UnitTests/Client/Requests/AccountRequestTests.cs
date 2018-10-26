@@ -5,7 +5,7 @@ using CSAA.Models;
 using Machine.Specifications;
 using NSubstitute;
 
-namespace UnitTests.Client.AccountRequestsTest
+namespace UnitTests.Client.Requests.AccountRequestsTest
 {
     public class Context
     {
