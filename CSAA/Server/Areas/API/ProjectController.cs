@@ -13,14 +13,20 @@ namespace Server.Areas.API
     public class ProjectController : ApiController
     {
         private ServerDbContext context;
-        private ProjectRepository repository;
-        private ProjectService service;
+        private IRepository<Project> repository;
+        private IProjectService service;
 
         public ProjectController()
         {
             context = new ServerDbContext();
             repository = new ProjectRepository(context);
             service = new ProjectService(repository);
+        }
+
+        public ProjectController(IRepository<Project> repository, IProjectService service)
+        {
+            this.repository = repository;
+            this.service = service;
         }
 
         // GET api/<controller>

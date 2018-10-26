@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Server.Services
 {
-    public class ProjectService
+    public class ProjectService : IProjectService
     {
         private IRepository<Project> repository;
 
