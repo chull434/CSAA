@@ -85,7 +85,7 @@ namespace FunctionalTests.Steps
         [Then(@"I am on the ""(.*)"" page")]
         public void ThenIAmOn(string value)
         {
-            window = app.GetWindow(value, InitializeOption.NoCache);
+            window = app.GetWindows().FirstOrDefault(w => w.Name == value && !w.IsClosed);
             Assert.IsNotNull(window);
         }
 

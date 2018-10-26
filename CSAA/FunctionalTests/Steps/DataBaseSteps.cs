@@ -6,6 +6,7 @@ using FunctionalTests.App_Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 using FunctionalTests.Utils;
+using Microsoft.AspNet.Identity;
 using Server.Models;
 using TestStack.White;
 using TestStack.White.Factory;
@@ -40,14 +41,17 @@ namespace FunctionalTests.Steps
             var productOwner = dictionary["ProductOwner"].ToBoolean();
             var scumMaster = dictionary["ScumMaster"].ToBoolean();
             var developer = dictionary["Developer"].ToBoolean();
+            var passwordHash = new PasswordHasher().HashPassword(password);
+            var securityStamp = Guid.NewGuid().ToString();
             var user = new ApplicationUser
             {
                 UserName = username,
                 Email = email,
-                PasswordHash = password,
+                PasswordHash = passwordHash,
                 product_owner = productOwner,
                 scrum_master = scumMaster,
-                developer = developer 
+                developer = developer,
+                SecurityStamp = securityStamp
             };
             context.Users.Add(user);
             context.SaveChanges();
