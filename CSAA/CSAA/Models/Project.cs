@@ -13,6 +13,7 @@ namespace CSAA.Models
         {
             Id = Guid.NewGuid();
             this.Title = Title;
+            ProjectTeam = new List<ProjectTeamMember>();
         }
     }
 }

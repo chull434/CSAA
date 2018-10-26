@@ -9,12 +9,13 @@ using NSubstitute;
 using Server.App_Data;
 using Server.Services;
 
-namespace UnitTests.Server
+namespace UnitTests.Server.Services.ProjectServiceTests
 {
     public class Context
     {
         public static IRepository<Project> Repository;
         public static ProjectService ProjectService;
+
         Establish context = () =>
         {
             Repository = Substitute.For<IRepository<Project>>();
@@ -23,12 +24,22 @@ namespace UnitTests.Server
     }
 
     #region Constructor Tests
+
     public class when_I_Construct_ProjectService : Context
     {
         static ProjectService projectService;
-        Because of = () => projectService = new ProjectService(Repository);
-        It Constructs_ProjectService = () => projectService.ShouldNotBeNull();
+
+        Because of = () =>
+        {
+            projectService = new ProjectService(Repository); 
+        };
+
+        It Constructs_ProjectService = () =>
+        {
+            projectService.ShouldNotBeNull(); 
+        };
     }
+
     #endregion
 
     //#region GetAllProjects() Tests
@@ -47,19 +58,22 @@ namespace UnitTests.Server
     //}
     //#endregion
 
-    #region CreateAProject() Tests
+    #region CreateProject() Tests
+
     public class when_I_call_CreateProject : Context
     {
         static Project project;
+        static string userId;
 
         Establish context = () =>
         {
-            project = new Project();
+            project = new Project("My Project");
+            userId = Guid.NewGuid().ToString();
         };
 
         Because of = () =>
         {
-            ProjectService.CreateProject(project);
+            ProjectService.CreateProject(project, userId);
         };
 
         It creates_project = () =>
@@ -68,5 +82,6 @@ namespace UnitTests.Server
             Repository.Received().Save();
         };
     }
+
     #endregion
 }

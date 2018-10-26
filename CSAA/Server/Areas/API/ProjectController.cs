@@ -27,7 +27,6 @@ namespace Server.Areas.API
             this.service = service;
         }
 
-        // GET api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
         {

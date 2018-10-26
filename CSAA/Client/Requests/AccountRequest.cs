@@ -54,30 +54,12 @@ namespace Client.Requests
 
             var response = await client.PostAsync("/token", new FormUrlEncodedContent(loginData)).ConfigureAwait(false);
 
-            await CheckResponse(response).ConfigureAwait(false); ;
+            await CheckResponse(response).ConfigureAwait(false);
 
             var message = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
             client.SetAuthorizationToken(message.access_token);
 
             return true;
-        }
-
-        #endregion
-
-        #region Helper Methods
-
-        private static async Task<bool> CheckResponse(HttpResponseMessage response)
-        {
-            if (response.IsSuccessStatusCode)
-            {
-                return true;
-            }
-            else
-            {
-                var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
-                return false;
-            }
         }
 
         #endregion

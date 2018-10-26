@@ -6,7 +6,7 @@ using Machine.Specifications;
 using NSubstitute;
 using System;
 
-namespace UnitTests.Client.ProjectRequestTests
+namespace UnitTests.Client.Requests.ProjectRequestTests
 {
     public class Context
     {
