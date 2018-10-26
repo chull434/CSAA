@@ -88,6 +88,7 @@
     <Compile Include="Client\ProjectRequestTests.cs" />
     <Compile Include="Client\RequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\ProjectServerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
