@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CSAA.Models;
-using Server.App_Data;
 
-namespace Server.Models
+namespace Server.App_Data
 {
     public class ProjectTeamMemberRepository : IRepository<ProjectTeamMember>
     {

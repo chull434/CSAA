@@ -45,11 +45,20 @@ namespace Client.Requests
 
             var response = await client.PostAsync("/token", new FormUrlEncodedContent(loginData)).ConfigureAwait(false);
 
-            var message = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
+            object message = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                message = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
+            }
+            else
+            {
+                message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
 
             response.EnsureSuccessStatusCode();
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", message.access_token);
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", message.access_token);
 
             return response.IsSuccessStatusCode;
         }

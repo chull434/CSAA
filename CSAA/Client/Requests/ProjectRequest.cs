@@ -27,6 +27,7 @@ namespace Client.Requests
         private async Task<bool> CreateProjectAsync(Project project)
         {
             var response = await client.PostAsJsonAsync("api/Project", project).ConfigureAwait(false);
+            var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
             return response.IsSuccessStatusCode;

@@ -1,15 +1,13 @@
 ﻿using CSAA.Models;
 using Server.App_Data;
 using Server.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class ProjectController : ApiController
     {
         private ServerDbContext context;
@@ -38,7 +36,7 @@ namespace Server.Areas.API
         [HttpPost]
         public void Post(Project project)
         {
-            service.CreateProject(project);
+            service.CreateProject(project, User.Identity.GetUserId());
         }
 
         [HttpPut]

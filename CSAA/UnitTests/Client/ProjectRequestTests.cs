@@ -67,12 +67,7 @@ namespace UnitTests.Client.ProjectRequestTests
 
         Establish context = () =>
         {
-            project = new Project
-            {
-                Id = new Guid(),
-                Title = "MyTitle"
-
-            };
+            project = new Project("MyTitle");
             HttpClient.PostAsJsonAsync("api/Project", project).Returns(new HttpResponseMessage(HttpStatusCode.OK));
         };
 
