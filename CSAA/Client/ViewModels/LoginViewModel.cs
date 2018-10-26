@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Client.Requests;
+using Client.Views;
 
 namespace Client.ViewModels
 {
@@ -23,31 +24,45 @@ namespace Client.ViewModels
             set => SetProperty(ref _passwordError, value);
         }
 
-        string _fieldErrors;
-        public string FieldsError
+        string _emailErrors;
+        public string EmailError
         {
-            get => _fieldErrors;
-            set => SetProperty(ref _fieldErrors, value);
+            get => _emailErrors;
+            set => SetProperty(ref _emailErrors, value);
         }
 
         private readonly DelegateCommand _login;
         public ICommand Login => _login;
 
+        private readonly DelegateCommand _register;
+        public ICommand Register => _register;
+
         public LoginViewModel()
         {
             AccountRequest = new AccountRequest();
             _login = new DelegateCommand(OnLogin);
+            _register = new DelegateCommand(OnRegister);
         }
 
         public LoginViewModel(IAccountRequest AccountRequest)
         {
             this.AccountRequest = AccountRequest;
             _login = new DelegateCommand(OnLogin);
+            _register = new DelegateCommand(OnRegister);
+        }
+
+        private void OnRegister(object commandParameter)
+        {
+            var registration = new Registration();
+            var login = App.Current.MainWindow;
+            App.Current.MainWindow = registration;
+            login.Close();
+            registration.Show();
         }
 
         private void OnLogin(object commandParameter)
         {
-            FieldsError = "";
+            EmailError = "";
             PasswordError = "";
 
             var ModelStateValid = EmptyFieldValidation();
@@ -64,7 +79,7 @@ namespace Client.ViewModels
 
             if (isUsernameEmpty)
             {
-                FieldsError = "Populate username field.";
+                EmailError = "Please populate email field.";
                 return false;
             }
 

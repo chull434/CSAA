@@ -14,20 +14,14 @@ using TestStack.White.UIItems.WindowItems;
 namespace FunctionalTests.Steps
 {
     [Binding]
-    public class AccountFeatureSteps
+    public class UISteps
     {
-        public static FunctionalDbContext context;
         public static Application app;
         public static Window window;
 
         [BeforeScenario]
         public void BeforeScenario()
         {
-            var dataDirectory = ConfigurationManager.AppSettings["DataDirectory"];
-            var absoluteDataDirectory = Path.GetFullPath(dataDirectory);
-            AppDomain.CurrentDomain.SetData("DataDirectory", absoluteDataDirectory);
-            context = new FunctionalDbContext();
-
             var BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var exe = Path.GetFullPath(BaseDirectory + "..\\..\\..\\..\\Client\\bin\\Debug\\Client.exe");
             app = Application.Launch(exe);        
@@ -92,22 +86,7 @@ namespace FunctionalTests.Steps
         public void ThenIAmOn(string value)
         {
             window = app.GetWindow(value, InitializeOption.NoCache);
-        }
-
-        [Then(@"the a user account is created with the following details:")]
-        public void ThenTheAUserAccountIsCreatedWithTheFollowingDetails(Table table)
-        {
-            var dictionary = table.ToDictionary();
-            var username = dictionary["Name"];
-            var user = context.Users.FirstOrDefault(u => u.UserName == username);
-            Assert.IsNotNull(user);
-        }
-
-        [Then(@"the no user accounts are created")]
-        public void ThenTheNoUserAccountsAreCreated()
-        {
-            var accounts = context.Users.Any();
-            Assert.IsFalse(accounts);
+            Assert.IsNotNull(window);
         }
 
         [Then(@"the following errors appear:")]
