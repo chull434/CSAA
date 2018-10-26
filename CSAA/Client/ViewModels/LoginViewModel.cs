@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Client.Requests;
 using Client.Views;
 
@@ -12,6 +6,7 @@ namespace Client.ViewModels
 {
     public class LoginViewModel : ViewModel
     {
+        readonly IHttpClient HttpClient;
         readonly IAccountRequest AccountRequest;
 
         public string Email { get; set; }
@@ -39,21 +34,28 @@ namespace Client.ViewModels
 
         public LoginViewModel()
         {
-            AccountRequest = new AccountRequest();
             _login = new DelegateCommand(OnLogin);
             _register = new DelegateCommand(OnRegister);
         }
 
-        public LoginViewModel(IAccountRequest AccountRequest)
+        public LoginViewModel(IHttpClient httpClient)
         {
-            this.AccountRequest = AccountRequest;
+            HttpClient = httpClient;
+            AccountRequest = new AccountRequest(httpClient);
+            _login = new DelegateCommand(OnLogin);
+            _register = new DelegateCommand(OnRegister);
+        }
+
+        public LoginViewModel(IAccountRequest accountRequest)
+        {
+            AccountRequest = accountRequest;
             _login = new DelegateCommand(OnLogin);
             _register = new DelegateCommand(OnRegister);
         }
 
         private void OnRegister(object commandParameter)
         {
-            var registration = new Registration();
+            var registration = new Registration(HttpClient);
             var login = App.Current.MainWindow;
             App.Current.MainWindow = registration;
             login.Close();
@@ -69,7 +71,7 @@ namespace Client.ViewModels
             if (ModelStateValid == true)
                 if (AccountRequest.Login(Email, Password))
                 {
-                    var home = new Home();
+                    var home = new Home(HttpClient);
                     var login = App.Current.MainWindow;
                     App.Current.MainWindow = home;
                     login.Close();

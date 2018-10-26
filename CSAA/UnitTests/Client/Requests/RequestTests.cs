@@ -14,23 +14,6 @@ namespace UnitTests.Client.Requests.RequestTests
 
     #region Constructor Tests
 
-    public class when_I_Construct : Context
-    {
-        static Request request;
-
-        Establish context = () => { };
-
-        Because of = () =>
-        {
-            request = new Request();
-        };
-
-        It creates_a_request = () =>
-        {
-            request.ShouldNotBeNull();
-        };
-    }
-
     public class when_I_Construct_with_HttpClient : Context
     {
         static Request request;

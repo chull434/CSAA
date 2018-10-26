@@ -22,23 +22,6 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
 
     #region Constructor Tests
 
-    public class when_I_Construct : Context
-    {
-        static ProjectRequest projectRequest;
-
-        Establish context = () => { };
-
-        Because of = () =>
-        {
-            projectRequest = new ProjectRequest();
-        };
-
-        It creates_a_projectRequest = () =>
-        {
-            projectRequest.ShouldNotBeNull();
-        };
-    }
-
     public class when_I_Construct_with_HttpClient : Context
     {
         static ProjectRequest projectRequest;

@@ -1,20 +1,11 @@
 ﻿using CSAA.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Client.Requests
 {
-    public class ProjectRequest : Request
+    public class ProjectRequest : Request, IProjectRequest
     {
-        #region Constructors
-
-        public ProjectRequest() : base()
-        {
-
-        }
+        #region Constructor
 
         public ProjectRequest(IHttpClient client) : base(client)
         {

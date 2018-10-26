@@ -7,12 +7,7 @@ namespace Client.Requests
 {
     public class AccountRequest : Request, IAccountRequest
     {
-        #region Constructors
-
-        public AccountRequest() : base()
-        {
-
-        }
+        #region Constructor
 
         public AccountRequest(IHttpClient client) : base(client)
         {

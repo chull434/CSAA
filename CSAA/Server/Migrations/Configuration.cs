@@ -1,23 +1,38 @@
+using System.Linq;
+using Microsoft.AspNet.Identity;
+using Server.Models;
+
 namespace Server.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Server.App_Data.ServerDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<App_Data.ServerDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Server.App_Data.ServerDbContext context)
+        protected override void Seed(App_Data.ServerDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            var testUser = context.Users.FirstOrDefault(u => u.UserName == "Test User");
+            if (testUser == null)
+            {
+                var passwordHash = new PasswordHasher().HashPassword("password");
+                var securityStamp = Guid.NewGuid().ToString();
+                var user = new ApplicationUser
+                {
+                    UserName = "Test User",
+                    Email = "testuser@localhost.com",
+                    PasswordHash = passwordHash,
+                    product_owner = true,
+                    scrum_master = true,
+                    developer = true,
+                    SecurityStamp = securityStamp
+                };
+                context.Users.AddOrUpdate(user);
+            }
         }
     }
 }

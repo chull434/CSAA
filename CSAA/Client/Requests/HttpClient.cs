@@ -11,6 +11,14 @@ namespace Client.Requests
 {
     public class HttpClient : System.Net.Http.HttpClient, IHttpClient
     {
+        public HttpClient()
+        {
+            BaseAddress = new Uri("http://localhost:62676/");
+            DefaultRequestHeaders.Accept.Clear();
+            DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         public Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value)
         {
             return ((System.Net.Http.HttpClient)this).PostAsJsonAsync(requestUri, value);

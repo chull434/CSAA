@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Client.Requests
@@ -9,16 +7,7 @@ namespace Client.Requests
     {
         protected IHttpClient client;
 
-        #region Constructors
-
-        public Request()
-        {
-            client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:62676/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-        }
+        #region Constructor
 
         public Request(IHttpClient client)
         {
