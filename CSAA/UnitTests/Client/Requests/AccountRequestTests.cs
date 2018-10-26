@@ -1,11 +1,14 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Xml;
 using Client.Requests;
 using CSAA.Models;
 using Machine.Specifications;
+using Newtonsoft.Json;
 using NSubstitute;
 
-namespace UnitTests.Client.AccountRequestsTest
+namespace UnitTests.Client.Requests.AccountRequestsTest
 {
     public class Context
     {
@@ -87,6 +90,51 @@ namespace UnitTests.Client.AccountRequestsTest
         {
             HttpClient.Received().PostAsJsonAsync("api/Account/Register", user);
             result.ShouldBeTrue();
+        };
+    }
+
+    #endregion
+
+    #region Login Tests
+
+    public class when_I_call_Login : Context
+    {
+        static bool result;
+        static string email;
+        static string password;
+
+        Establish context = () =>
+        {
+            email = "testuser@localhost";
+            password = "password";
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var loginData = new LoginData
+            {
+                access_token = "test",
+                token_type = "Bearer",
+                userName = email
+            };
+            var json = JsonConvert.SerializeObject(loginData);
+            response.Content = new StringContent(json);
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.PostAsync("/token", Arg.Any<FormUrlEncodedContent>()).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = AccountRequest.Login(email, password);
+        };
+
+        It sends_a_login_request = () =>
+        {
+            HttpClient.Received().PostAsync("/token", Arg.Any<FormUrlEncodedContent>());
+            result.ShouldBeTrue();
+        };
+
+        It recieves_a_token_and_sets_it = () =>
+        {
+            HttpClient.Received().SetAuthorizationToken("test");
         };
     }
 
