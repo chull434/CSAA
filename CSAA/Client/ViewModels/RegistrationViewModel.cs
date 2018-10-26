@@ -8,6 +8,7 @@ namespace Client.ViewModels
 {
     public class RegistrationViewModel : ViewModel
     {
+        readonly IHttpClient HttpClient;
         readonly IAccountRequest AccountRequest;
 
         public string FirstName { get; set; }
@@ -41,21 +42,28 @@ namespace Client.ViewModels
 
         public RegistrationViewModel()
         {
-            AccountRequest = new AccountRequest();
             _register = new DelegateCommand(OnRegister);
             _login = new DelegateCommand(OnLogin);
         }
 
-        public RegistrationViewModel(IAccountRequest AccountRequest)
+        public RegistrationViewModel(IHttpClient httpClient)
         {
-            this.AccountRequest = AccountRequest;
+            HttpClient = httpClient;
+            AccountRequest = new AccountRequest(httpClient);
+            _register = new DelegateCommand(OnRegister);
+            _login = new DelegateCommand(OnLogin);
+        }
+
+        public RegistrationViewModel(IAccountRequest accountRequest)
+        {
+            AccountRequest = accountRequest;
             _register = new DelegateCommand(OnRegister);
             _login = new DelegateCommand(OnLogin);
         }
 
         private void OnLogin(object commandParameter)
         {
-            var login = new Login();
+            var login = new Login(HttpClient);
             var registration = App.Current.MainWindow;
             App.Current.MainWindow = login;
             login.Show();

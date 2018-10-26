@@ -13,10 +13,12 @@ namespace UnitTests.Client.ViewsModels.LoginViewModelTests
     public class Context
     {
         public static LoginViewModel ViewModel;
+        public static IHttpClient HttpClient;
         public static IAccountRequest Request;
 
         Establish context = () =>
         {
+            HttpClient = Substitute.For<IHttpClient>();
             Request = Substitute.For<IAccountRequest>();
             ViewModel = new LoginViewModel(Request);
         };
@@ -33,6 +35,23 @@ namespace UnitTests.Client.ViewsModels.LoginViewModelTests
         Because of = () =>
         {
             viewModel = new LoginViewModel();
+        };
+
+        It creates_a_viewModel = () =>
+        {
+            viewModel.ShouldNotBeNull();
+        };
+    }
+
+    public class when_I_Construct_with_http_client : Context
+    {
+        static LoginViewModel viewModel;
+
+        Establish context = () => { };
+
+        Because of = () =>
+        {
+            viewModel = new LoginViewModel(HttpClient);
         };
 
         It creates_a_viewModel = () =>

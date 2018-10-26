@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Client.Requests;
 
 namespace Client.Views
 {
@@ -19,10 +20,8 @@ namespace Client.Views
     /// </summary>
     public partial class Home : Window
     {
-        public Home()
+        public Home(IHttpClient client)
         {
-            
-        
             InitializeComponent();
             List<Project> projectlist = new List<Project>();
 

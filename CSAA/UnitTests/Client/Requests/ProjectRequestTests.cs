@@ -6,7 +6,7 @@ using Machine.Specifications;
 using NSubstitute;
 using System;
 
-namespace UnitTests.Client.ProjectRequestTests
+namespace UnitTests.Client.Requests.ProjectRequestTests
 {
     public class Context
     {
@@ -21,23 +21,6 @@ namespace UnitTests.Client.ProjectRequestTests
     }
 
     #region Constructor Tests
-
-    public class when_I_Construct : Context
-    {
-        static ProjectRequest projectRequest;
-
-        Establish context = () => { };
-
-        Because of = () =>
-        {
-            projectRequest = new ProjectRequest();
-        };
-
-        It creates_a_projectRequest = () =>
-        {
-            projectRequest.ShouldNotBeNull();
-        };
-    }
 
     public class when_I_Construct_with_HttpClient : Context
     {
@@ -67,12 +50,7 @@ namespace UnitTests.Client.ProjectRequestTests
 
         Establish context = () =>
         {
-            project = new Project
-            {
-                Id = new Guid(),
-                Title = "MyTitle"
-
-            };
+            project = new Project("MyTitle");
             HttpClient.PostAsJsonAsync("api/Project", project).Returns(new HttpResponseMessage(HttpStatusCode.OK));
         };
 

@@ -255,10 +255,16 @@
     <Compile Include="Migrations\201810251346010_AddingProjects.Designer.cs">
       <DependentUpon>201810251346010_AddingProjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810252349358_AddingProjectTeamMemebers.cs" />
+    <Compile Include="Migrations\201810252349358_AddingProjectTeamMemebers.Designer.cs">
+      <DependentUpon>201810252349358_AddingProjectTeamMemebers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="App_Data\ApplicationDbContext.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="App_Data\ProjectTeamMemberRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -368,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810251346010_AddingProjects.resx">
       <DependentUpon>201810251346010_AddingProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810252349358_AddingProjectTeamMemebers.resx">
+      <DependentUpon>201810252349358_AddingProjectTeamMemebers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTests.Server.Controllers
+namespace UnitTests.Server.Controllers.ProjectControllerTests
 {
     public class Context
     {
@@ -27,22 +27,33 @@ namespace UnitTests.Server.Controllers
     }
 
     #region Constructor Tests
+
     public class when_I_Construct_ProjectController : Context
     {
         static ProjectController projectController;
-        Because of = () => projectController = new ProjectController(Repository, ProjectService);
-        It Constructs_ProjectService = () => projectController.ShouldNotBeNull();
+
+        Because of = () =>
+        {
+            projectController = new ProjectController(Repository, ProjectService);
+        };
+
+        It Constructs_ProjectService = () =>
+        {
+            projectController.ShouldNotBeNull();
+        };
     }
+
     #endregion
 
     #region Post Tests
+
     public class when_I_call_Post : Context
     {
         static Project project;
 
         Establish context = () =>
         {
-            project = new Project();
+            project = new Project("My Project");
         };
 
         Because of = () =>
@@ -52,8 +63,9 @@ namespace UnitTests.Server.Controllers
 
         It creates_project = () =>
         {
-            ProjectService.Received().CreateProject(project);
+            ProjectService.Received().CreateProject(project, Arg.Any<string>());
         };
     }
+
     #endregion
 }

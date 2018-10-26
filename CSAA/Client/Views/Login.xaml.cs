@@ -21,9 +21,9 @@ namespace Client.Views
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        public Login(IHttpClient client)
         {
-            DataContext = new LoginViewModel();
+            DataContext = new LoginViewModel(client);
             InitializeComponent();
         }
     }

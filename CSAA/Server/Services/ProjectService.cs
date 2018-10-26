@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Server.Models;
 
 namespace Server.Services
 {
@@ -16,8 +17,10 @@ namespace Server.Services
             this.repository = repository;
         }
 
-        public void CreateProject(Project project)
+        public void CreateProject(Project project, string userId)
         {
+            var member = new ProjectTeamMember(userId, project, Role.ProjectManager);
+            project.ProjectTeam.Add(member);
             repository.Insert(project);
             repository.Save();
         }

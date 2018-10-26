@@ -6,7 +6,7 @@ namespace Server.App_Data
     {
         IEnumerable<T> GetAll();
         T GetByID(string id);
-        void Insert(T issue);
+        void Insert(T item);
         void Delete(string id);
         void Save();
     }

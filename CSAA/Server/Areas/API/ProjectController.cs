@@ -1,15 +1,13 @@
 ﻿using CSAA.Models;
 using Server.App_Data;
 using Server.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class ProjectController : ApiController
     {
         private ServerDbContext context;
@@ -29,13 +27,13 @@ namespace Server.Areas.API
             this.service = service;
         }
 
-        // GET api/<controller>
+        [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
+        [HttpGet]
         public string Get(int id)
         {
             return "value";
@@ -44,15 +42,15 @@ namespace Server.Areas.API
         [HttpPost]
         public void Post(Project project)
         {
-            service.CreateProject(project);
+            service.CreateProject(project, User.Identity.GetUserId());
         }
 
-        // PUT api/<controller>/5
+        [HttpPut]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/<controller>/5
+        [HttpDelete]
         public void Delete(int id)
         {
         }

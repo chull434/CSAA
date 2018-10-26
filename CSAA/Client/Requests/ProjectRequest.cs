@@ -1,35 +1,36 @@
 ﻿using CSAA.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Client.Requests
 {
-    public class ProjectRequest : Request
+    public class ProjectRequest : Request, IProjectRequest
     {
-        public ProjectRequest() : base()
-        {
-
-        }
+        #region Constructor
 
         public ProjectRequest(IHttpClient client) : base(client)
         {
 
         }
 
+        #endregion
+
+        #region Public Methods
+
         public bool CreateProject(Project project)
         {
             return CreateProjectAsync(project).GetAwaiter().GetResult();
         }
 
+        #endregion
+
+        #region Private Methods
+
         private async Task<bool> CreateProjectAsync(Project project)
         {
             var response = await client.PostAsJsonAsync("api/Project", project).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-
-            return response.IsSuccessStatusCode;
+            return await CheckResponse(response).ConfigureAwait(false);
         }
+
+        #endregion
     }
 }

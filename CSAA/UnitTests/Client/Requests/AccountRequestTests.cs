@@ -24,23 +24,6 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
 
     #region Constructor Tests
 
-    public class when_I_Construct : Context
-    {
-        static AccountRequest accountRequest;
-
-        Establish context = () => { };
-
-        Because of = () =>
-        {
-            accountRequest = new AccountRequest();
-        };
-
-        It creates_a_accountRequest = () =>
-        {
-            accountRequest.ShouldNotBeNull();
-        };
-    }
-
     public class when_I_Construct_with_HttpClient : Context
     {
         static AccountRequest accountRequest;
