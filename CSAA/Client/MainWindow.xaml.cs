@@ -26,27 +26,6 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
-            /*
-            var AccountRequest = new AccountRequest();
-            var user = new User // UI Part
-            {
-                Name = "Test User",
-                Email = "testuser@localhost",
-                Password = "password",
-                product_owner = true,
-                scrum_master = true,
-                developer = true
-            };
-            AccountRequest.Register(user);
-            */
-
-            /*
-            //This is for registration testing only remove for login window - JY-MD
-            HomeScreen registration = new HomeScreen();
-            App.Current.MainWindow = registration;
-            this.Close();
-            registration.Show();
-            */
 
             Login Login = new Login();
             App.Current.MainWindow = Login;

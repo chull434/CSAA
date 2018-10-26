@@ -67,9 +67,14 @@ namespace Client.ViewModels
 
             var ModelStateValid = EmptyFieldValidation();
             if (ModelStateValid == true)
-            {
-                AccountRequest.Login(Email, Password);
-            }
+                if (AccountRequest.Login(Email, Password))
+                {
+                    var home = new Home();
+                    var login = App.Current.MainWindow;
+                    App.Current.MainWindow = home;
+                    login.Close();
+                    home.Show();
+                }
         }
 
         private bool EmptyFieldValidation()

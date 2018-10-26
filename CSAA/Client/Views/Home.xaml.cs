@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for HomeScreen.xaml
+    /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class HomeScreen : Window
+    public partial class Home : Window
     {
-        public HomeScreen()
+        public Home()
         {
             
         
