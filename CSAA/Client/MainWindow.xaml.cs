@@ -40,11 +40,18 @@ namespace Client
             AccountRequest.Register(user);
             */
 
+            /*
             //This is for registration testing only remove for login window - JY-MD
             Registration registration = new Registration();
             App.Current.MainWindow = registration;
             this.Close();
             registration.Show();
+            */
+
+            LoginUI Login = new LoginUI();
+            App.Current.MainWindow = Login;
+            this.Close();
+            Login.Show();
         }
     }
 }

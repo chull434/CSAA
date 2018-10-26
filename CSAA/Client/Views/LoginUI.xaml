@@ -34,17 +34,17 @@
     </Window.Resources>
 
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        
+
         <Label x:Name="lbl_Email" Content="Email" HorizontalAlignment="Left" Margin="35,162,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Width="55"/>
         <Label x:Name="lbl_Password" Content="Password" HorizontalAlignment="Left" Margin="35,232,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="23" Margin="179,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <PasswordBox x:Name="pwb_Input" HorizontalAlignment="Left" Margin="179,235,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
-        <Button x:Name="btn_Login" Content="Login" HorizontalAlignment="Left" Margin="37,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
-        <Button x:Name="btn_Forgot_Password"  Content="Forgot password" HorizontalAlignment="Left" Margin="246,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Forgot_Password_Click"/>
+        <Button x:Name="btn_Login" Content="Login" HorizontalAlignment="Left" Margin="44,309,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Login_Click" FontSize="14"/>
+        <Button x:Name="btn_Register"  Content="Register" HorizontalAlignment="Left" Margin="246,309,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click" FontSize="14"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="423,265,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
         <Label x:Name="lbl_Title_login" Content="Welcome to KinguKongu Login" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="315" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
-        <Label x:Name="lbl_InvalidFields" Content="Please populate all above fields" HorizontalAlignment="Left" Height="26" Margin="179,192,0,0" VerticalAlignment="Top" Width="216" Foreground="Red" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
-        <Label x:Name="lbl_InvalidPassword" Content="Passwords do not match" HorizontalAlignment="Left" Height="26" Margin="179,291,0,0" VerticalAlignment="Top" Width="216" Foreground="#FFFA0000" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
+        <Label x:Name="lbl_EmailError" Content="Please populate username/email" HorizontalAlignment="Left" Margin="179,191,0,0" VerticalAlignment="Top" Width="207" Height="34" FontFamily="Calibri" FontWeight="Bold" Foreground="Red" FontSize="14"  Visibility="Hidden"/>
+        <Label x:Name="lbl_PasswordError" Content="Please populate password" HorizontalAlignment="Left" Margin="179,265,0,0" VerticalAlignment="Top" Width="207" Height="28" FontFamily="Calibri" Foreground = "Red" FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
     </Grid>
 
 </Window>
