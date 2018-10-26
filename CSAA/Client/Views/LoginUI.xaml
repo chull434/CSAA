@@ -5,12 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Views"
         mc:Ignorable="d"
-        Title="LoginUI" Height="1080" Width="1920">
-    <Grid x:Name="userNamelbl" MinWidth="1920" MinHeight="720">
-        <Label Content="User Name" HorizontalAlignment="Left" Margin="28,78,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="passwordlbl" Content="Password" HorizontalAlignment="Left" Margin="28,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.205,0.364"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="136,146,0,0" VerticalAlignment="Top" Width="130"/>
-        <TextBox HorizontalAlignment="Left" Height="18" Margin="136,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
-        <Image HorizontalAlignment="Left" Height="144" Margin="401,138,0,0" VerticalAlignment="Top" Width="138"/>
+        Title="Login" Height="450" Width="695.378" Background="#CCD1D1">
+
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#3498D8" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="1" >
+                            <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value="#FF0058B9"/>
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property= "Background" Value="#FF032F60"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        
+        <Label x:Name="lbl_Email" Content="Email" HorizontalAlignment="Left" Margin="35,162,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Width="55"/>
+        <Label x:Name="lbl_Password" Content="Password" HorizontalAlignment="Left" Margin="35,232,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
+        <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="23" Margin="179,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
+        <PasswordBox x:Name="pwb_Input" HorizontalAlignment="Left" Margin="179,235,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
+        <Button x:Name="btn_Login" Content="Login" HorizontalAlignment="Left" Margin="37,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Register_Click"/>
+        <Button x:Name="btn_Forgot_Password"  Content="Forgot password" HorizontalAlignment="Left" Margin="246,334,0,0" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Click="btn_Forgot_Password_Click"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="423,265,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
+        <Label x:Name="lbl_Title_login" Content="Welcome to KinguKongu Login" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="315" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
+        <Label x:Name="lbl_InvalidFields" Content="Please populate all above fields" HorizontalAlignment="Left" Height="26" Margin="179,192,0,0" VerticalAlignment="Top" Width="216" Foreground="Red" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
+        <Label x:Name="lbl_InvalidPassword" Content="Passwords do not match" HorizontalAlignment="Left" Height="26" Margin="179,291,0,0" VerticalAlignment="Top" Width="216" Foreground="#FFFA0000" FontWeight="Bold" FontFamily="Calibri" FontSize="14" Visibility="Hidden"/>
     </Grid>
+
 </Window>

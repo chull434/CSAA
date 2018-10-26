@@ -26,7 +26,12 @@ namespace Client.Views
 
         private void btn_Register_Click(object sender, RoutedEventArgs e)
         {
+            //TODO send user name and passwrod to server
+        }
 
+        private void btn_Forgot_Password_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Hint or email sent to user to reset password
         }
     }
 }
