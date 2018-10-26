@@ -1,11 +1,15 @@
-﻿Feature: AccountFeature
+﻿Feature: Registration
 	In order to use CSAA
 	As a unregistered user
 	I can register
 
-Scenario: Register
-
+Background:
+	
+	Then I am on the "Login" page
+	When I click "Register"
 	Then I am on the "Registration" page
+
+Scenario: Register
 
 	When I enter the following:
 		| Field     | Value                  |
@@ -14,9 +18,9 @@ Scenario: Register
 		| Email     | testuser@localhost.com |
 
 	And I enter the following passwords:
-		| Field         | Value    |
-		| Input         | password |
-		| Input_Confirm | password |
+		| Field           | Value    |
+		| Password        | password |
+		| ConfirmPassword | password |
 
 	And I check the following:
 		| Field        | Value |
@@ -27,17 +31,17 @@ Scenario: Register
 	And I click "Register"
 
 	Then the a user account is created with the following details:
-		| Field         | Value              |
-		| Name          | Test User          |
-		| Email         | testuser@localhost |
-		| Password      | password           |
-		| product_owner | Yes                |
-		| scrum_master  | Yes                |
-		| developer     | Yes                |
+		| Field        | Value                  |
+		| Name         | Test User              |
+		| Email        | testuser@localhost.com |
+		| Password     | password               |
+		| ProductOwner | Yes                    |
+		| ScumMaster   | Yes                    |
+		| Developer    | Yes                    |
+
+	Then I am on the "Login" page
 
 Scenario: Required Fields Validation - FirstName
-
-	Then I am on the "Registration" page
 
 	When I enter the following:
 		| Field     | Value                  |
@@ -55,8 +59,6 @@ Scenario: Required Fields Validation - FirstName
 
 Scenario: Required Fields Validation - Surname
 
-	Then I am on the "Registration" page
-
 	When I enter the following:
 		| Field     | Value                  |
 		| FirstName | Test                   |
@@ -72,8 +74,6 @@ Scenario: Required Fields Validation - Surname
 		| InvalidFields | Please populate all fields. |
 
 Scenario: Required Fields Validation - Email
-
-	Then I am on the "Registration" page
 
 	When I enter the following:
 		| Field     | Value |
@@ -91,8 +91,6 @@ Scenario: Required Fields Validation - Email
 
 Scenario: Email Validation
 
-	Then I am on the "Registration" page
-
 	When I enter the following:
 		| Field     | Value              |
 		| FirstName | Test               |
@@ -109,8 +107,6 @@ Scenario: Email Validation
 
 Scenario: Password Validation - empty
 
-	Then I am on the "Registration" page
-
 	When I enter the following:
 		| Field     | Value                  |
 		| FirstName | Test                   |
@@ -118,9 +114,9 @@ Scenario: Password Validation - empty
 		| Email     | testuser@localhost.com |
 
 	And I enter the following passwords:
-		| Field         | Value    |
-		| Input         | password |
-		| Input_Confirm |          |
+		| Field           | Value    |
+		| Password        | password |
+		| ConfirmPassword |          |
 
 	And I click "Register"
 
@@ -132,8 +128,6 @@ Scenario: Password Validation - empty
 
 Scenario: Password Validation - mistmatch
 
-	Then I am on the "Registration" page
-
 	When I enter the following:
 		| Field     | Value                  |
 		| FirstName | Test                   |
@@ -141,9 +135,9 @@ Scenario: Password Validation - mistmatch
 		| Email     | testuser@localhost.com |
 
 	And I enter the following passwords:
-		| Field         | Value    |
-		| Input         | password |
-		| Input_Confirm | Pa$$w0rd |
+		| Field           | Value    |
+		| Password        | password |
+		| ConfirmPassword | Pa$$w0rd |
 
 	And I click "Register"
 
@@ -152,3 +146,9 @@ Scenario: Password Validation - mistmatch
 	And the following errors appear:
 		| Field           | Value                   |
 		| InvalidPassword | Passwords do not match. |
+
+Scenario: Login Button
+
+	When I click "Login"
+
+	Then I am on the "Login" page
