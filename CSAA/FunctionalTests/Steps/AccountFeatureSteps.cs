@@ -2,14 +2,14 @@
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using Client.Requests;
-using CSAA.Models;
 using FunctionalTests.App_Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 using FunctionalTests.Utils;
-using Microsoft.AspNet.Identity;
-using Server.Models;
+using TestStack.White;
+using TestStack.White.Factory;
+using TestStack.White.UIItems;
+using TestStack.White.UIItems.WindowItems;
 
 namespace FunctionalTests.Steps
 {
@@ -17,6 +17,8 @@ namespace FunctionalTests.Steps
     public class AccountFeatureSteps
     {
         public static FunctionalDbContext context;
+        public static Application app;
+        public static Window window;
 
         [BeforeScenario]
         public void BeforeScenario()
@@ -25,89 +27,102 @@ namespace FunctionalTests.Steps
             var absoluteDataDirectory = Path.GetFullPath(dataDirectory);
             AppDomain.CurrentDomain.SetData("DataDirectory", absoluteDataDirectory);
             context = new FunctionalDbContext();
+
+            var BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var exe = Path.GetFullPath(BaseDirectory + "..\\..\\..\\..\\Client\\bin\\Debug\\Client.exe");
+            app = Application.Launch(exe);        
         }
 
-        #region Given Steps
-
-        [Given(@"a user exists:")]
-        public void GivenAUserExists(Table table)
+        [AfterScenario]
+        public void AfterScenario()
         {
-            var dictionary = table.ToDictionary();
-            var passwordHash = new PasswordHasher().HashPassword(dictionary["Password"]);
-            var user = new ApplicationUser
-            {
-                UserName = dictionary["Name"],
-                Email = dictionary["Email"],
-                PasswordHash = passwordHash,
-                product_owner = dictionary["product_owner"].ToBoolean(),
-                scrum_master = dictionary["scrum_master"].ToBoolean(),
-                developer = dictionary["developer"].ToBoolean()
-            };
-            context.Users.Add(user);
-            context.SaveChanges();
+            app.Close();
         }
-
-        #endregion
 
         #region When Steps
 
-        [When(@"I register with the following details:")]
-        public void WhenIRegisterWithTheFollowingDetails(Table table)
+        [When(@"I click ""(.*)""")]
+        public void WhenIClick(string value)
         {
-            var dictionary = table.ToDictionary();
-            var accountRequest = new AccountRequest();
-            var user = new User
-            {
-                Name = dictionary["Name"],
-                Email = dictionary["Email"],
-                Password = dictionary["Password"],
-                product_owner = dictionary["product_owner"].ToBoolean(),
-                scrum_master = dictionary["scrum_master"].ToBoolean(),
-                developer = dictionary["developer"].ToBoolean()
-            };
-            accountRequest.Register(user);
+            var btn = window.Get<Button>("btn_" + value);
+            btn.Click();
         }
 
-        [When(@"I login with the following details:")]
-        public void WhenILoginWithTheFollowingDetails(Table table)
+        [When(@"I enter the following:")]
+        public void WhenIEnterTheFollowing(Table table)
         {
             var dictionary = table.ToDictionary();
-            var accountRequest = new AccountRequest();
-            accountRequest.Login(dictionary["Email"], dictionary["Password"]);
+
+            foreach (var key in dictionary.Keys)
+            {
+                var txt = window.Get<TextBox>("txt_" + key);
+                txt.Text = dictionary[key];
+            }
+        }
+
+        [When(@"I enter the following passwords:")]
+        public void WhenIEnterTheFollowingPasswords(Table table)
+        {
+            var dictionary = table.ToDictionary();
+
+            foreach (var key in dictionary.Keys)
+            {
+                var txt = window.Get<TextBox>("pwb_" + key);
+                txt.Text = dictionary[key];
+            }
+        }
+
+        [When(@"I check the following:")]
+        public void WhenICheckTheFollowing(Table table)
+        {
+            var dictionary = table.ToDictionary();
+
+            foreach (var key in dictionary.Keys)
+            {
+                var chk = window.Get<CheckBox>("chk_" + key);
+                chk.Checked = dictionary[key].ToBoolean();
+            }
         }
 
         #endregion
 
         #region Then Steps
 
+        [Then(@"I am on the ""(.*)"" page")]
+        public void ThenIAmOn(string value)
+        {
+            window = app.GetWindow(value, InitializeOption.NoCache);
+        }
+
         [Then(@"the a user account is created with the following details:")]
         public void ThenTheAUserAccountIsCreatedWithTheFollowingDetails(Table table)
         {
             var dictionary = table.ToDictionary();
             var username = dictionary["Name"];
-            var email = dictionary["Email"];
-            var product_owner = dictionary["product_owner"].ToBoolean();
-            var scrum_master = dictionary["scrum_master"].ToBoolean();
-            var developer = dictionary["developer"].ToBoolean();
-            var user = context.Users.FirstOrDefault(u => u.UserName == username &&
-                                                         u.Email == email && 
-                                                         u.product_owner == product_owner &&
-                                                         u.scrum_master == scrum_master &&
-                                                         u.developer == developer);
+            var user = context.Users.FirstOrDefault(u => u.UserName == username);
             Assert.IsNotNull(user);
         }
 
-        [Then(@"the user is logged in:")]
-        public void ThenTheUserIsLoggedIn(Table table)
+        [Then(@"the no user accounts are created")]
+        public void ThenTheNoUserAccountsAreCreated()
+        {
+            var accounts = context.Users.Any();
+            Assert.IsFalse(accounts);
+        }
+
+        [Then(@"the following errors appear:")]
+        public void ThenTheFollowingErrorsAppear(Table table)
         {
             var dictionary = table.ToDictionary();
-            var email = dictionary["Email"];
-            var user = context.Users.FirstOrDefault(u => u.Email == email);
-            Assert.IsNotNull(user);
-            Assert.IsTrue(user.Logins.Count == 1);
+
+            foreach (var key in dictionary.Keys)
+            {
+                var lbl = window.Get<Label>("lbl_" + key);
+                Assert.IsTrue(lbl.Text == dictionary[key]);
+                Assert.IsTrue(lbl.Visible);
+            }
         }
 
         #endregion
-
     }
 }

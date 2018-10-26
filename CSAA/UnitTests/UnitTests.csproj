@@ -87,8 +87,9 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\AccountRequestTests.cs" />
-    <Compile Include="Client\RequestTests.cs" />
+    <Compile Include="Client\Requests\AccountRequestTests.cs" />
+    <Compile Include="Client\Requests\RequestTests.cs" />
+    <Compile Include="Client\ViewsModels\RegistrationViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ using CSAA.Models;
 
 namespace Client.Requests
 {
-    public class AccountRequest : Request
+    public class AccountRequest : Request, IAccountRequest
     {
         #region Constructors
 
