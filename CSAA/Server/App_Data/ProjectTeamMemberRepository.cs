@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CSAA.Models;
 
 namespace Server.App_Data
@@ -21,6 +22,15 @@ namespace Server.App_Data
         public ProjectTeamMember GetByID(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public string GetUserIdFromEmail(string email)
+        {
+            var user = context.Users.SingleOrDefault(u => u.Email == email);
+            if (user != null)
+                return user.Id;
+
+            return null;
         }
 
         public void Insert(ProjectTeamMember member)

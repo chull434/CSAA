@@ -24,5 +24,10 @@ namespace Server.Services
             repository.Insert(project);
             repository.Save();
         }
+
+        public Project GetProject(string projectId)
+        {
+            return repository.GetByID(projectId);
+        }
     }
 }
