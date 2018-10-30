@@ -4,10 +4,8 @@ using CSAA.Models;
 
 namespace Server.App_Data
 {
-    public class ProjectTeamMemberRepository : IRepository<ProjectTeamMember>
+    public class ProjectTeamMemberRepository : Repository, IRepository<ProjectTeamMember>
     {
-        ServerDbContext context;
-
         public ProjectTeamMemberRepository(ServerDbContext context)
         {
             this.context = context;
@@ -31,11 +29,6 @@ namespace Server.App_Data
         public void Delete(string id)
         {
             throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
         }
     }
 }
