@@ -13,6 +13,7 @@ namespace Client.ViewModels
     public class HomeViewModel : ViewModel
     {
         readonly IAccountRequest AccountRequest;
+        readonly IProjectRequest ProjectRequest;
         readonly IHttpClient HttpClient;
 
         List<Project> _projectList = new List<Project>();
@@ -39,6 +40,7 @@ namespace Client.ViewModels
         {
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
+            ProjectRequest = new ProjectRequest(httpClient);
             _logout = new DelegateCommand(OnLogout);
             _createProject = new DelegateCommand(OnCreateProject);
 
@@ -53,6 +55,7 @@ namespace Client.ViewModels
 
         private void OnLogout(object commandParameter)
         {
+            AccountRequest.Logout();
             var login = new Login(HttpClient);
             var home = App.Current.MainWindow;
             App.Current.MainWindow = login;
@@ -62,9 +65,11 @@ namespace Client.ViewModels
 
         private void OnCreateProject(object commandParameter)
         {
-
+            var project = new CSAA.Models.Project("My Project");
+            ProjectRequest.CreateProject(project);
         }
     }
+
     public class Project
     { 
         public string Title { get; set; }

@@ -6,5 +6,6 @@ namespace Client.Requests
     {
         bool Register(User user);
         bool Login(string text, string password);
+        bool Logout();
     }
 }
