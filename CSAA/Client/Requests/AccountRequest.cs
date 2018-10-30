@@ -28,9 +28,20 @@ namespace Client.Requests
             return LoginAsync(email, password).GetAwaiter().GetResult();
         }
 
+        public bool Logout()
+        {
+            return LogoutAsync().GetAwaiter().GetResult();
+        }
+
         #endregion
 
         #region Private Methods
+
+        private async Task<bool> LogoutAsync()
+        {
+            var response = await client.PostAsync("api/Account/Logout",null).ConfigureAwait(false);
+            return await CheckResponse(response).ConfigureAwait(false);
+        }
 
         private async Task<bool> RegisterAsync(User user)
         {
