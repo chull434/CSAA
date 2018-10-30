@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CSAA.Models;
 
 namespace Server.App_Data
 {
-    public class ProjectTeamMemberRepository : IRepository<ProjectTeamMember>
+    public class ProjectTeamMemberRepository : Repository, IRepository<ProjectTeamMember>
     {
-        ServerDbContext context;
-
         public ProjectTeamMemberRepository(ServerDbContext context)
         {
             this.context = context;
@@ -24,15 +21,6 @@ namespace Server.App_Data
             throw new NotImplementedException();
         }
 
-        public string GetUserIdFromEmail(string email)
-        {
-            var user = context.Users.SingleOrDefault(u => u.Email == email);
-            if (user != null)
-                return user.Id;
-
-            return null;
-        }
-
         public void Insert(ProjectTeamMember member)
         {
             context.ProjectTeamMembers.Add(member);
@@ -41,11 +29,6 @@ namespace Server.App_Data
         public void Delete(string id)
         {
             throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
         }
     }
 }

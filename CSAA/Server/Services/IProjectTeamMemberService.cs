@@ -8,6 +8,6 @@ namespace Server.Services
 {
     interface IProjectTeamMemberService
     {
-        void AddTeamMember(string email, string projectId);
+        void AddTeamMember(string userId, string projectId);
     }
 }

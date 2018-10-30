@@ -9,14 +9,21 @@ namespace Server.Services
 {
     public class ProjectTeamMemberService : IProjectTeamMemberService
     {
-        private IProjectService ProjectService;
         private IRepository<ProjectTeamMember> repository;
+        private IProjectService projectService;
 
-        public void AddTeamMember(string email, string projectId)
+        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IProjectService projectService)
         {
-            var userId = repository.GetUserIdFromEmail(email);
-            var project = ProjectService.GetProject(projectId);
+            this.repository = repository;
+            this.projectService = projectService;
+        }
+
+        public void AddTeamMember(string userId, string projectId)
+        {
+            var project = projectService.GetProject(projectId);
             var teamMember = new ProjectTeamMember(userId, project, Role.TeamMember);
+            project.ProjectTeam.Add(teamMember);
+            repository.Save();
         }
     }
 }

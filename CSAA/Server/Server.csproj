@@ -272,6 +272,7 @@
     <Compile Include="Services\IProjectTeamMemberService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ProjectTeamMemberService.cs" />
+    <Compile Include="App_Data\Repository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,44 +4,63 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CSAA.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Server.App_Data;
 using Server.Services;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class ProjectTeamMemberController : ApiController
     {
-        private IProjectTeamMemberService projectTeamMemberService;
+        private ApplicationUserManager userManager;
+        private ServerDbContext context;
+        private IRepository<ProjectTeamMember> repository;
+        private IRepository<Project> projectRepository;
+        private IProjectTeamMemberService service;
+        private IProjectService projectService;
 
         public ProjectTeamMemberController()
         {
-            projectTeamMemberService = new ProjectTeamMemberService();
+            context = new ServerDbContext();
+            repository = new ProjectTeamMemberRepository(context);
+            projectRepository = new ProjectRepository(context);
+            projectService = new ProjectService(projectRepository);
+            service = new ProjectTeamMemberService(repository, projectService);
         }
 
-        // GET api/<controller>
+        public ApplicationUserManager UserManager
+        {
+            get => userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => userManager = value;
+        }
+
+        [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
+        [HttpGet]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<controller>
+        [HttpPost]
         public void Post(string email, string projectID)
         {
-            projectTeamMemberService.AddTeamMember(email, projectID);
+            service.AddTeamMember(UserManager.FindByEmail(email).Id, projectID);
         }
 
-        // PUT api/<controller>/5
+        [HttpPut]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/<controller>/5
+        [HttpDelete]
         public void Delete(int id)
         {
         }

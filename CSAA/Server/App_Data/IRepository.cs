@@ -9,6 +9,5 @@ namespace Server.App_Data
         void Insert(T item);
         void Delete(string id);
         void Save();
-        string GetUserIdFromEmail(string email);
     }
 }
