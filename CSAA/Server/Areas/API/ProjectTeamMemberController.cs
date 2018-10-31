@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using CSAA.DataModels;
@@ -16,7 +13,7 @@ namespace Server.Areas.API
     [Authorize]
     public class ProjectTeamMemberController : ApiController
     {
-        private ApplicationUserManager userManager;
+        private IApplicationUserManager userManager;
         private ServerDbContext context;
         private IRepository<ProjectTeamMember> repository;
         private IRepository<Project> projectRepository;
@@ -40,7 +37,7 @@ namespace Server.Areas.API
             this.service = service;
         }
 
-        public ApplicationUserManager UserManager
+        public IApplicationUserManager UserManager
         {
             get => userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             set => userManager = value;
@@ -61,7 +58,7 @@ namespace Server.Areas.API
         [HttpPost]
         public void Post(AddTeamMember addTeamMember)
         {
-            service.AddTeamMember(UserManager.FindByEmail(addTeamMember.email).Id, addTeamMember.projectId);
+            service.AddTeamMember(UserManager.FindUserByEmail(addTeamMember.email).Id, addTeamMember.projectId);
         }
 
         [HttpPut]

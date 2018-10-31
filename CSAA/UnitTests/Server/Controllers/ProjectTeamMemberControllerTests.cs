@@ -11,6 +11,7 @@ using NSubstitute;
 using Server;
 using Server.App_Data;
 using Server.Areas.API;
+using Server.Models;
 using Server.Services;
 
 namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
@@ -21,6 +22,7 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
         public static IRepository<ProjectTeamMember> Repository;
         public static IProjectService ProjectService;
         public static IProjectTeamMemberService ProjectTeamMemberService;
+        public static IApplicationUserManager ApplicationUserManager;
         public static ProjectTeamMemberController ProjectTeamMemberController;
 
         Establish context = () =>
@@ -30,7 +32,8 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
             ProjectService = Substitute.For<IProjectService>();
             ProjectTeamMemberService = Substitute.For<IProjectTeamMemberService>();
             ProjectTeamMemberController = new ProjectTeamMemberController(Repository, ProjectTeamMemberService, ProjectRepository, ProjectService);
-            //ProjectTeamMemberController.UserManager = Substitute.For<ApplicationUserManager>();
+            ApplicationUserManager = Substitute.For<IApplicationUserManager>();
+            ProjectTeamMemberController.UserManager = ApplicationUserManager;
         };
     }
 
@@ -58,6 +61,7 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
     public class when_I_call_Post : Context
     {
         static AddTeamMember addTeamMember;
+        static string userId;
 
         Establish context = () =>
         {
@@ -66,6 +70,12 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
                 email = "testuser@localhost.com",
                 projectId = new Guid().ToString()
             };
+            userId = new Guid().ToString();
+            var user = new ApplicationUser
+            {
+                Id = userId
+            };
+            ApplicationUserManager.FindUserByEmail(addTeamMember.email).Returns(user);
         };
 
         Because of = () =>
@@ -75,7 +85,7 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
 
         It adds_team_member = () =>
         {
-            ProjectTeamMemberService.Received().AddTeamMember(Arg.Any<string>(), Arg.Any<string>());
+            ProjectTeamMemberService.Received().AddTeamMember(Arg.Any<string>(), addTeamMember.projectId);
         };
     }
 

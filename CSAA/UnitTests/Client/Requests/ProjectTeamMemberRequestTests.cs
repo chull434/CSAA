@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using Castle.Core.Smtp;
 using Client.Requests;
 using CSAA.ServiceModels;
 using Machine.Specifications;
@@ -51,7 +50,7 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
         static string projectId;
         static bool result;
 
-        private Establish context = () =>
+        Establish context = () =>
         {
             email = "testuser@localhost";
             projectId = new Guid().ToString();
