@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Client.Requests;
-using CSAA.Models;
 using System.ComponentModel.DataAnnotations;
 using Client.ViewModels;
 

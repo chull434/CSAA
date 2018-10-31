@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSAA.Models
+namespace CSAA.DataModels
 {
     public class Project
     {

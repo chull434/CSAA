@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CSAA.Models
+﻿namespace CSAA.Enums
 {
     public enum Role : int
     {

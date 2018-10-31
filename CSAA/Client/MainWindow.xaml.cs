@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Client.Views;
 using Client.Requests;
-using CSAA.Models;
 
 namespace Client
 {

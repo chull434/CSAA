@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CSAA.Models;
+using CSAA.DataModels;
+using CSAA.ServiceModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Server.App_Data;
@@ -50,9 +51,9 @@ namespace Server.Areas.API
         }
 
         [HttpPost]
-        public void Post(string email, string projectID)
+        public void Post(AddTeamMember addTeamMember)
         {
-            service.AddTeamMember(UserManager.FindByEmail(email).Id, projectID);
+            service.AddTeamMember(UserManager.FindByEmail(addTeamMember.email).Id, addTeamMember.projectId);
         }
 
         [HttpPut]
