@@ -32,10 +32,18 @@ namespace Server.Areas.API
             service = new ProjectTeamMemberService(repository, projectService);
         }
 
+        public ProjectTeamMemberController(IRepository<ProjectTeamMember> repository, IProjectTeamMemberService service, IRepository<Project> projectRepository, IProjectService projectService)
+        {
+            this.repository = repository;
+            this.projectRepository = projectRepository;
+            this.projectService = projectService;
+            this.service = service;
+        }
+
         public ApplicationUserManager UserManager
         {
             get => userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            private set => userManager = value;
+            set => userManager = value;
         }
 
         [HttpGet]

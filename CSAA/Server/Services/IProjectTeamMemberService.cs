@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Services
 {
-    interface IProjectTeamMemberService
+    public interface IProjectTeamMemberService
     {
         void AddTeamMember(string userId, string projectId);
     }
