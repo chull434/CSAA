@@ -207,6 +207,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Migrations\201810312341319_AddingProjectTeamMemebers.cs" />
+    <Compile Include="Migrations\201810312341319_AddingProjectTeamMemebers.Designer.cs">
+      <DependentUpon>201810312341319_AddingProjectTeamMemebers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -254,10 +258,6 @@
     <Compile Include="Migrations\201810251346010_AddingProjects.cs" />
     <Compile Include="Migrations\201810251346010_AddingProjects.Designer.cs">
       <DependentUpon>201810251346010_AddingProjects.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810252349358_AddingProjectTeamMemebers.cs" />
-    <Compile Include="Migrations\201810252349358_AddingProjectTeamMemebers.Designer.cs">
-      <DependentUpon>201810252349358_AddingProjectTeamMemebers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -375,8 +375,8 @@
     <EmbeddedResource Include="Migrations\201810251346010_AddingProjects.resx">
       <DependentUpon>201810251346010_AddingProjects.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810252349358_AddingProjectTeamMemebers.resx">
-      <DependentUpon>201810252349358_AddingProjectTeamMemebers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810312341319_AddingProjectTeamMemebers.resx">
+      <DependentUpon>201810312341319_AddingProjectTeamMemebers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
