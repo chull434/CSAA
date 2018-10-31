@@ -6,12 +6,15 @@
         xmlns:local="clr-namespace:Client.Views"
         xmlns:ViewModels="clr-namespace:Client.ViewModels" x:Class="Client.Views.Login"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="695.378" Background="#CCD1D1">
+        WindowState="Maximized"
+        WindowStyle="None"
+        Title="Login" Height="720" Width="1280" Background="#c6d5c2">
+    
 
 
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#3498D8" />
+            <Setter Property="Background" Value="#173654" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
             <Setter Property="Template">
@@ -34,7 +37,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9bafb9">
         <Label x:Name="lbl_Email" Content="Email" HorizontalAlignment="Left" Margin="35,162,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Width="55"/>
         <Label x:Name="lbl_Password" Content="Password" HorizontalAlignment="Left" Margin="35,232,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="23" Margin="179,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>

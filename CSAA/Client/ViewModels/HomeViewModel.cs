@@ -30,6 +30,13 @@ namespace Client.ViewModels
             set => SetProperty(ref _assignedTasks, value);
         }
 
+        List<TeamMembers> _memberList = new List<TeamMembers>();
+        public List<TeamMembers> MemberList
+        {
+            get => _memberList;
+            set => SetProperty(ref _memberList, value);
+        }
+
         private readonly DelegateCommand _logout;
         public ICommand Logout => _logout;
 
@@ -51,6 +58,15 @@ namespace Client.ViewModels
             AssignedTasks.Add(new Task() { Title = "Task 1", Project = "Project A" });
             AssignedTasks.Add(new Task() { Title = "Task 2", Project = "Project A" });
             AssignedTasks.Add(new Task() { Title = "Task 3", Project = "Project A" });
+
+            MemberList.Add(new TeamMembers() { Name = "Johnston York", Project = "Project A", Email = "jyork@test.com", Role = "Developer" });
+            MemberList.Add(new TeamMembers() { Name = "Michael Dyer", Project = "Project A", Email = "mdyer@test.com", Role = "Developer" });
+            MemberList.Add(new TeamMembers() { Name = "Chris Hull", Project = "Project A", Email = "chull@test.com", Role = "Scrum Master" });
+            MemberList.Add(new TeamMembers() { Name = "Jamie-Leigh McMullan", Project = "Project A", Email = "jmcmullan@test.com", Role = "Developer" });
+            MemberList.Add(new TeamMembers() { Name = "Keith Harris", Project = "Project A", Email = "kharris@test.com", Role = "Developer" });
+            MemberList.Add(new TeamMembers() { Name = "Richard McClelland", Project = "Project A", Email = "rmcclelland@test.com", Role = "Developer" });
+            MemberList.Add(new TeamMembers() { Name = "Darragh Walls", Project = "Project A", Email = "dwalls@test.com", Role = "Developer" });
+
         }
 
         private void OnLogout(object commandParameter)
@@ -80,5 +96,13 @@ namespace Client.ViewModels
     {
         public string Title { get; set; }
         public string Project { get; set; }
+    }
+
+    public class TeamMembers
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Project { get; set; }
+        public string Role { get; set; }
     }
 }
