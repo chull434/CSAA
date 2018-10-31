@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using CSAA.Models;
+using CSAA.DataModels;
 
 namespace Server.App_Data
 {

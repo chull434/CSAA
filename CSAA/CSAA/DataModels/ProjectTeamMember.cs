@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CSAA.Enums;
 
-namespace CSAA.Models
+namespace CSAA.DataModels
 {
     public class ProjectTeamMember
     {

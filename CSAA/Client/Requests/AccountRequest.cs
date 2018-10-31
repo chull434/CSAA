@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using CSAA.Models;
+using CSAA.ServiceModels;
 
 namespace Client.Requests
 {

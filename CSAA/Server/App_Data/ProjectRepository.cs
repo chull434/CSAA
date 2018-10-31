@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSAA.Models;
+using CSAA.DataModels;
 
 namespace Server.App_Data
 {

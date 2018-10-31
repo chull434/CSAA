@@ -1,4 +1,4 @@
-﻿using CSAA.Models;
+﻿using CSAA.ServiceModels;
 
 namespace Client.Requests
 {

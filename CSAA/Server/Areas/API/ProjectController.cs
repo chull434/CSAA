@@ -1,8 +1,8 @@
-﻿using CSAA.Models;
-using Server.App_Data;
+﻿using Server.App_Data;
 using Server.Services;
 using System.Collections.Generic;
 using System.Web.Http;
+using CSAA.DataModels;
 using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
