@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using CSAA.Models;
+using CSAA.DataModels;
+using CSAA.Enums;
 using Server.App_Data;
 
 namespace Server.Services

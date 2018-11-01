@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
-using CSAA.Models;
+using CSAA.DataModels;
+using CSAA.ServiceModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Server.App_Data;
@@ -15,7 +13,7 @@ namespace Server.Areas.API
     [Authorize]
     public class ProjectTeamMemberController : ApiController
     {
-        private ApplicationUserManager userManager;
+        private IApplicationUserManager userManager;
         private ServerDbContext context;
         private IRepository<ProjectTeamMember> repository;
         private IRepository<Project> projectRepository;
@@ -31,10 +29,18 @@ namespace Server.Areas.API
             service = new ProjectTeamMemberService(repository, projectService);
         }
 
-        public ApplicationUserManager UserManager
+        public ProjectTeamMemberController(IRepository<ProjectTeamMember> repository, IProjectTeamMemberService service, IRepository<Project> projectRepository, IProjectService projectService)
+        {
+            this.repository = repository;
+            this.projectRepository = projectRepository;
+            this.projectService = projectService;
+            this.service = service;
+        }
+
+        public IApplicationUserManager UserManager
         {
             get => userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            private set => userManager = value;
+            set => userManager = value;
         }
 
         [HttpGet]
@@ -50,9 +56,9 @@ namespace Server.Areas.API
         }
 
         [HttpPost]
-        public void Post(string email, string projectID)
+        public void Post(AddTeamMember addTeamMember)
         {
-            service.AddTeamMember(UserManager.FindByEmail(email).Id, projectID);
+            service.AddTeamMember(UserManager.FindUserByEmail(addTeamMember.email).Id, addTeamMember.projectId);
         }
 
         [HttpPut]

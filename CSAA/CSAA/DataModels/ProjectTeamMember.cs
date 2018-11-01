@@ -1,17 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CSAA.Enums;
 
-namespace CSAA.Models
+namespace CSAA.DataModels
 {
     public class ProjectTeamMember
     {
-        [Key]
-        [Column(Order = 1)]
+        [Key, Column(Order = 0)]
         public string UserId { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
+        [Key, Column(Order = 1),ForeignKey("Project")]
+        public Guid ProjectId { get; set; }
+
         public Project Project { get; set; }
 
         public Role Role { get; set; }

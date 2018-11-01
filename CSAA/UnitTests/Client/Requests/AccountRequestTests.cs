@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml;
 using Client.Requests;
-using CSAA.Models;
+using CSAA.ServiceModels;
 using Machine.Specifications;
 using Newtonsoft.Json;
 using NSubstitute;

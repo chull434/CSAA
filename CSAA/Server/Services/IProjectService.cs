@@ -1,4 +1,4 @@
-﻿using CSAA.Models;
+﻿using CSAA.DataModels;
 
 namespace Server.Services
 {

@@ -86,6 +86,13 @@ namespace FunctionalTests.Steps
             Assert.IsFalse(accounts);
         }
 
+        [Then(@"a project called ""(.*)"" is created")]
+        public void ThenAProjectIsCreated(string projectName)
+        {
+            var project = context.Projects.FirstOrDefault(p => p.Title == projectName);
+            Assert.IsNotNull(project);
+        }
+
         #endregion
     }
 }

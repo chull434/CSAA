@@ -1,4 +1,4 @@
-﻿using CSAA.Models;
+﻿using CSAA.DataModels;
 using Machine.Specifications;
 
 namespace UnitTests.CSAA.Models.ProjectTests

@@ -12,19 +12,19 @@ namespace Server.Migrations
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
+                        ProjectId = c.Guid(nullable: false),
                         Role = c.Int(nullable: false),
-                        Project_Id = c.Guid(),
                     })
-                .PrimaryKey(t => t.UserId)
-                .ForeignKey("dbo.Projects", t => t.Project_Id)
-                .Index(t => t.Project_Id);
+                .PrimaryKey(t => new { t.UserId, t.ProjectId })
+                .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
+                .Index(t => t.ProjectId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.ProjectTeamMembers", "Project_Id", "dbo.Projects");
-            DropIndex("dbo.ProjectTeamMembers", new[] { "Project_Id" });
+            DropForeignKey("dbo.ProjectTeamMembers", "ProjectId", "dbo.Projects");
+            DropIndex("dbo.ProjectTeamMembers", new[] { "ProjectId" });
             DropTable("dbo.ProjectTeamMembers");
         }
     }

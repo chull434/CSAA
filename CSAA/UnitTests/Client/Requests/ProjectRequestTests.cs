@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http;
 using Client.Requests;
-using CSAA.Models;
 using Machine.Specifications;
 using NSubstitute;
 using System;
+using CSAA.DataModels;
 
 namespace UnitTests.Client.Requests.ProjectRequestTests
 {
