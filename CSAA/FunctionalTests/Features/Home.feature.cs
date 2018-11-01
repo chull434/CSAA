@@ -120,21 +120,19 @@ namespace FunctionalTests.Features
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Create Project Button", SourceLine=30)]
-        [TechTalk.SpecRun.IgnoreAttribute()]
+        [TechTalk.SpecRun.ScenarioAttribute("Create Project Button", SourceLine=29)]
         public virtual void CreateProjectButton()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Project Button", null, new string[] {
-                        "ignore"});
-#line 31
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Project Button", null, ((string[])(null)));
+#line 30
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 5
 this.FeatureBackground();
-#line 33
- testRunner.When("I click \"Create Project\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 35
- testRunner.Then("I am on the \"Project\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+ testRunner.When("I click \"Create Project\" in the menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+ testRunner.Then("a project called \"My Project\" is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

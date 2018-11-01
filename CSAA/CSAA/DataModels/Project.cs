@@ -12,7 +12,7 @@ namespace CSAA.DataModels
         public Project()
         {
             Id = Guid.NewGuid();
-            Title = "My Title";
+            Title = "My Project";
             ProjectTeam = new List<ProjectTeamMember>();
         }
 
