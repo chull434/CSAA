@@ -27,9 +27,8 @@ Background:
 
 	Then I am on the "Home" page
 
-@ignore
 Scenario: Create Project Button
 
-	When I click "Create Project"
+	When I click "Create Project" in the menu
 
-	Then I am on the "Project" page
+	Then a project called "My Project" is created
