@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="None"
-        Title="Home" Height="720" Width="1280" Background="#f1f1f1">
+        Title="Project" Height="720" Width="1280" Background="#f1f1f1">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#173654" />
@@ -68,10 +68,10 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <Label x:Name="lbl_ProjectName" Content="Project Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                            <Button x:Name="btn_ProjectSave" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveProject}"/>
+                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveProject}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <TextBox x:Name="txt_ProjectName" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding ProjectName}"/>
+                            <TextBox x:Name="txt_Title" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding ProjectName}"/>
                         </StackPanel>
                     </Grid>
 
@@ -121,7 +121,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <Label x:Name="lbl_Email" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                            <Button x:Name="btn_AddTeamMember" Content="Add" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTeamMember}"/>
+                            <Button x:Name="btn_Add" Content="Add" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTeamMember}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>

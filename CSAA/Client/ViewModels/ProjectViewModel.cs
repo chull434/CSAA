@@ -62,7 +62,7 @@ namespace Client.ViewModels
             ProjectRequest = new ProjectRequest(httpClient);
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(HttpClient);
             this.ProjectID = projectId;
-            //var project = ProjectRequest.GetProjectById(projectId);
+            //var project = ProjectRequest.GetProjectById(projectId);//todo
             
             _homeBtn = new DelegateCommand(OnHomeBtn);
             _logout = new DelegateCommand(OnLogout);
@@ -91,7 +91,7 @@ namespace Client.ViewModels
 
         private void OnSaveProject(object commandParameter)
         {
-            //ProjectRequest.
+            //ProjectRequest.//todo
         }
 
         private void OnAddTeamMember(object commandParameter)

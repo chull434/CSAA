@@ -7,7 +7,7 @@ namespace CSAA.DataModels
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public List<ProjectTeamMember> ProjectTeam { get; set; }
+        public virtual List<ProjectTeamMember> ProjectTeam { get; set; }
 
         public Project()
         {

@@ -11,10 +11,10 @@ namespace FunctionalTests.App_Data
             {
                 Users.Remove(user);
             }
-            //foreach (var project in Projects)
-            //{
-            //    Projects.Remove(project);
-            //}
+            foreach (var project in Projects)
+            {
+                Projects.Remove(project);
+            }
             SaveChanges();
         }
     }

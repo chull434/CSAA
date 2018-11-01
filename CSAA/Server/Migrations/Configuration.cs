@@ -16,23 +16,28 @@ namespace Server.Migrations
 
         protected override void Seed(App_Data.ServerDbContext context)
         {
-            var testUser = context.Users.FirstOrDefault(u => u.UserName == "Test User");
-            if (testUser == null)
+            foreach (var user in context.Users)
             {
-                var passwordHash = new PasswordHasher().HashPassword("password");
-                var securityStamp = Guid.NewGuid().ToString();
-                var user = new ApplicationUser
-                {
-                    UserName = "Test User",
-                    Email = "testuser@localhost.com",
-                    PasswordHash = passwordHash,
-                    product_owner = true,
-                    scrum_master = true,
-                    developer = true,
-                    SecurityStamp = securityStamp
-                };
-                context.Users.AddOrUpdate(user);
+                context.Users.Remove(user);
             }
+            foreach (var project in context.Projects)
+            {
+                context.Projects.Remove(project);
+            }
+            context.SaveChanges();
+            var passwordHash = new PasswordHasher().HashPassword("password");
+            var securityStamp = Guid.NewGuid().ToString();
+            context.Users.AddOrUpdate(new ApplicationUser
+            {
+                UserName = "Test User",
+                Email = "testuser@localhost.com",
+                PasswordHash = passwordHash,
+                product_owner = true,
+                scrum_master = true,
+                developer = true,
+                SecurityStamp = securityStamp
+            });
+            context.SaveChanges();
         }
     }
 }
