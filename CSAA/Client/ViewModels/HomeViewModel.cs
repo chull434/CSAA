@@ -16,8 +16,8 @@ namespace Client.ViewModels
         readonly IProjectRequest ProjectRequest;
         readonly IHttpClient HttpClient;
 
-        List<Project> _projectList = new List<Project>();
-        public List<Project> ProjectList
+        List<Projects> _projectList = new List<Projects>();
+        public List<Projects> ProjectList
         {
             get => _projectList;
             set => SetProperty(ref _projectList, value);
@@ -51,9 +51,9 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
             _createProject = new DelegateCommand(OnCreateProject);
 
-            ProjectList.Add(new Project() { Title = "Project A", Completion = 20 });
-            ProjectList.Add(new Project() { Title = "Project B", Completion = 80 });
-            ProjectList.Add(new Project() { Title = "Project C", Completion = 55 });;
+            ProjectList.Add(new Projects() { Title = "Project A", Completion = 20 });
+            ProjectList.Add(new Projects() { Title = "Project B", Completion = 80 });
+            ProjectList.Add(new Projects() { Title = "Project C", Completion = 55 });;
 
             AssignedTasks.Add(new Task() { Title = "Task 1", Project = "Project A" });
             AssignedTasks.Add(new Task() { Title = "Task 2", Project = "Project A" });
@@ -66,7 +66,6 @@ namespace Client.ViewModels
             MemberList.Add(new TeamMembers() { Name = "Keith Harris", Project = "Project A", Email = "kharris@test.com", Role = "Developer" });
             MemberList.Add(new TeamMembers() { Name = "Richard McClelland", Project = "Project A", Email = "rmcclelland@test.com", Role = "Developer" });
             MemberList.Add(new TeamMembers() { Name = "Darragh Walls", Project = "Project A", Email = "dwalls@test.com", Role = "Developer" });
-
         }
 
         private void OnLogout(object commandParameter)
@@ -81,12 +80,18 @@ namespace Client.ViewModels
 
         private void OnCreateProject(object commandParameter)
         {
-            var project = new CSAA.Models.Project("My Project");
+            var project = new CSAA.Models.Project("New Project");
             ProjectRequest.CreateProject(project);
+
+            var projectWindow = new Views.Project(HttpClient, project.Id.ToString());
+            var currentWindow = App.Current.MainWindow;
+            App.Current.MainWindow = projectWindow;
+            currentWindow.Close();
+            projectWindow.Show();
         }
     }
 
-    public class Project
+    public class Projects
     { 
         public string Title { get; set; }
         public int Completion { get; set; }
