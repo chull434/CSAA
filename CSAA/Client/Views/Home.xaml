@@ -40,11 +40,11 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
-                <MenuItem Header="Option A" DockPanel.Dock="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option B" DockPanel.Dock="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option C" DockPanel.Dock="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Settings" DockPanel.Dock="left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Option A" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
+                <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
             </Menu>
             <StackPanel x:Name="IntroText" Margin="25,25,25,0">
                 <TextBlock x:Name="txtblk_WelcomeHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
@@ -63,7 +63,7 @@
                     <TextBlock x:Name="txtblk_ProjectListHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Project List                    
                     </TextBlock>
-                    <ListBox Name="lb_ProjectList" HorizontalContentAlignment="Stretch" Background="#9bafb9">
+                    <ListBox Name="lb_ProjectList" ItemsSource="{Binding ProjectList}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,2">
@@ -82,7 +82,7 @@
                     <TextBlock x:Name="txtblk_AssignedTaskHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Assigned Tasks
                     </TextBlock>
-                    <ListBox Name="lb_AssignedTasks" HorizontalContentAlignment="Stretch" Background="#9bafb9">
+                    <ListBox Name="lb_AssignedTasks" ItemsSource="{Binding AssignedTasks}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,2" >

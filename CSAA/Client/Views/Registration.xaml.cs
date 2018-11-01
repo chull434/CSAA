@@ -23,9 +23,9 @@ namespace Client.Views
     /// </summary>
     public partial class Registration : Window
     {
-        public Registration()
+        public Registration(IHttpClient client)
         {
-            DataContext = new RegistrationViewModel();
+            DataContext = new RegistrationViewModel(client);
             InitializeComponent();
         }
     }

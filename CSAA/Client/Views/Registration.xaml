@@ -35,9 +35,6 @@
     </Window.Resources>
 
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9bafb9">
-        <Grid.DataContext>
-            <ViewModels:RegistrationViewModel/>
-        </Grid.DataContext>
         <Label x:Name="lbl_FirstName" Content="First Name" HorizontalAlignment="Left" Margin="35,94,0,0" VerticalAlignment="Top" Height="34" Width="122" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_Surname" Content="Surname" HorizontalAlignment="Left" Margin="35,128,0,0" VerticalAlignment="Top" Height="34" Width="122" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_Email" Content="Email" HorizontalAlignment="Left" Margin="35,162,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Width="55"/>

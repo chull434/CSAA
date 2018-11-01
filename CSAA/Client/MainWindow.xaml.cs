@@ -26,8 +26,8 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
-
-            Login Login = new Login();
+            var client = new HttpClient();
+            Login Login = new Login(client);
             App.Current.MainWindow = Login;
             this.Close();
             Login.Show();

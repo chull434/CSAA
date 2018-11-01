@@ -1,11 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Server.Models
 {
-    // Models used as parameters to AccountController actions.
-
     public class AddExternalLoginBindingModel
     {
         [Required]

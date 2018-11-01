@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSAA.Models;
+﻿using CSAA.Models;
 
 namespace Client.Requests
 {
@@ -11,5 +6,6 @@ namespace Client.Requests
     {
         bool Register(User user);
         bool Login(string text, string password);
+        bool Logout();
     }
 }

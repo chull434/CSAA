@@ -68,8 +68,11 @@
     <Compile Include="Requests\HttpClient.cs" />
     <Compile Include="Requests\IAccountRequest.cs" />
     <Compile Include="Requests\IHttpClient.cs" />
+    <Compile Include="Requests\IProjectRequest.cs" />
+    <Compile Include="Requests\ProjectRequest.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PasswordBoxAssistant.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
