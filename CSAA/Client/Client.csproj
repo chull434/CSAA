@@ -74,6 +74,7 @@
     <Compile Include="Requests\ProjectTeamMemberRequest.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PasswordBoxAssistant.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />

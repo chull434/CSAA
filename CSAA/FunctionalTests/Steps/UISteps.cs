@@ -10,6 +10,8 @@ using TestStack.White;
 using TestStack.White.Factory;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.WindowItems;
+using TestStack.White.UIItems.WindowStripControls;
+using TestStack.White.UIItems.Finders;
 
 namespace FunctionalTests.Steps
 {
@@ -39,6 +41,14 @@ namespace FunctionalTests.Steps
         public void WhenIClick(string value)
         {
             var btn = window.Get<Button>("btn_" + value);
+            btn.Click();
+        }
+
+        [When(@"I click ""(.*)"" in the menu")]
+        public void WhenIClickMenu(string value)
+        {
+            var menuBar = window.MenuBar;
+            var btn = menuBar.MenuItemBy(SearchCriteria.ByText(value));
             btn.Click();
         }
 
