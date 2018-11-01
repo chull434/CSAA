@@ -32,8 +32,6 @@ namespace Client.Requests
         public Task<HttpResponseMessage> GetAsync(string requestUri)
         {
             return ((System.Net.Http.HttpClient)this).GetAsync(requestUri);
-            return ((System.Net.Http.HttpClient)this).GetAsync(requestUri);
-
         }
 
         public void SetAuthorizationToken(string token)
