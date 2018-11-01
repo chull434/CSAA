@@ -12,19 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Client.Requests;
-using System.ComponentModel.DataAnnotations;
 using Client.ViewModels;
 
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for Registration.xaml
+    /// Interaction logic for Project.xaml
     /// </summary>
-    public partial class Registration : Window
+    public partial class Project : Window
     {
-        public Registration(IHttpClient client)
+        public Project(IHttpClient client, string projectId)
         {
-            DataContext = new RegistrationViewModel(client);
+            DataContext = new ProjectViewModel(client, projectId);
             InitializeComponent();
         }
     }

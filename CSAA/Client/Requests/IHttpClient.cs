@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using CSAA.Models;
 
 namespace Client.Requests
 {
@@ -14,6 +13,7 @@ namespace Client.Requests
         HttpRequestHeaders DefaultRequestHeaders { get; }
         Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value);
         Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent);
+        Task<HttpResponseMessage> GetAsync(string requestUri);
 
         void SetAuthorizationToken(string token);
     }

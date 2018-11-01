@@ -1,5 +1,6 @@
-﻿using CSAA.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using CSAA.DataModels;
+using System.Net.Http;
 
 namespace Client.Requests
 {
@@ -21,6 +22,11 @@ namespace Client.Requests
             return CreateProjectAsync(project).GetAwaiter().GetResult();
         }
 
+        public Project GetProjectById(string projectId)
+        {
+            return GetProjectByIdAsync(projectId).GetAwaiter().GetResult();
+        }
+
         #endregion
 
         #region Private Methods
@@ -29,6 +35,14 @@ namespace Client.Requests
         {
             var response = await client.PostAsJsonAsync("api/Project", project).ConfigureAwait(false);
             return await CheckResponse(response).ConfigureAwait(false);
+        }
+        private async Task<Project> GetProjectByIdAsync(string projectId)
+        {
+            var response = await client.GetAsync("api/Project/" + projectId).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            var project = await response.Content.ReadAsAsync<Project>().ConfigureAwait(false);
+
+            return project;
         }
 
         #endregion

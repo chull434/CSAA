@@ -1,5 +1,6 @@
 ﻿using System;
-using CSAA.Models;
+using CSAA.DataModels;
+using CSAA.Enums;
 using Machine.Specifications;
 
 namespace UnitTests.CSAA.Models.ProjectTeamMemberTests

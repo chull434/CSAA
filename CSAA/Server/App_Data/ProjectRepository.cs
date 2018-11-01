@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSAA.Models;
+using System.Linq;
+using CSAA.DataModels;
 
 namespace Server.App_Data
 {
-    public class ProjectRepository : IRepository<Project>
+    public class ProjectRepository : Repository, IRepository<Project>
     {
-        ServerDbContext context;
-
         public ProjectRepository(ServerDbContext context)
         {
             this.context = context;
@@ -20,7 +19,7 @@ namespace Server.App_Data
 
         public Project GetByID(string id)
         {
-            throw new NotImplementedException();
+            return context.Projects.FirstOrDefault(p => p.Id.ToString() == id);
         }
 
         public void Insert(Project project)
@@ -31,11 +30,6 @@ namespace Server.App_Data
         public void Delete(string id)
         {
             throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
         }
     }
 }

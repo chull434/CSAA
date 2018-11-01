@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Client.Requests;
 using Client.Views;
-using CSAA.Models;
+using CSAA.ServiceModels;
 
 namespace Client.ViewModels
 {

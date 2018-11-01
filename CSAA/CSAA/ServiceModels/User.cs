@@ -1,4 +1,4 @@
-﻿namespace CSAA.Models
+﻿namespace CSAA.ServiceModels
 {
     public class User
     {

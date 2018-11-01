@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:Client.Views"
         xmlns:ViewModels="clr-namespace:Client.ViewModels" x:Class="Client.Views.Registration"
         mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
         Title="Registration" Height="720" Width="1280" Background="#c6d5c2">
 
 

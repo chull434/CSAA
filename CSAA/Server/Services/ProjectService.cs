@@ -1,9 +1,10 @@
-﻿using CSAA.Models;
-using Server.App_Data;
+﻿using Server.App_Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CSAA.DataModels;
+using CSAA.Enums;
 using Server.Models;
 
 namespace Server.Services
@@ -23,6 +24,11 @@ namespace Server.Services
             project.ProjectTeam.Add(member);
             repository.Insert(project);
             repository.Save();
+        }
+
+        public Project GetProject(string projectId)
+        {
+            return repository.GetByID(projectId);
         }
     }
 }

@@ -86,11 +86,21 @@ namespace FunctionalTests.Steps
             Assert.IsFalse(accounts);
         }
 
-        [Then(@"a project called ""(.*)"" is created")]
-        public void ThenAProjectIsCreated(string projectName)
+        [Then(@"a project called ""(.*)"" exists")]
+        public void ThenAProjectExists(string projectName)
         {
             var project = context.Projects.FirstOrDefault(p => p.Title == projectName);
             Assert.IsNotNull(project);
+        }
+
+        [Then(@"""(.*)"" is a team member of a project called ""(.*)""")]
+        public void ThenAProjectExists(string userEmail, string projectName)
+        {
+            var project = context.Projects.FirstOrDefault(p => p.Title == projectName);
+            Assert.IsNotNull(project);
+            var user = context.Users.FirstOrDefault(u => u.Email == userEmail);
+            var member = project.ProjectTeam.FirstOrDefault(m => m.UserId == user.Id);
+            Assert.IsNotNull(member);
         }
 
         #endregion

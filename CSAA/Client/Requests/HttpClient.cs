@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using CSAA.Models;
 
 namespace Client.Requests
 {
@@ -27,6 +26,11 @@ namespace Client.Requests
         public Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent)
         {
             return ((System.Net.Http.HttpClient) this).PostAsync(token, formUrlEncodedContent);
+        }
+
+        public Task<HttpResponseMessage> GetAsync(string requestUri)
+        {
+            return ((System.Net.Http.HttpClient)this).GetAsync(requestUri);
         }
 
         public void SetAuthorizationToken(string token)

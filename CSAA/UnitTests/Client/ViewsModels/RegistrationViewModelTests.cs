@@ -1,6 +1,6 @@
 ﻿using Client.Requests;
 using Client.ViewModels;
-using CSAA.Models;
+using CSAA.ServiceModels;
 using Machine.Specifications;
 using NSubstitute;
 

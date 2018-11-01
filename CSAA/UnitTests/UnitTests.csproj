@@ -49,6 +49,10 @@
     <Reference Include="Machine.Specifications.Should, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Machine.Specifications.Should.0.11.0\lib\net45\Machine.Specifications.Should.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -91,13 +95,16 @@
     <Compile Include="Client\Requests\AccountRequestTests.cs" />
     <Compile Include="Client\Requests\RequestTests.cs" />
     <Compile Include="Client\Requests\ProjectRequestTests.cs" />
+    <Compile Include="Client\Requests\ProjectTeamMemberRequestTests.cs" />
     <Compile Include="Client\ViewsModels\LoginViewModelTests.cs" />
     <Compile Include="Client\ViewsModels\RegistrationViewModelTests.cs" />
     <Compile Include="CSAA\Models\ProjectTeamMemberTests.cs" />
     <Compile Include="CSAA\Models\ProjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\Controllers\ProjectTeamMemberControllerTests.cs" />
     <Compile Include="Server\Controllers\ProjectControllerTest.cs" />
     <Compile Include="Server\Services\ProjectServiceTests.cs" />
+    <Compile Include="Server\Services\ProjectTeamMemberServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
