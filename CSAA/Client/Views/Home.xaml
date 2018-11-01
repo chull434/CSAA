@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Views"
         mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
         Title="Home" Height="720" Width="1280" Background="#f1f1f1">
-
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#173654" />
@@ -40,7 +41,7 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
-                <MenuItem Header="Option A" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
@@ -61,7 +62,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="25,25,12.5,0" Grid.Column="0">
                     <TextBlock x:Name="txtblk_ProjectListHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                        Project List                    
+                        Project List
                     </TextBlock>
                     <ListBox Name="lb_ProjectList" ItemsSource="{Binding ProjectList}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                         <ListBox.ItemTemplate>
@@ -98,7 +99,41 @@
                     </ListBox>
                 </StackPanel>
             </Grid>
-
+            <StackPanel x:Name="TeamMembers" Margin="25,25,25,0">
+                <TextBlock x:Name="txtblk_TeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                    My Team Members
+                </TextBlock>
+                <Grid  Background="#9bafb9">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
+                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Email" />
+                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Role" />
+                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="Project" />
+                </Grid>
+                <ListBox Name="lb_TeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Name}" />
+                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="{Binding Email}" />
+                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="{Binding Role}" />
+                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="{Binding Project}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
         </StackPanel>
     </Grid>
 

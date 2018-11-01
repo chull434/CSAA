@@ -34,9 +34,9 @@ namespace Server.Areas.API
         }
 
         [HttpGet]
-        public string Get(int id)
+        public Project Get(string porjectId)
         {
-            return "value";
+            return service.GetProject(porjectId);
         }
 
         [HttpPost]
