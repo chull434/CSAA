@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.Requests;
 using Client.Views;
-using CSAA.Models;
 
 namespace Client.ViewModels
 {
@@ -80,7 +79,7 @@ namespace Client.ViewModels
 
         private void OnCreateProject(object commandParameter)
         {
-            var project = new CSAA.Models.Project("New Project");
+            var project = new CSAA.DataModels.Project("New Project");
             ProjectRequest.CreateProject(project);
 
             var projectWindow = new Views.Project(HttpClient, project.Id.ToString());
