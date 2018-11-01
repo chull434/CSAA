@@ -9,6 +9,13 @@ namespace CSAA.Models
         public string Title { get; set; }
         public List<ProjectTeamMember> ProjectTeam { get; set; }
 
+        public Project()
+        {
+            Id = Guid.NewGuid();
+            Title = "My Project";
+            ProjectTeam = new List<ProjectTeamMember>();
+        }
+
         public Project(string Title)
         {
             Id = Guid.NewGuid();
