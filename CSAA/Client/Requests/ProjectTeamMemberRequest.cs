@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace Client.Requests
 {
-
+    /// <summary>
+    /// Constructs the Project Team Member request. Add, update and delete Project Team Members included using projectTeamMember ID.
+    /// Calling Asynchronously so as not to block the UI. 
+    /// </summary>
     public class ProjectTeamMemberRequest : Request, IProjectTeamMemberRequest
     {
         #region Constructor
@@ -18,7 +21,11 @@ namespace Client.Requests
         #endregion
 
         #region Public Methods
-
+        /// <summary>
+        /// Method gets a list of all team members.
+        /// </summary>
+        /// <returns></returns>
+        /// List of Project Team Members.
         public List<ProjectTeamMember> GetAllProjectTeamMembers()
         {
             return GetAllProjectTeamMembersAsync().GetAwaiter().GetResult();

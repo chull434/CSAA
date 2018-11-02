@@ -7,7 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Client.Requests
-{
+{   
+    /// <summary>
+    /// Sets up HTTP client for sending and receiving responses from URI address.
+    /// </summary>
     public class HttpClient : System.Net.Http.HttpClient, IHttpClient
     {
         public HttpClient()

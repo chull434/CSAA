@@ -2,7 +2,7 @@
 using System.Windows.Input;
 
 namespace Client.ViewModels
-{
+{   
     public class DelegateCommand : ICommand
     {
         private readonly Action<object> _executeAction;
