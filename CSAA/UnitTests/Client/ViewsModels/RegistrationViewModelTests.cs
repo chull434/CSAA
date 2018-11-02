@@ -86,6 +86,7 @@ namespace UnitTests.Client.ViewsModels.RegistrationViewModelTests
             ViewModel.Email = "testuser@localhost.com";
             ViewModel.Password = "password";
             ViewModel.ConfirmPassword = "password";
+            Request.Register(Arg.Any<User>()).Returns("test");
         };
 
         Because of = () =>

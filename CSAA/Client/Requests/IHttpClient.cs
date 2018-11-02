@@ -12,8 +12,11 @@ namespace Client.Requests
         Uri BaseAddress { get; set; }
         HttpRequestHeaders DefaultRequestHeaders { get; }
         Task<HttpResponseMessage> PostAsJsonAsync<T>(string requestUri, T value);
-        Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent);
+        Task<HttpResponseMessage> PutAsJsonAsync<T>(string requestUri, T value);
+
         Task<HttpResponseMessage> GetAsync(string requestUri);
+        Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent);
+        Task<HttpResponseMessage> DeleteAsync(string requestUri);
 
         void SetAuthorizationToken(string token);
     }

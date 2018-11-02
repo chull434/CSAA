@@ -7,6 +7,8 @@ namespace CSAA.DataModels
 {
     public class ProjectTeamMember
     {
+        public Guid Id { get; set; }
+
         [Key, Column(Order = 0)]
         public string UserId { get; set; }
 
@@ -19,13 +21,27 @@ namespace CSAA.DataModels
 
         public ProjectTeamMember()
         {
+            Id = Guid.NewGuid();
         }
 
         public ProjectTeamMember(string UserId, Project Project, Role Role)
         {
+            Id = Guid.NewGuid();
             this.UserId = UserId;
             this.Project = Project;
             this.Role = Role;
+        }
+
+        public ServiceModels.ProjectTeamMember Map()
+        {
+            return new ServiceModels.ProjectTeamMember
+            {
+                Id = Id.ToString(),
+                UserId = UserId,
+                ProjectId = ProjectId.ToString(),
+                Role = Role,
+                ProjectTitle = Project.Title,
+            };
         }
     }
 }

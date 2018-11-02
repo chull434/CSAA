@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Client.Requests
@@ -18,17 +19,17 @@ namespace Client.Requests
 
         #region Helper Methods
 
-        protected static async Task<bool> CheckResponse(HttpResponseMessage response)
+        protected static async Task<string> CheckResponse(HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode)
             {
-                return true;
+                return string.Empty;
             }
             else
             {
                 var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
-                return false;
+                return message;
             }
         }
 

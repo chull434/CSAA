@@ -42,7 +42,19 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
 
     #endregion
 
-    #region Add Team Member Tests
+    #region GetAllProjectTeamMembersAsync() Tests
+
+
+
+    #endregion
+
+    #region GetProjectTeamMemberAsync(string projectTeamMemberId) Tests
+
+
+
+    #endregion
+
+    #region AddProjectTeamMemberAsync(string email, string projectId)
 
     public class when_I_call_AddTeamMember : Context
     {
@@ -54,20 +66,32 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
         {
             email = "testuser@localhost";
             projectId = new Guid().ToString();
-            HttpClient.PostAsJsonAsync("api/ProjectTeamMember", Arg.Any<AddTeamMember>()).Returns(new HttpResponseMessage(HttpStatusCode.OK));
+            HttpClient.PostAsJsonAsync("api/ProjectTeamMember", Arg.Any<ProjectTeamMember>()).Returns(new HttpResponseMessage(HttpStatusCode.OK));
         };
 
         Because of = () =>
         {
-            result = ProjectTeamMemberRequest.AddTeamMember(email, projectId);
+            result = ProjectTeamMemberRequest.AddProjectTeamMember(email, projectId);
         };
 
         It sends_a_add_team_member_request = () =>
         {
-            HttpClient.Received().PostAsJsonAsync("api/ProjectTeamMember", Arg.Any<AddTeamMember>());
+            HttpClient.Received().PostAsJsonAsync("api/ProjectTeamMember", Arg.Any<ProjectTeamMember>());
             result.ShouldBeTrue();
         };
     }
+
+    #endregion
+
+    #region UpdateProjectTeamMemberAsync(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
+
+
+
+    #endregion
+
+    #region DeleteProjectTeamMemberAsync(string projectTeamMemberId) Tests
+
+
 
     #endregion
 }

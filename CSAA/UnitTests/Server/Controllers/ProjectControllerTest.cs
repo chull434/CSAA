@@ -3,21 +3,19 @@ using NSubstitute;
 using Server.App_Data;
 using Server.Areas.API;
 using Server.Services;
-using CSAA.DataModels;
+using CSAA.ServiceModels;
 
 namespace UnitTests.Server.Controllers.ProjectControllerTests
 {
     public class Context
     {
-        public static IRepository<Project> Repository;
         public static IProjectService ProjectService;
         public static ProjectController ProjectController;
 
         Establish context = () =>
         {
-            Repository = Substitute.For<IRepository<Project>>();
             ProjectService = Substitute.For<IProjectService>();
-            ProjectController = new ProjectController(Repository, ProjectService);
+            ProjectController = new ProjectController(ProjectService);
         };
     }
 
@@ -29,7 +27,7 @@ namespace UnitTests.Server.Controllers.ProjectControllerTests
 
         Because of = () =>
         {
-            projectController = new ProjectController(Repository, ProjectService);
+            projectController = new ProjectController(ProjectService);
         };
 
         It Constructs_ProjectService = () =>

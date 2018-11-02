@@ -3,7 +3,7 @@ namespace Server.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddingProjectTeamMemebers : DbMigration
+    public partial class AddingProjectTeamMembers : DbMigration
     {
         public override void Up()
         {
@@ -13,6 +13,7 @@ namespace Server.Migrations
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         ProjectId = c.Guid(nullable: false),
+                        Id = c.Guid(nullable: false),
                         Role = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.UserId, t.ProjectId })

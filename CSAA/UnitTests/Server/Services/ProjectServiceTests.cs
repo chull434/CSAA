@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceModel =  CSAA.ServiceModels;
 using CSAA.DataModels;
 using Machine.Specifications;
 using NSubstitute;
+using Server;
 using Server.App_Data;
 using Server.Services;
+using System;
 
 namespace UnitTests.Server.Services.ProjectServiceTests
 {
     public class Context
     {
         public static IRepository<Project> Repository;
+        public static IApplicationUserManager ApplicationUserManager;
         public static ProjectService ProjectService;
 
         Establish context = () =>
         {
             Repository = Substitute.For<IRepository<Project>>();
-            ProjectService = new ProjectService(Repository);
+            ApplicationUserManager = Substitute.For<IApplicationUserManager>();
+            ProjectService = new ProjectService(Repository, ApplicationUserManager);
         };
     }
 
@@ -31,7 +31,7 @@ namespace UnitTests.Server.Services.ProjectServiceTests
 
         Because of = () =>
         {
-            projectService = new ProjectService(Repository); 
+            projectService = new ProjectService(Repository, ApplicationUserManager); 
         };
 
         It Constructs_ProjectService = () =>
@@ -62,12 +62,12 @@ namespace UnitTests.Server.Services.ProjectServiceTests
 
     public class when_I_call_CreateProject : Context
     {
-        static Project project;
+        static ServiceModel.Project project;
         static string userId;
 
         Establish context = () =>
         {
-            project = new Project("My Project");
+            project = new ServiceModel.Project("My Project");
             userId = Guid.NewGuid().ToString();
         };
 
@@ -78,7 +78,7 @@ namespace UnitTests.Server.Services.ProjectServiceTests
 
         It creates_project = () =>
         {
-            Repository.Received().Insert(project);
+            Repository.Received().Insert(Arg.Any<Project>());
             Repository.Received().Save();
         };
     }

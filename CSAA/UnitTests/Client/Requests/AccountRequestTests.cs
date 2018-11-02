@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Xml;
-using Client.Requests;
+﻿using Client.Requests;
 using CSAA.ServiceModels;
 using Machine.Specifications;
 using Newtonsoft.Json;
 using NSubstitute;
+using System.Net;
+using System.Net.Http;
 
 namespace UnitTests.Client.Requests.AccountRequestsTest
 {
@@ -47,7 +45,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
 
     public class when_I_call_Register : Context
     {
-        static bool result;
+        static string result;
         static User user;
 
         Establish context = () =>
@@ -72,7 +70,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
         It sends_a_register_request = () =>
         {
             HttpClient.Received().PostAsJsonAsync("api/Account/Register", user);
-            result.ShouldBeTrue();
+            result.ShouldEqual("");
         };
     }
 
@@ -82,7 +80,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
 
     public class when_I_call_Login : Context
     {
-        static bool result;
+        static string result;
         static string email;
         static string password;
 
@@ -112,7 +110,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
         It sends_a_login_request = () =>
         {
             HttpClient.Received().PostAsync("/token", Arg.Any<FormUrlEncodedContent>());
-            result.ShouldBeTrue();
+            result.ShouldEqual("");
         };
 
         It recieves_a_token_and_sets_it = () =>

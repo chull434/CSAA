@@ -41,6 +41,42 @@ Scenario: Register
 
 	Then I am on the "Login" page
 
+Scenario: Register - Failed
+
+	Given the following user account exists:
+		| Field        | Value                  |
+		| Name         | Test User              |
+		| Email        | testuser@localhost.com |
+		| Password     | password               |
+		| ProductOwner | Yes                    |
+		| ScumMaster   | Yes                    |
+		| Developer    | Yes                    |
+
+	When I enter the following:
+		| Field     | Value                  |
+		| FirstName | Test                   |
+		| Surname   | User                   |
+		| Email     | testuser@localhost.com |
+
+	And I enter the following passwords:
+		| Field           | Value    |
+		| Password        | password |
+		| ConfirmPassword | password |
+
+	And I check the following:
+		| Field        | Value |
+		| ProductOwner | Yes   |
+		| ScumMaster   | Yes   |
+		| Developer    | Yes   |
+
+	And I click "Register"
+
+	Then I am on the "Registration" page
+
+	And the following errors appear:
+		| Field         | Value                                                                             |
+		| InvalidFields | Name Test User is already taken. Email 'testuser@localhost.com' is already taken. |
+
 Scenario: Required Fields Validation - FirstName
 
 	When I enter the following:

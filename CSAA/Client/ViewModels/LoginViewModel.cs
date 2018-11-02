@@ -68,15 +68,20 @@ namespace Client.ViewModels
             PasswordError = "";
 
             var ModelStateValid = EmptyFieldValidation();
-            if (ModelStateValid == true)
-                if (AccountRequest.Login(Email, Password))
-                {
-                    var home = new Home(HttpClient);
-                    var login = App.Current.MainWindow;
-                    App.Current.MainWindow = home;
-                    login.Close();
-                    home.Show();
-                }
+            if (!ModelStateValid) return;
+
+            var errorMessage = AccountRequest.Login(Email, Password);
+            if (errorMessage != "")
+            {
+                PasswordError = errorMessage;
+                return;
+            }
+
+            var home = new Home(HttpClient);
+            var login = App.Current.MainWindow;
+            App.Current.MainWindow = home;
+            login.Close();
+            home.Show();
         }
 
         private bool EmptyFieldValidation()

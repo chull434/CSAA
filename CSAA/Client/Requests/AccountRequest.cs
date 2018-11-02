@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.ModelBinding;
 using CSAA.ServiceModels;
+using Newtonsoft.Json;
 
 namespace Client.Requests
 {
@@ -18,17 +20,17 @@ namespace Client.Requests
 
         #region Public Methods
 
-        public bool Register(User user)
+        public string Register(User user)
         {
             return RegisterAsync(user).GetAwaiter().GetResult();
         }
 
-        public bool Login(string email, string password)
+        public string Login(string email, string password)
         {
             return LoginAsync(email, password).GetAwaiter().GetResult();
         }
 
-        public bool Logout()
+        public string Logout()
         {
             return LogoutAsync().GetAwaiter().GetResult();
         }
@@ -37,19 +39,36 @@ namespace Client.Requests
 
         #region Private Methods
 
-        private async Task<bool> LogoutAsync()
+        private async Task<string> LogoutAsync()
         {
             var response = await client.PostAsync("api/Account/Logout",null).ConfigureAwait(false);
             return await CheckResponse(response).ConfigureAwait(false);
         }
 
-        private async Task<bool> RegisterAsync(User user)
+        private async Task<string> RegisterAsync(User user)
         {
             var response = await client.PostAsJsonAsync("api/Account/Register", user).ConfigureAwait(false);
-            return await CheckResponse(response).ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var httpErrorObject = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var anonymousErrorObject = new { message = "", ModelState = new Dictionary<string, string[]>() };
+                var deserializedErrorObject = JsonConvert.DeserializeAnonymousType(httpErrorObject, anonymousErrorObject);
+                var errors = deserializedErrorObject.ModelState[""];
+                var errorMessage = "";
+                for (var i = 0; i < errors.Length; i++)
+                {
+                    var error = errors[i];
+                    errorMessage += error;
+                    if (i < errors.Length - 1) errorMessage += " ";
+                }
+                return errorMessage;
+            }
+
+            return string.Empty;
         }
 
-        private async Task<bool> LoginAsync(string email, string password)
+        private async Task<string> LoginAsync(string email, string password)
         {
             var loginData = new Dictionary<string, string>
             {
@@ -60,15 +79,25 @@ namespace Client.Requests
 
             var response = await client.PostAsync("/token", new FormUrlEncodedContent(loginData)).ConfigureAwait(false);
 
-            await CheckResponse(response).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsAsync<LoginErrorMessage>().ConfigureAwait(false);
+                return errorMessage.error_description;
+            }
 
-            var message = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
-            client.SetAuthorizationToken(message.access_token);
+            var LoginData = await response.Content.ReadAsAsync<LoginData>().ConfigureAwait(false);
+            client.SetAuthorizationToken(LoginData.access_token);
 
-            return true;
+            return string.Empty;
         }
 
         #endregion
+    }
+
+    public class LoginErrorMessage
+    {
+        public string error { get; set; }
+        public string error_description { get; set; }
     }
 
     public class LoginData
