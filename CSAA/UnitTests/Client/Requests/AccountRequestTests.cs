@@ -45,7 +45,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
 
     public class when_I_call_Register : Context
     {
-        static bool result;
+        static string result;
         static User user;
 
         Establish context = () =>
@@ -70,7 +70,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
         It sends_a_register_request = () =>
         {
             HttpClient.Received().PostAsJsonAsync("api/Account/Register", user);
-            result.ShouldBeTrue();
+            result.ShouldEqual("");
         };
     }
 
@@ -80,7 +80,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
 
     public class when_I_call_Login : Context
     {
-        static bool result;
+        static string result;
         static string email;
         static string password;
 
@@ -110,7 +110,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
         It sends_a_login_request = () =>
         {
             HttpClient.Received().PostAsync("/token", Arg.Any<FormUrlEncodedContent>());
-            result.ShouldBeTrue();
+            result.ShouldEqual("");
         };
 
         It recieves_a_token_and_sets_it = () =>

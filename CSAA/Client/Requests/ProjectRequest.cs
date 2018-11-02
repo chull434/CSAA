@@ -72,13 +72,15 @@ namespace Client.Requests
         private async Task<bool> UpdateProjectAsync(string projectId, Project project)
         {
             var response = await client.PutAsJsonAsync("api/Project/" + projectId, project).ConfigureAwait(false);
-            return await CheckResponse(response).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return true;
         }
 
         private async Task<bool> DeleteProjectAsync(string projectId)
         {
             var response = await client.DeleteAsync("api/Project/" + projectId).ConfigureAwait(false);
-            return await CheckResponse(response).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return true;
         }
 
         #endregion

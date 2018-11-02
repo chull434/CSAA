@@ -51,7 +51,6 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
             _createProject = new DelegateCommand(OnCreateProject);
 
-
             GetProjects();
             GetTasks();
             GetTeamMembers();

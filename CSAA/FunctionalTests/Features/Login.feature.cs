@@ -133,10 +133,10 @@ this.FeatureBackground();
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Required Fields Validation - Email", SourceLine=32)]
-        public virtual void RequiredFieldsValidation_Email()
+        [TechTalk.SpecRun.ScenarioAttribute("Login Failed - Email", SourceLine=32)]
+        public virtual void LoginFailed_Email()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Required Fields Validation - Email", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login Failed - Email", null, ((string[])(null)));
 #line 33
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -147,92 +147,228 @@ this.FeatureBackground();
                         "Field",
                         "Value"});
             table4.AddRow(new string[] {
+                        "Name",
+                        "Test User"});
+            table4.AddRow(new string[] {
                         "Email",
-                        ""});
+                        "testuser@localhost.com"});
+            table4.AddRow(new string[] {
+                        "Password",
+                        "password"});
+            table4.AddRow(new string[] {
+                        "ProductOwner",
+                        "Yes"});
+            table4.AddRow(new string[] {
+                        "ScumMaster",
+                        "Yes"});
+            table4.AddRow(new string[] {
+                        "Developer",
+                        "Yes"});
 #line 35
- testRunner.When("I enter the following:", ((string)(null)), table4, "When ");
+ testRunner.Given("the following user account exists:", ((string)(null)), table4, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table5.AddRow(new string[] {
-                        "Password",
-                        "password"});
-#line 39
- testRunner.And("I enter the following passwords:", ((string)(null)), table5, "And ");
-#line 43
- testRunner.And("I click \"Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 45
- testRunner.Then("I am on the \"Login\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                        "Email",
+                        "testuser@gmail.com"});
+#line 44
+ testRunner.When("I enter the following:", ((string)(null)), table5, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table6.AddRow(new string[] {
-                        "EmailError",
-                        "Please populate email field."});
-#line 47
- testRunner.And("the following errors appear:", ((string)(null)), table6, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [TechTalk.SpecRun.ScenarioAttribute("Required Fields Validation - Password", SourceLine=50)]
-        public virtual void RequiredFieldsValidation_Password()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Required Fields Validation - Password", null, ((string[])(null)));
-#line 51
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 6
-this.FeatureBackground();
+                        "Password",
+                        "password"});
+#line 48
+ testRunner.And("I enter the following passwords:", ((string)(null)), table6, "And ");
+#line 52
+ testRunner.And("I click \"Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+ testRunner.Then("I am on the \"Login\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table7.AddRow(new string[] {
-                        "Email",
-                        "testuser@localhost.com"});
-#line 53
- testRunner.When("I enter the following:", ((string)(null)), table7, "When ");
+                        "PasswordError",
+                        "No user found for that email, please register."});
+#line 56
+ testRunner.And("the following errors appear:", ((string)(null)), table7, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Login Failed - Password", SourceLine=59)]
+        public virtual void LoginFailed_Password()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login Failed - Password", null, ((string[])(null)));
+#line 60
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 6
+this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table8.AddRow(new string[] {
+                        "Name",
+                        "Test User"});
+            table8.AddRow(new string[] {
+                        "Email",
+                        "testuser@localhost.com"});
+            table8.AddRow(new string[] {
                         "Password",
-                        ""});
-#line 57
- testRunner.And("I enter the following passwords:", ((string)(null)), table8, "And ");
-#line 61
- testRunner.And("I click \"Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 63
- testRunner.Then("I am on the \"Login\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                        "Pa$$w0rd"});
+            table8.AddRow(new string[] {
+                        "ProductOwner",
+                        "Yes"});
+            table8.AddRow(new string[] {
+                        "ScumMaster",
+                        "Yes"});
+            table8.AddRow(new string[] {
+                        "Developer",
+                        "Yes"});
+#line 62
+ testRunner.Given("the following user account exists:", ((string)(null)), table8, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table9.AddRow(new string[] {
+                        "Email",
+                        "testuser@localhost.com"});
+#line 71
+ testRunner.When("I enter the following:", ((string)(null)), table9, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table10.AddRow(new string[] {
+                        "Password",
+                        "password"});
+#line 75
+ testRunner.And("I enter the following passwords:", ((string)(null)), table10, "And ");
+#line 79
+ testRunner.And("I click \"Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 81
+ testRunner.Then("I am on the \"Login\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table11.AddRow(new string[] {
                         "PasswordError",
-                        "Please enter you password."});
-#line 65
- testRunner.And("the following errors appear:", ((string)(null)), table9, "And ");
+                        "Incorrect password, please try again."});
+#line 83
+ testRunner.And("the following errors appear:", ((string)(null)), table11, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Register Button", SourceLine=68)]
-        public virtual void RegisterButton()
+        [TechTalk.SpecRun.ScenarioAttribute("Required Fields Validation - Email", SourceLine=86)]
+        public virtual void RequiredFieldsValidation_Email()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register Button", null, ((string[])(null)));
-#line 69
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Required Fields Validation - Email", null, ((string[])(null)));
+#line 87
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 6
 this.FeatureBackground();
-#line 71
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table12.AddRow(new string[] {
+                        "Email",
+                        ""});
+#line 89
+ testRunner.When("I enter the following:", ((string)(null)), table12, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table13.AddRow(new string[] {
+                        "Password",
+                        "password"});
+#line 93
+ testRunner.And("I enter the following passwords:", ((string)(null)), table13, "And ");
+#line 97
+ testRunner.And("I click \"Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 99
+ testRunner.Then("I am on the \"Login\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table14.AddRow(new string[] {
+                        "EmailError",
+                        "Please populate email field."});
+#line 101
+ testRunner.And("the following errors appear:", ((string)(null)), table14, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Required Fields Validation - Password", SourceLine=104)]
+        public virtual void RequiredFieldsValidation_Password()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Required Fields Validation - Password", null, ((string[])(null)));
+#line 105
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table15.AddRow(new string[] {
+                        "Email",
+                        "testuser@localhost.com"});
+#line 107
+ testRunner.When("I enter the following:", ((string)(null)), table15, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table16.AddRow(new string[] {
+                        "Password",
+                        ""});
+#line 111
+ testRunner.And("I enter the following passwords:", ((string)(null)), table16, "And ");
+#line 115
+ testRunner.And("I click \"Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 117
+ testRunner.Then("I am on the \"Login\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table17.AddRow(new string[] {
+                        "PasswordError",
+                        "Please enter you password."});
+#line 119
+ testRunner.And("the following errors appear:", ((string)(null)), table17, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Register Button", SourceLine=122)]
+        public virtual void RegisterButton()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register Button", null, ((string[])(null)));
+#line 123
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line 125
  testRunner.When("I click \"Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 73
+#line 127
  testRunner.Then("I am on the \"Registration\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

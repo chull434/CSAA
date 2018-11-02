@@ -65,19 +65,22 @@ namespace Client.Requests
         private async Task<bool> AddProjectTeamMemberAsync(string email, string projectId)
         {
             var response = await client.PostAsJsonAsync("api/ProjectTeamMember", new ProjectTeamMember{ UserEmail = email, ProjectId = projectId}).ConfigureAwait(false);
-            return await CheckResponse(response).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return true;
         }
 
         private async Task<bool> UpdateProjectTeamMemberAsync(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
         {
             var response = await client.PutAsJsonAsync("api/ProjectTeamMember/" + projectTeamMemberId, projectTeamMember).ConfigureAwait(false);
-            return await CheckResponse(response).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return true;
         }
 
         private async Task<bool> DeleteProjectTeamMemberAsync(string projectTeamMemberId)
         {
             var response = await client.DeleteAsync("api/ProjectTeamMember/"+ projectTeamMemberId).ConfigureAwait(false);
-            return await CheckResponse(response).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return true;
         }
 
         #endregion
