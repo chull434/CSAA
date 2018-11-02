@@ -96,7 +96,15 @@ namespace Client.ViewModels
                 scrum_master = ScumMaster,
                 developer = Developer
             };
-            return AccountRequest.Register(user);
+            var errorMessage = AccountRequest.Register(user);
+
+            if (errorMessage != "")
+            {
+                FieldsError = errorMessage;
+                return false;
+            }
+
+            return true;
         }
 
         private bool PasswordValidation()

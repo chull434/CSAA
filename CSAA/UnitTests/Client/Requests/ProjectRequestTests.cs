@@ -1,10 +1,10 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using System;
 using Client.Requests;
+using CSAA.ServiceModels;
 using Machine.Specifications;
 using NSubstitute;
-using System;
-using CSAA.DataModels;
+using System.Net;
+using System.Net.Http;
 
 namespace UnitTests.Client.Requests.ProjectRequestTests
 {
@@ -41,17 +41,33 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
 
     #endregion
 
-    #region Create Project Tests
+    #region GetProjects() Tests
+
+
+
+    #endregion
+
+    #region GetProjectById(string projectId)
+
+
+
+    #endregion
+
+    #region CreateProject(Project project) Tests
 
     public class when_I_call_CreateProject : Context
     {
-        static bool result;
+        static string result;
         static Project project;
+        static string projectId;
 
         Establish context = () =>
         {
             project = new Project("MyTitle");
-            HttpClient.PostAsJsonAsync("api/Project", project).Returns(new HttpResponseMessage(HttpStatusCode.OK));
+            projectId = "/"+ new Guid() + "/";
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(projectId);
+            HttpClient.PostAsJsonAsync("api/Project", project).Returns(response);
         };
 
         Because of = () =>
@@ -62,9 +78,21 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
         It sends_a_create_project_request = () =>
         {
             HttpClient.Received().PostAsJsonAsync("api/Project", project);
-            result.ShouldBeTrue();
+            result.ShouldEqual(new Guid().ToString());
         };
     }
+
+    #endregion
+
+    #region UpdateProject(string projectId, Project project) Tests
+
+
+
+    #endregion
+
+    #region DeleteProject(string projectId) Tests
+
+
 
     #endregion
 }

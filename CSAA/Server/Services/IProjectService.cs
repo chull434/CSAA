@@ -1,10 +1,14 @@
-﻿using CSAA.DataModels;
+﻿using CSAA.ServiceModels;
+using System.Collections.Generic;
 
 namespace Server.Services
 {
     public interface IProjectService
     {
-        void CreateProject(Project project, string userId);
+        List<Project> GetProjects();
         Project GetProject(string projectId);
+        string CreateProject(Project project, string userId);
+        void UpdateProject(string projectId, Project project);
+        void DeleteProject(string projectId);
     }
 }

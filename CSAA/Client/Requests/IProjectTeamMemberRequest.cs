@@ -1,7 +1,14 @@
-﻿namespace Client.Requests
+﻿using System.Collections.Generic;
+using CSAA.ServiceModels;
+
+namespace Client.Requests
 {
     public interface IProjectTeamMemberRequest
     {
-        bool AddTeamMember(string email, string projectId);
+        List<ProjectTeamMember> GetAllProjectTeamMembers();
+        ProjectTeamMember GetProjectTeamMembers(string projectTeamMemberId);
+        bool AddProjectTeamMember(string email, string projectId);
+        bool UpdateProjectTeamMember(string projectTeamMemberId, ProjectTeamMember projectTeamMember);
+        bool DeleteProjectTeamMember(string projectTeamMemberId);
     }
 }

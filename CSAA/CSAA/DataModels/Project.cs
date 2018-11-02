@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSAA.DataModels
 {
@@ -21,6 +22,14 @@ namespace CSAA.DataModels
             Id = Guid.NewGuid();
             this.Title = Title;
             ProjectTeam = new List<ProjectTeamMember>();
+        }
+
+        public ServiceModels.Project Map()
+        {
+            return new ServiceModels.Project(Title)
+            {
+                ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList()
+            };
         }
     }
 }

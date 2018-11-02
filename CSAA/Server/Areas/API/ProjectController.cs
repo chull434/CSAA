@@ -1,9 +1,12 @@
-﻿using Server.App_Data;
+﻿using CSAA.DataModels;
+using Microsoft.AspNet.Identity;
+using Server.App_Data;
 using Server.Services;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
-using CSAA.DataModels;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using ServiceModel = CSAA.ServiceModels;
 
 namespace Server.Areas.API
 {
@@ -14,6 +17,13 @@ namespace Server.Areas.API
         private IRepository<Project> repository;
         private IProjectService service;
 
+        private IApplicationUserManager _userManager;
+        public IApplicationUserManager UserManager
+        {
+            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            set => _userManager = value;
+        }
+
         public ProjectController()
         {
             context = new ServerDbContext();
@@ -21,38 +31,41 @@ namespace Server.Areas.API
             service = new ProjectService(repository);
         }
 
-        public ProjectController(IRepository<Project> repository, IProjectService service)
+        public ProjectController(IProjectService service)
         {
-            this.repository = repository;
             this.service = service;
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<ServiceModel.Project> Get()
         {
-            return new string[] { "value1", "value2" };
+            service = new ProjectService(repository, UserManager);
+            return service.GetProjects();
         }
 
         [HttpGet]
-        public Project Get(string porjectId)
+        public ServiceModel.Project Get(string id)
         {
-            return service.GetProject(porjectId);
+            service = new ProjectService(repository, UserManager);
+            return service.GetProject(id);
         }
 
         [HttpPost]
-        public void Post(Project project)
+        public string Post(ServiceModel.Project project)
         {
-            service.CreateProject(project, User.Identity.GetUserId());
+            return service.CreateProject(project, User.Identity.GetUserId());
         }
 
         [HttpPut]
-        public void Put(int id, [FromBody]string value)
+        public void Put(string id, ServiceModel.Project project)
         {
+            service.UpdateProject(id, project);
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            service.DeleteProject(id);
         }
     }
 }

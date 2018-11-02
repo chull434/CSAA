@@ -66,3 +66,9 @@ Scenario: Logout Button
 	When I click "Logout" in the menu
 
 	Then I am on the "Login" page
+
+Scenario: Home Button
+
+	When I click "Home" in the menu
+
+	Then I am on the "Home" page

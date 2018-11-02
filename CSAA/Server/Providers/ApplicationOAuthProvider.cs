@@ -34,14 +34,14 @@ namespace Server.Providers
             var user = await userManager.FindByEmailAsync(context.UserName);
             if (user == null)
             {
-                context.SetError("invalid_grant", "The email is incorrect.");
+                context.SetError("invalid_grant", "No user found for that email, please register.");
                 return;
             }
 
             user = await userManager.FindAsync(user.UserName, context.Password);
             if (user == null)
             {
-                context.SetError("invalid_grant", "The password is incorrect.");
+                context.SetError("invalid_grant", "Incorrect password, please try again.");
                 return;
             }
 

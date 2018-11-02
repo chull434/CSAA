@@ -11,14 +11,14 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
     public class Context
     {
         public static IRepository<ProjectTeamMember> Repository;
-        public static IProjectService ProjectService;
+        public static IRepository<Project> ProjectRepository;
         public static ProjectTeamMemberService Service;
 
         Establish context = () =>
         {
             Repository = Substitute.For<IRepository<ProjectTeamMember>>();
-            ProjectService = Substitute.For<IProjectService>();
-            Service = new ProjectTeamMemberService(Repository, ProjectService);
+            ProjectRepository = Substitute.For<IRepository<Project>>();
+            Service = new ProjectTeamMemberService(Repository, ProjectRepository);
         };
     }
 
@@ -30,7 +30,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
         Because of = () =>
         {
-            projectTeamMemberService = new ProjectTeamMemberService(Repository, ProjectService);
+            projectTeamMemberService = new ProjectTeamMemberService(Repository, ProjectRepository);
         };
 
         It constructs_project_team_member_service = () =>
@@ -54,12 +54,12 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             projectId = Guid.NewGuid().ToString();
             userId = Guid.NewGuid().ToString();
             project = new Project("My Title");
-            ProjectService.GetProject(projectId).Returns(project);
+            ProjectRepository.GetByID(projectId).Returns(project);
         };
 
         Because of = () =>
         {
-            Service.AddTeamMember(userId, projectId);
+            Service.AddProjectTeamMember(userId, projectId);
         };
 
         It adds_team_member_to_team = () =>

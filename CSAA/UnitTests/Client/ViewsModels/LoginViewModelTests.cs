@@ -87,6 +87,7 @@ namespace UnitTests.Client.ViewsModels.LoginViewModelTests
         {
             ViewModel.Email = "testuser@localhost.com";
             ViewModel.Password = "password";
+            Request.Login("testuser@localhost.com", "password").Returns("test");
         };
 
         Because of = () =>

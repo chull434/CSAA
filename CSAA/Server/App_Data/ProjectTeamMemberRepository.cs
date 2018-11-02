@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CSAA.DataModels;
 using System.Collections.Generic;
-using CSAA.DataModels;
+using System.Linq;
 
 namespace Server.App_Data
 {
@@ -11,14 +11,14 @@ namespace Server.App_Data
             this.context = context;
         }
 
-        public IEnumerable<ProjectTeamMember> GetAll()
+        public List<ProjectTeamMember> GetAll()
         {
-            throw new NotImplementedException();
+            return context.ProjectTeamMembers.ToList();
         }
 
         public ProjectTeamMember GetByID(string id)
         {
-            throw new NotImplementedException();
+            return context.ProjectTeamMembers.FirstOrDefault(m => m.Id.ToString() == id);
         }
 
         public void Insert(ProjectTeamMember member)
@@ -28,7 +28,8 @@ namespace Server.App_Data
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            var member = GetByID(id);
+            context.ProjectTeamMembers.Remove(member);
         }
     }
 }

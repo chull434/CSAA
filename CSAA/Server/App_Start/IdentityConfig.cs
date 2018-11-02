@@ -46,5 +46,15 @@ namespace Server
         {
             return this.FindByEmail(email);
         }
+
+        public string GetUserNameById(string userId)
+        {
+            return this.FindById(userId).UserName;
+        }
+
+        public string GetUserEmailById(string userId)
+        {
+            return this.FindById(userId).Email;
+        }
     }
 }
