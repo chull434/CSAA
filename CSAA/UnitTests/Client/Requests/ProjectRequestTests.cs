@@ -5,6 +5,7 @@ using Machine.Specifications;
 using NSubstitute;
 using System.Net;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace UnitTests.Client.Requests.ProjectRequestTests
 {
@@ -42,6 +43,22 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
     #endregion
 
     #region GetProjects() Tests
+    public class when_i_get_project : Context
+    {
+        static List<Project> result;
+
+        Establish context = () => { };
+
+        Because of = () =>
+        {
+           result = ProjectRequest.GetProjects();
+        };
+
+        It creates_a_accountRequest = () =>
+        {
+            result.ShouldNotBeNull();
+        };
+    }
 
 
 
