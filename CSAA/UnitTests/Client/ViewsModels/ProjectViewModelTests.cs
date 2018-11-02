@@ -3,6 +3,11 @@ using Client.ViewModels;
 using Machine.Specifications;
 using NSubstitute;
 using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using CSAA.ServiceModels;
+using Newtonsoft.Json;
 
 namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
 {
@@ -11,14 +16,12 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
         public static ProjectViewModel ViewModel;
         public static IHttpClient HttpClient;
         public static IAccountRequest Request;
-        public static string projectId;
 
         Establish context = () =>
         {
             HttpClient = Substitute.For<IHttpClient>();
             Request = Substitute.For<IAccountRequest>();
-            projectId = new Guid() + "/";
-            ViewModel = new ProjectViewModel(Request, projectId);
+            ViewModel = new ProjectViewModel(Request);
         };
     }
 
@@ -44,12 +47,21 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
     public class when_I_Construct_with_http_client : Context
     {
         static ProjectViewModel viewModel;
+        static string projectId;
 
-        Establish context = () => { };
+        Establish context = () =>
+        {
+            projectId = Guid.NewGuid().ToString();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var project = new Project("My Project");
+            response.Content = new StringContent(JsonConvert.SerializeObject(project));
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.GetAsync("api/Project/" + projectId).Returns(response);
+        };
 
         Because of = () =>
         {
-            //viewModel = new ProjectViewModel(HttpClient);
+            viewModel = new ProjectViewModel(HttpClient, projectId);
         };
 
         It creates_a_viewModel = () =>
@@ -66,7 +78,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
 
         Because of = () =>
         {
-            //viewModel = new ProjectViewModel(Request);
+            viewModel = new ProjectViewModel(Request);
         };
 
         It creates_a_viewModel = () =>

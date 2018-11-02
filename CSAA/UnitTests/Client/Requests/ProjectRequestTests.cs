@@ -6,6 +6,7 @@ using NSubstitute;
 using System.Net;
 using System.Net.Http;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace UnitTests.Client.Requests.ProjectRequestTests
 {
@@ -43,11 +44,22 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
     #endregion
 
     #region GetProjects() Tests
-    public class when_i_get_project : Context
+
+    public class when_I_GetProjects : Context
     {
         static List<Project> result;
 
-        Establish context = () => { };
+        Establish context = () =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var projects = new List<Project>
+            {
+                new Project("My Project")
+            };
+            response.Content = new StringContent(JsonConvert.SerializeObject(projects));
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.GetAsync("api/Project").Returns(response);
+        };
 
         Because of = () =>
         {
@@ -59,8 +71,6 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
             result.ShouldNotBeNull();
         };
     }
-
-
 
     #endregion
 

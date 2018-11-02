@@ -51,10 +51,6 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _createProject;
         public ICommand CreateProject => _createProject;
-        /*
-        private readonly DelegateCommand _openProject;
-        public ICommand OpenProject => _openProject;
-        */
 
         public HomeViewModel(IHttpClient httpClient)
         {

@@ -8,6 +8,7 @@ using NSubstitute;
 using Server.App_Data;
 using Server.Services;
 using Microsoft.AspNet.Identity;
+using Server;
 
 namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 {
@@ -15,13 +16,15 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
     {
         public static IRepository<ProjectTeamMember> Repository;
         public static IRepository<Project> ProjectRepository;
+        public static IApplicationUserManager UserManager;
         public static ProjectTeamMemberService Service;
 
         Establish context = () =>
         {
             Repository = Substitute.For<IRepository<ProjectTeamMember>>();
             ProjectRepository = Substitute.For<IRepository<Project>>();
-            Service = new ProjectTeamMemberService(Repository, ProjectRepository);
+            UserManager = Substitute.For<IApplicationUserManager>();
+            Service = new ProjectTeamMemberService(Repository, ProjectRepository, UserManager);
         };
     }
 
@@ -74,7 +77,46 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
     #endregion
 
+    #region GetProjectTeamMember() Tests
+
+    public class when_I_call_GetProjectTeamMember : Context
+    {
+        static string projectTeamMemberId;
+        static ProjectTeamMember dataProjectTeamMember;
+        static ServiceModel.ProjectTeamMember result;
+
+        Establish context = () =>
+        {
+            projectTeamMemberId = Guid.NewGuid().ToString();
+            var userId = Guid.NewGuid().ToString();
+            dataProjectTeamMember = new ProjectTeamMember
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ProjectId = Guid.NewGuid(),
+                Role = Role.Developer,
+                Project = new Project("My Title")
+            };
+            Repository.GetByID(projectTeamMemberId).Returns(dataProjectTeamMember);
+            UserManager.GetUserNameById(userId).Returns("Test User");
+            UserManager.GetUserEmailById(userId).Returns("testuser@localhost.com");
+        };
+
+        Because of = () =>
+        {
+            result = Service.GetProjectTeamMember(projectTeamMemberId);
+        };
+
+        It get_a_project_team_member = () =>
+        {
+            result.ShouldNotBeNull();
+        };
+    }
+
+    #endregion
+
     #region UpdateTeamMember() Tests
+
     public class when_I_call_UpdateTeamMember : Context
     {
         static string projectTeamMemberId;
@@ -102,9 +144,11 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             Repository.Received().Save();
         };
     }
+
     #endregion
 
     #region DeleteTeamMember() Tests
+
     public class when_I_call_DeleteTeamMember : Context
     {
         static string projectTeamMemberId;
@@ -127,42 +171,9 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             Repository.Delete(projectTeamMemberId);
             Repository.Received().Save();
         };
-
     }
+
     #endregion
 
-    #region GetATeamMember() Tests
 
-    public class when_I_call_GetATeamMember : Context
-    {
-        static string projectTeamMemberId;
-        static ProjectTeamMember dataProjectTeamMember;
-        static ServiceModel.ProjectTeamMember result;
-
-        Establish context = () =>
-        {
-            projectTeamMemberId = Guid.NewGuid().ToString();
-            dataProjectTeamMember = new ProjectTeamMember
-            {
-                Id = Guid.NewGuid(),
-                UserId = Guid.NewGuid().ToString(),
-                ProjectId = Guid.NewGuid(),
-                Role = Role.Developer,
-                Project = new Project("My Title")
-            };
-            Repository.GetByID(projectTeamMemberId).Returns(dataProjectTeamMember);
-        };
-
-        Because of = () =>
-        {
-            result = Service.GetProjectTeamMember(projectTeamMemberId);
-        };
-
-        It get_a_project_team_member = () =>
-        {
-            result.ShouldNotBeNull();
-            Repository.Received().Save();
-        };
-    }
-    #endregion
 }

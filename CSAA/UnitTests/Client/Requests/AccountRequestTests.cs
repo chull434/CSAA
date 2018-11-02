@@ -121,8 +121,8 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
 
     #endregion
 
+    #region Logout Tests
 
-    #region log out tests
     public class when_i_log_out : Context
     {
         static string result;
@@ -146,9 +146,5 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
    
     }
 
-
-
     #endregion
-
-
 }

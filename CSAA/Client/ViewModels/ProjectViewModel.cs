@@ -83,7 +83,7 @@ namespace Client.ViewModels
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
         }
 
-        public ProjectViewModel(IAccountRequest accountRequest, string projectId)
+        public ProjectViewModel(IAccountRequest accountRequest)
         {
             AccountRequest = accountRequest;
             _home = new DelegateCommand(OnHome);
