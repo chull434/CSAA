@@ -22,5 +22,10 @@ namespace CSAA.DataModels
             this.Title = Title;
             ProjectTeam = new List<ProjectTeamMember>();
         }
+
+        public ServiceModels.Project Map()
+        {
+            return new ServiceModels.Project(Title);
+        }
     }
 }
