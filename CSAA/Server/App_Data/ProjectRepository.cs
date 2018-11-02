@@ -1,7 +1,6 @@
-﻿using System;
+﻿using CSAA.DataModels;
 using System.Collections.Generic;
 using System.Linq;
-using CSAA.DataModels;
 
 namespace Server.App_Data
 {
@@ -12,9 +11,9 @@ namespace Server.App_Data
             this.context = context;
         }
 
-        public IEnumerable<Project> GetAll()
+        public List<Project> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Projects.ToList();
         }
 
         public Project GetByID(string id)
@@ -29,7 +28,8 @@ namespace Server.App_Data
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            var project = GetByID(id);
+            context.Projects.Remove(project);
         }
     }
 }

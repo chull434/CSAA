@@ -4,7 +4,7 @@ namespace Server.App_Data
 {
     public interface IRepository<T>
     {
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
         T GetByID(string id);
         void Insert(T item);
         void Delete(string id);

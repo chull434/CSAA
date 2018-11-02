@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CSAA.DataModels;
+using ServiceModel = CSAA.ServiceModels;
 using CSAA.Enums;
 using Server.App_Data;
 
@@ -11,19 +12,60 @@ namespace Server.Services
     public class ProjectTeamMemberService : IProjectTeamMemberService
     {
         private IRepository<ProjectTeamMember> repository;
-        private IProjectService projectService;
+        private IRepository<Project> projectRepository;
+        private IApplicationUserManager UserManager;
 
-        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IProjectService projectService)
+        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository)
         {
             this.repository = repository;
-            this.projectService = projectService;
+            this.projectRepository = projectRepository;
         }
 
-        public void AddTeamMember(string userId, string projectId)
+        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IApplicationUserManager UserManager)
         {
-            var project = projectService.GetProject(projectId);
+            this.repository = repository;
+            this.projectRepository = projectRepository;
+            this.UserManager = UserManager;
+        }
+
+        public List<ServiceModel.ProjectTeamMember> GetAllProjectTeamMembers()
+        {
+            var dataProjectTeamMembers = repository.GetAll();
+            var projectTeamMembers = new List<ServiceModel.ProjectTeamMember>();
+            foreach (var dataProjectTeamMember in dataProjectTeamMembers)
+            {
+                var projectTeamMember = dataProjectTeamMember.Map();
+                projectTeamMember.UserName = UserManager.GetUserNameById(dataProjectTeamMember.UserId);
+                projectTeamMember.UserEmail = UserManager.GetUserEmailById(dataProjectTeamMember.UserId);
+                projectTeamMember.ProjectTitle = dataProjectTeamMember.Project.Title;
+                projectTeamMembers.Add(projectTeamMember);
+            }
+            return projectTeamMembers;
+        }
+
+        public ServiceModel.ProjectTeamMember GetProjectTeamMember(string projectTeamMemberId)
+        {
+            return repository.GetByID(projectTeamMemberId).Map();
+        }
+
+        public void AddProjectTeamMember(string userId, string projectId)
+        {
+            var project = projectRepository.GetByID(projectId);
             var teamMember = new ProjectTeamMember(userId, project, Role.TeamMember);
             project.ProjectTeam.Add(teamMember);
+            repository.Save();
+        }
+
+        public void UpdateProjectTeamMember(string projectTeamMemberId, ServiceModel.ProjectTeamMember projectTeamMember)
+        {
+            var dataProjectTeamMember = repository.GetByID(projectTeamMemberId);
+            dataProjectTeamMember.Role = projectTeamMember.Role;
+            repository.Save();
+        }
+
+        public void DeleteProjectTeamMember(string projectTeamMemberId)
+        {
+            repository.Delete(projectTeamMemberId);
             repository.Save();
         }
     }
