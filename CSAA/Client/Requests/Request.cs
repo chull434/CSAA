@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Client.Requests
 {
+    /// <summary>
+    /// Request class for HTTP client requests. Includes HTTP response method to check response of HTTP Client. 
+    /// </summary>
     public class Request
     {
         protected IHttpClient client;

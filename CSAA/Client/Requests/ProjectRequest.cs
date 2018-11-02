@@ -4,7 +4,10 @@ using CSAA.ServiceModels;
 using System.Net.Http;
 
 namespace Client.Requests
-{
+{   
+    /// <summary>
+    /// Constructs the project request via the client. Includes method to update, create and delete project. 
+    /// </summary>
     public class ProjectRequest : Request, IProjectRequest
     {
         #region Constructor

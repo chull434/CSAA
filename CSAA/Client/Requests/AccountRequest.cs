@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace Client.Requests
 {
+    /// <summary>
+    /// This sets up the Account Request class.
+    /// </summary>
     public class AccountRequest : Request, IAccountRequest
     {
         #region Constructor
@@ -94,12 +97,18 @@ namespace Client.Requests
         #endregion
     }
 
+    /// <summary>
+    /// Accessor and mutator methods for the Login Error message.
+    /// </summary>
     public class LoginErrorMessage
     {
         public string error { get; set; }
         public string error_description { get; set; }
     }
 
+    /// <summary>
+    /// Accessor and mutator methods for the Login data.
+    /// </summary>
     public class LoginData
     {
         public string access_token { get; set; }
