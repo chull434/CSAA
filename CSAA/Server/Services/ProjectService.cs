@@ -25,25 +25,25 @@ namespace Server.Services
 
         public List<ServiceModel.Project> GetProjects()
         {
-            var dataProjects = repository.GetAll();
-            var projects = new List<ServiceModel.Project>();
-            foreach (var dataProject in dataProjects)
+            var projects = repository.GetAll().Select(p => p.Map()).ToList();
+            foreach (var project in projects)
             {
-                var project = dataProject.Map();
-                projects.Add(project);
+                foreach (var projectTeamMember in project.ProjectTeam)
+                {
+                    projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
+                    projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
+                }
             }
             return projects;
         }
 
         public ServiceModel.Project GetProject(string projectId)
         {
-            var dataProject = repository.GetByID(projectId);
-            var project = dataProject.Map();
-            foreach (var projectTeamMember in dataProject.ProjectTeam)
+            var project = repository.GetByID(projectId).Map();
+            foreach (var projectTeamMember in project.ProjectTeam)
             {
-                var member = projectTeamMember.Map();
-                member.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
-                project.ProjectTeam.Add(member);
+                projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
+                projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
             }
             return project;
         }

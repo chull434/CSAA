@@ -39,6 +39,7 @@ namespace Server.Areas.API
         [HttpGet]
         public List<ServiceModel.Project> Get()
         {
+            service = new ProjectService(repository, UserManager);
             return service.GetProjects();
         }
 

@@ -36,7 +36,11 @@ namespace CSAA.DataModels
         {
             return new ServiceModels.ProjectTeamMember
             {
-                Role = Role
+                Id = Id.ToString(),
+                UserId = UserId,
+                ProjectId = ProjectId.ToString(),
+                Role = Role,
+                ProjectTitle = Project.Title,
             };
         }
     }

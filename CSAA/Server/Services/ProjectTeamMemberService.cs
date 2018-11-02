@@ -30,22 +30,21 @@ namespace Server.Services
 
         public List<ServiceModel.ProjectTeamMember> GetAllProjectTeamMembers()
         {
-            var dataProjectTeamMembers = repository.GetAll();
-            var projectTeamMembers = new List<ServiceModel.ProjectTeamMember>();
-            foreach (var dataProjectTeamMember in dataProjectTeamMembers)
+            var projectTeamMembers = repository.GetAll().Select(m => m.Map()).ToList();
+            foreach (var projectTeamMember in projectTeamMembers)
             {
-                var projectTeamMember = dataProjectTeamMember.Map();
-                projectTeamMember.UserName = UserManager.GetUserNameById(dataProjectTeamMember.UserId);
-                projectTeamMember.UserEmail = UserManager.GetUserEmailById(dataProjectTeamMember.UserId);
-                projectTeamMember.ProjectTitle = dataProjectTeamMember.Project.Title;
-                projectTeamMembers.Add(projectTeamMember);
+                projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
+                projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
             }
             return projectTeamMembers;
         }
 
         public ServiceModel.ProjectTeamMember GetProjectTeamMember(string projectTeamMemberId)
         {
-            return repository.GetByID(projectTeamMemberId).Map();
+            var projectTeamMember = repository.GetByID(projectTeamMemberId).Map();
+            projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
+            projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
+            return projectTeamMember;
         }
 
         public void AddProjectTeamMember(string userId, string projectId)

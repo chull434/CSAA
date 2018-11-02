@@ -47,6 +47,7 @@ namespace Server.Areas.API
         [HttpGet]
         public ServiceModel.ProjectTeamMember Get(string id)
         {
+            service = new ProjectTeamMemberService(repository, projectRepository, UserManager);
             return service.GetProjectTeamMember(id);
         }
 

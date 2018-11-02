@@ -47,7 +47,18 @@ namespace Client.ViewModels
         public List<ProjectTeamMember> MemberList
         {
             get => _memberList;
-            set => SetProperty(ref _memberList, value);
+            set
+            {
+                value.ForEach(m => m.OnRoleChange = OnProjectTeamMemberRoleChange);
+                SetProperty(ref _memberList, value);
+            }
+        }
+
+        public void OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
+        {
+            projectTeamMember.OnRoleChange = null;
+            ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+            projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
         }
 
         public ProjectViewModel(IHttpClient httpClient, string projectId)

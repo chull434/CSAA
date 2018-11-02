@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.Views"
+        xmlns:enums="clr-namespace:CSAA.Enums;assembly=CSAA"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="None"
@@ -31,6 +33,12 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <ObjectDataProvider x:Key="Role" MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Role"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid>
         <StackPanel>
@@ -91,13 +99,13 @@
                     <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid >
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
-                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="{Binding Role}" />
+                                    <ComboBox Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" ItemsSource="{Binding Source={StaticResource Role}}" SelectedItem="{Binding Role}" IsSynchronizedWithCurrentItem="True"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

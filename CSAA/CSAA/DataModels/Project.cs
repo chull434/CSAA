@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSAA.DataModels
 {
@@ -25,7 +26,10 @@ namespace CSAA.DataModels
 
         public ServiceModels.Project Map()
         {
-            return new ServiceModels.Project(Title);
+            return new ServiceModels.Project(Title)
+            {
+                ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList()
+            };
         }
     }
 }
