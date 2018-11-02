@@ -1,9 +1,7 @@
-﻿using System;
+﻿using CSAA.ServiceModels;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
-using CSAA.ServiceModels;
 
 namespace Client.Requests
 {
@@ -21,18 +19,64 @@ namespace Client.Requests
 
         #region Public Methods
 
-        public bool AddTeamMember(string email, string projectId)
+        public List<ProjectTeamMember> GetAllProjectTeamMembers()
         {
-            return AddTeamMemberAsync(email, projectId).GetAwaiter().GetResult();
+            return GetAllProjectTeamMembersAsync().GetAwaiter().GetResult();
+        }
+
+        public ProjectTeamMember GetProjectTeamMembers(string projectTeamMemberId)
+        {
+            return GetProjectTeamMemberAsync(projectTeamMemberId).GetAwaiter().GetResult();
+        }
+
+        public bool AddProjectTeamMember(string email, string projectId)
+        {
+            return AddProjectTeamMemberAsync(email, projectId).GetAwaiter().GetResult();
+        }
+
+        public bool UpdateProjectTeamMember(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
+        {
+            return UpdateProjectTeamMemberAsync(projectTeamMemberId, projectTeamMember).GetAwaiter().GetResult();
+        }
+
+        public bool DeleteProjectTeamMember(string projectTeamMemberId)
+        {
+            return DeleteProjectTeamMemberAsync(projectTeamMemberId).GetAwaiter().GetResult();
         }
 
         #endregion
 
         #region Private Methods
 
-        private async Task<bool> AddTeamMemberAsync(string email, string projectId)
+        private async Task<List<ProjectTeamMember>> GetAllProjectTeamMembersAsync()
         {
-            var response = await client.PostAsJsonAsync("api/ProjectTeamMember", new AddTeamMember{email = email, projectId = projectId}).ConfigureAwait(false);
+            var response = await client.GetAsync("api/ProjectTeamMember").ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<List<ProjectTeamMember>>().ConfigureAwait(false);
+        }
+
+        private async Task<ProjectTeamMember> GetProjectTeamMemberAsync(string projectTeamMemberId)
+        {
+            var response = await client.GetAsync("api/ProjectTeamMember/" + projectTeamMemberId).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<ProjectTeamMember>().ConfigureAwait(false);
+        }
+
+        private async Task<bool> AddProjectTeamMemberAsync(string email, string projectId)
+        {
+            var response = await client.PostAsJsonAsync("api/ProjectTeamMember", new ProjectTeamMember{ UserEmail = email, ProjectId = projectId}).ConfigureAwait(false);
+            return await CheckResponse(response).ConfigureAwait(false);
+        }
+
+        private async Task<bool> UpdateProjectTeamMemberAsync(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
+        {
+            var response = await client.PutAsJsonAsync("api/ProjectTeamMember/" + projectTeamMemberId, projectTeamMember).ConfigureAwait(false);
+            return await CheckResponse(response).ConfigureAwait(false);
+        }
+
+        private async Task<bool> DeleteProjectTeamMemberAsync(string projectTeamMemberId)
+        {
+            var response = await client.DeleteAsync("api/ProjectTeamMember/"+ projectTeamMemberId).ConfigureAwait(false);
             return await CheckResponse(response).ConfigureAwait(false);
         }
 

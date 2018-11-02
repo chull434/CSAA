@@ -23,14 +23,14 @@ namespace Client.Requests
             return ((System.Net.Http.HttpClient)this).PostAsJsonAsync(requestUri, value);
         }
 
+        public Task<HttpResponseMessage> PutAsJsonAsync<T>(string requestUri, T value)
+        {
+            return ((System.Net.Http.HttpClient)this).PutAsJsonAsync(requestUri, value);
+        }
+
         public Task<HttpResponseMessage> PostAsync(string token, FormUrlEncodedContent formUrlEncodedContent)
         {
             return ((System.Net.Http.HttpClient) this).PostAsync(token, formUrlEncodedContent);
-        }
-
-        public Task<HttpResponseMessage> GetAsync(string requestUri)
-        {
-            return ((System.Net.Http.HttpClient)this).GetAsync(requestUri);
         }
 
         public void SetAuthorizationToken(string token)

@@ -1,11 +1,9 @@
 ﻿using System.Windows.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Client.Requests;
 using Client.Views;
+using CSAA.ServiceModels;
+using Project = CSAA.ServiceModels.Project;
 
 namespace Client.ViewModels
 {
@@ -16,8 +14,10 @@ namespace Client.ViewModels
         readonly IProjectTeamMemberRequest ProjectTeamMemberRequest;
         readonly IHttpClient HttpClient;
 
-        private readonly DelegateCommand _homeBtn;
-        public ICommand HomeBtn => _homeBtn;
+        string projectId;
+
+        private readonly DelegateCommand _home;
+        public ICommand Home => _home;
 
         private readonly DelegateCommand _logout;
         public ICommand Logout => _logout;
@@ -28,12 +28,6 @@ namespace Client.ViewModels
         private readonly DelegateCommand _addTeamMember;
         public ICommand AddTeamMember => _addTeamMember;
 
-        string _projectID;
-        public string ProjectID
-        {
-            get => _projectID;
-            set => SetProperty(ref _projectID, value);
-        }
 
         string _projectTitle;
         public string ProjectTitle
@@ -49,25 +43,33 @@ namespace Client.ViewModels
             set => SetProperty(ref _email, value);
         }
 
-        List<TeamMembers> _memberList = new List<TeamMembers>();
-        public List<TeamMembers> MemberList
+        List<ProjectTeamMember> _memberList = new List<ProjectTeamMember>();
+        public List<ProjectTeamMember> MemberList
         {
             get => _memberList;
             set => SetProperty(ref _memberList, value);
         }
+
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
             ProjectRequest = new ProjectRequest(httpClient);
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(HttpClient);
-            this.ProjectID = projectId;
-            //var project = ProjectRequest.GetProjectById(projectId);//todo
-            
-            _homeBtn = new DelegateCommand(OnHomeBtn);
+            GetProject(projectId);
+
+            _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
+        }
+
+        private void GetProject(string projectId)
+        {
+            this.projectId = projectId;
+            var project = ProjectRequest.GetProjectById(projectId);
+            ProjectTitle = project.Title;
+            MemberList = project.ProjectTeam;
         }
 
         private void OnLogout(object commandParameter)
@@ -80,7 +82,7 @@ namespace Client.ViewModels
             login.Show();
         }
 
-        private void OnHomeBtn(object commandParameter)
+        private void OnHome(object commandParameter)
         {
             var home = new Home(HttpClient);
             var project = App.Current.MainWindow;
@@ -91,12 +93,14 @@ namespace Client.ViewModels
 
         private void OnSaveProject(object commandParameter)
         {
-            //ProjectRequest.//todo
+            ProjectRequest.UpdateProject(projectId, new Project(ProjectTitle));
+            GetProject(projectId);
         }
 
         private void OnAddTeamMember(object commandParameter)
         {
-            ProjectTeamMemberRequest.AddTeamMember(Email, ProjectID);
+            ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId);
+            GetProject(projectId);
         }
     }
 }
