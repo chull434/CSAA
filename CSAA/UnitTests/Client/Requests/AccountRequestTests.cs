@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Xml;
-using Client.Requests;
+﻿using Client.Requests;
 using CSAA.ServiceModels;
 using Machine.Specifications;
 using Newtonsoft.Json;
 using NSubstitute;
+using System.Net;
+using System.Net.Http;
 
 namespace UnitTests.Client.Requests.AccountRequestsTest
 {
