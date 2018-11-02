@@ -120,4 +120,35 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
     }
 
     #endregion
+
+
+    #region log out tests
+    public class when_i_log_out : Context
+    {
+        static string result;
+
+        Establish context = () =>
+        {           
+            var response = new HttpResponseMessage(HttpStatusCode.OK);           
+            HttpClient.PostAsync("api/Account/Logout", null).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = AccountRequest.Logout();
+        };
+
+        It sends_a_logout_request = () =>
+        {
+            HttpClient.Received().PostAsync("api/Account/Logout", null);
+            result.ShouldEqual("");
+        };
+   
+    }
+
+
+
+    #endregion
+
+
 }
