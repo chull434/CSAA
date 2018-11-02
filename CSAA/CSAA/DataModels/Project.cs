@@ -28,7 +28,8 @@ namespace CSAA.DataModels
         {
             return new ServiceModels.Project(Title)
             {
-                ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList()
+                ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList(),
+                Id = Id.ToString()
             };
         }
     }

@@ -2,6 +2,7 @@
 using Client.Views;
 using CSAA.ServiceModels;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Project = CSAA.ServiceModels.Project;
 using Task = CSAA.ServiceModels.Task;
@@ -20,6 +21,15 @@ namespace Client.ViewModels
         {
             get => _projectList;
             set => SetProperty(ref _projectList, value);
+        }
+
+        Project _selectedProject = new Project();
+        public Project SelectedProject
+        {
+            set
+            {
+                OnOpenProject(value.Id);
+            }
         }
 
         List<Task> _assignedTasks = new List<Task>();
@@ -41,6 +51,10 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _createProject;
         public ICommand CreateProject => _createProject;
+        /*
+        private readonly DelegateCommand _openProject;
+        public ICommand OpenProject => _openProject;
+        */
 
         public HomeViewModel(IHttpClient httpClient)
         {
@@ -50,7 +64,6 @@ namespace Client.ViewModels
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(httpClient);
             _logout = new DelegateCommand(OnLogout);
             _createProject = new DelegateCommand(OnCreateProject);
-
             GetProjects();
             GetTasks();
             GetTeamMembers();
@@ -69,6 +82,15 @@ namespace Client.ViewModels
         private void OnCreateProject(object commandParameter)
         {
             var projectId = ProjectRequest.CreateProject(new Project("New Project"));
+            var projectWindow = new Views.Project(HttpClient, projectId);
+            var currentWindow = App.Current.MainWindow;
+            App.Current.MainWindow = projectWindow;
+            currentWindow.Close();
+            projectWindow.Show();
+        }
+
+        private void OnOpenProject(string projectId)
+        {
             var projectWindow = new Views.Project(HttpClient, projectId);
             var currentWindow = App.Current.MainWindow;
             App.Current.MainWindow = projectWindow;

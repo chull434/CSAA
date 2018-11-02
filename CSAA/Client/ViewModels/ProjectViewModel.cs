@@ -7,7 +7,7 @@ using Project = CSAA.ServiceModels.Project;
 
 namespace Client.ViewModels
 {
-    class ProjectViewModel : ViewModel
+    public class ProjectViewModel : ViewModel
     {
         readonly IAccountRequest AccountRequest;
         readonly IProjectRequest ProjectRequest;
@@ -61,6 +61,14 @@ namespace Client.ViewModels
             projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
         }
 
+        public ProjectViewModel()
+        {
+            _home = new DelegateCommand(OnHome);
+            _logout = new DelegateCommand(OnLogout);
+            _saveProject = new DelegateCommand(OnSaveProject);
+            _addTeamMember = new DelegateCommand(OnAddTeamMember);
+        }
+
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
             HttpClient = httpClient;
@@ -69,6 +77,15 @@ namespace Client.ViewModels
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(HttpClient);
             GetProject(projectId);
 
+            _home = new DelegateCommand(OnHome);
+            _logout = new DelegateCommand(OnLogout);
+            _saveProject = new DelegateCommand(OnSaveProject);
+            _addTeamMember = new DelegateCommand(OnAddTeamMember);
+        }
+
+        public ProjectViewModel(IAccountRequest accountRequest, string projectId)
+        {
+            AccountRequest = accountRequest;
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);

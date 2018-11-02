@@ -64,7 +64,7 @@
                     <TextBlock x:Name="txtblk_ProjectListHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Project List
                     </TextBlock>
-                    <ListBox Name="lb_ProjectList" ItemsSource="{Binding ProjectList}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
+                    <ListBox Name="lb_ProjectList" ItemsSource="{Binding ProjectList}" SelectedItem="{Binding SelectedProject}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,2">
