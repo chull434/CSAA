@@ -3,7 +3,8 @@
 namespace CSAA.ServiceModels
 {
     public class Project
-    { 
+    {
+        public string Id { get; set; }
         public string Title { get; set; }
         public int Completion { get; set; }
         public List<ProjectTeamMember> ProjectTeam { get; set; }
@@ -17,6 +18,7 @@ namespace CSAA.ServiceModels
         {
             this.Title = Title;
             ProjectTeam = new List<ProjectTeamMember>();
+            Id = Id;
         }
     }
 }
