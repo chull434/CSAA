@@ -17,5 +17,23 @@ namespace CSAA.DataModels
         public string Description { get; set; }
 
         public virtual Project Project { get; set; }
+
+        public UserStory(string title, string description)
+        {
+            Id = Guid.NewGuid();
+            Title = title;
+            Description = description;
+        }
+
+        public ServiceModels.UserStory Map()
+        {
+            return new ServiceModels.UserStory()
+            {              
+                Id = Id.ToString(),
+                ProjectId = ProjectId.ToString(),
+                Title = Title,
+                Description = Description
+            };
+        }
     }
 }

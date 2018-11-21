@@ -1,0 +1,16 @@
+﻿using CSAA.ServiceModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Server.Services
+{
+    public interface IUserStoryService
+    {
+        List<UserStory> GetAllUserStories();
+        UserStory GetUserStory(string UserStoryId);
+        string CreateUserStory(UserStory userStory);
+    }
+}
