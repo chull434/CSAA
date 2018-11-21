@@ -11,5 +11,6 @@ namespace Server.App_Data
 
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTeamMember> ProjectTeamMembers { get; set; }
+        public virtual DbSet<UserStory> UserStories { get; set; }
     }
 }

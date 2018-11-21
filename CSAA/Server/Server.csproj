@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.Designer.cs">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811211304562_AddingUserStories.cs" />
+    <Compile Include="Migrations\201811211304562_AddingUserStories.Designer.cs">
+      <DependentUpon>201811211304562_AddingUserStories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -382,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811012335475_AddingProjectTeamMembers.resx">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811211304562_AddingUserStories.resx">
+      <DependentUpon>201811211304562_AddingUserStories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
