@@ -61,11 +61,13 @@ namespace Server.Areas.API
         [HttpPut]
         public void Put(string id, ServiceModel.UserStory userStory)
         {
+            service.UpdateUserStory(id, userStory);
         }
 
         [HttpDelete]
         public void Delete(string id)
         {
+            service.DeleteUserStory(id);
         }
     }
 }

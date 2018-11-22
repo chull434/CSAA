@@ -12,5 +12,7 @@ namespace Server.Services
         List<UserStory> GetAllUserStories();
         UserStory GetUserStory(string UserStoryId);
         string CreateUserStory(UserStory userStory);
+        void UpdateUserStory(string userStoryId, UserStory userStory);
+        void DeleteUserStory(string userStoryId);
     }
 }

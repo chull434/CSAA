@@ -23,6 +23,9 @@ namespace Client.ViewModels
         private readonly DelegateCommand _back;
         public ICommand Back => _back;
 
+        private readonly DelegateCommand _saveUserStory;
+        public ICommand SaveUserStory => _saveUserStory;
+
         string projectId;
         string userStoryId;
 
@@ -51,13 +54,14 @@ namespace Client.ViewModels
         {
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
-            UserStoryRequest = new UserStoryRequest(httpClient);          
+            UserStoryRequest = new UserStoryRequest(httpClient);
+            this.projectId = projectId;
+            GetUserStory(userStoryId);
 
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _back = new DelegateCommand(OnBack);
-            this.projectId = projectId;
-            GetUserStory(userStoryId);
+            _saveUserStory = new DelegateCommand(OnSaveUserStory);
         }
 
         private void OnLogout(object commandParameter)
@@ -94,6 +98,12 @@ namespace Client.ViewModels
             var userStory = UserStoryRequest.GetUserStoryById(userStoryId);
             UserStoryTitle = userStory.Title;
             UserStoryDescription = userStory.Description;
+        }
+
+        private void OnSaveUserStory(object commandParameter)
+        {
+            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId));
+            GetUserStory(userStoryId);
         }
     }
 }

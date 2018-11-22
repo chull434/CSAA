@@ -47,5 +47,19 @@ namespace Server.Services
             repository.Save();
             return dataUserStory.Id.ToString();
         }
+
+        public void UpdateUserStory(string userStoryId, ServiceModel.UserStory userStory)
+        {
+            var dataUserStory = repository.GetByID(userStoryId);
+            dataUserStory.Title = userStory.Title;
+            dataUserStory.Description = userStory.Description;
+            repository.Save();
+        }
+
+        public void DeleteUserStory(string userStoryId)
+        {
+            repository.Delete(userStoryId);
+            repository.Save();
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace Client.Requests
         List<UserStory> GetUserStories();
         UserStory GetUserStoryById(string userStoryId);
         string CreateUserStory(UserStory userStory);
+        bool UpdateUserStory(string userStoryId, UserStory userStory);
+        bool DeleteUserStory(string userStoryId);
     }
 }
