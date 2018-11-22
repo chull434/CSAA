@@ -31,6 +31,7 @@ namespace Server.Areas.API
         {
             context = new ServerDbContext();
             repository = new UserStoryRepository(context);
+            projectRepository = new ProjectRepository(context);
             service = new UserStoryService(repository, projectRepository);
         }
 

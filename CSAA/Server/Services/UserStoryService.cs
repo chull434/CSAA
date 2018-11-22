@@ -42,6 +42,7 @@ namespace Server.Services
         {
             var dataUserStory = new UserStory(userStory.Title, userStory.Description);
             dataUserStory.Project = projectRepository.GetByID(userStory.ProjectId);
+            dataUserStory.ProjectId = dataUserStory.Project.Id;
             repository.Insert(dataUserStory);
             repository.Save();
             return dataUserStory.Id.ToString();

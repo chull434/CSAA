@@ -52,6 +52,7 @@ namespace Client.ViewModels
             ProjectRequest = new ProjectRequest(httpClient);
             _logout = new DelegateCommand(OnLogout);
             _newUserStory = new DelegateCommand(OnNewUserStory);
+            GetProject(projectId);
             GetUserStories();
         }
 
@@ -83,7 +84,7 @@ namespace Client.ViewModels
 
         private void OnNewUserStory(object commandParameter)
         {
-            var userStoryId = UserStoryRequest.CreateUserStory(new UserStory("New User Story", "Description goes here..."));
+            var userStoryId = UserStoryRequest.CreateUserStory(new UserStory("New User Story", "Description goes here...", projectId));
             var userStoryWindow = new Views.UserStory(HttpClient, userStoryId);
             var currentWindow = App.Current.MainWindow;
             App.Current.MainWindow = userStoryWindow;

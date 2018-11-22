@@ -18,6 +18,11 @@ namespace CSAA.DataModels
 
         public virtual Project Project { get; set; }
 
+        public UserStory()
+        {
+            Id = Guid.NewGuid();
+        }
+
         public UserStory(string title, string description)
         {
             Id = Guid.NewGuid();
@@ -27,10 +32,9 @@ namespace CSAA.DataModels
 
         public ServiceModels.UserStory Map()
         {
-            return new ServiceModels.UserStory(Title, Description)
+            return new ServiceModels.UserStory(Title, Description, ProjectId.ToString())
             {              
                 Id = Id.ToString(),
-                ProjectId = ProjectId.ToString(),
             };
         }
     }

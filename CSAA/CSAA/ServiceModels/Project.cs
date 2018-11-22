@@ -18,7 +18,6 @@ namespace CSAA.ServiceModels
         {
             this.Title = Title;
             ProjectTeam = new List<ProjectTeamMember>();
-            Id = Id;
         }
     }
 }

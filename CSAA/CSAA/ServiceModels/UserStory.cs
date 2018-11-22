@@ -12,11 +12,11 @@
 
         }
 
-        public UserStory(string title, string description)
+        public UserStory(string title, string description, string projectId)
         {
-            Id = Id;
             Title = title;
             Description = description;
+            ProjectId = projectId;
         }
     }
 }
