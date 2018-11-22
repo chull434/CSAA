@@ -49,6 +49,9 @@ namespace Client.ViewModels
         private readonly DelegateCommand _logout;
         public ICommand Logout => _logout;
 
+        private readonly DelegateCommand _editProfile;
+        public ICommand EditProfile => _editProfile;
+
         private readonly DelegateCommand _createProject;
         public ICommand CreateProject => _createProject;
 
@@ -59,6 +62,7 @@ namespace Client.ViewModels
             ProjectRequest = new ProjectRequest(httpClient);
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(httpClient);
             _logout = new DelegateCommand(OnLogout);
+            _editProfile = new DelegateCommand(OnEditProfile);
             _createProject = new DelegateCommand(OnCreateProject);
             GetProjects();
             GetTasks();
@@ -73,6 +77,15 @@ namespace Client.ViewModels
             App.Current.MainWindow = login;
             home.Close();
             login.Show();
+        }
+
+        private void OnEditProfile(object commandParameter)
+        {
+            var profile = new Profile(HttpClient);
+            var home = App.Current.MainWindow;
+            App.Current.MainWindow = profile;
+            home.Close();
+            profile.Show();
         }
 
         private void OnCreateProject(object commandParameter)

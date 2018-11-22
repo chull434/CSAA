@@ -21,11 +21,18 @@ namespace Client.ViewModels
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
             _save = new DelegateCommand(OnSave);
+            GetUser();
         }
 
         private void OnSave(object commandParameter)
         {
-            //AccountRequest.Save();
+            AccountRequest.Save();
+        }
+
+        private void GetUser()
+        {
+            var user = AccountRequest.GetUser();
+            
         }
     }
 }

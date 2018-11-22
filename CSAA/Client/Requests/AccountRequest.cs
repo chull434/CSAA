@@ -43,6 +43,11 @@ namespace Client.Requests
             return SaveAsync(id, user).GetAwaiter().GetResult();
         }
 
+        public User GetUser()
+        {
+            return GetUserAsync().GetAwaiter().GetResult();
+        }
+
         #endregion
 
         #region Private Methods
@@ -103,6 +108,19 @@ namespace Client.Requests
         {
             var response = await client.PutAsJsonAsync("api/Account/EditProfile/" + id, user).ConfigureAwait(false);
             return await CheckResponse(response).ConfigureAwait(false);
+        }
+
+        private async Task<User> GetUserAsync()
+        {
+            var response = await client.GetAsync("api/Account/GetUser").ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadAsAsync<User>().ConfigureAwait(false);
+                return user;
+            }
+
+            return null;
         }
 
         #endregion

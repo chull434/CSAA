@@ -394,6 +394,11 @@ namespace Server.Controllers
             return Ok();
         }
 
+        public User GetUser()
+        {
+            return UserManager.FindUserById(User.Identity.GetUserId()).Map();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
