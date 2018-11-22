@@ -41,6 +41,12 @@ namespace Client.ViewModels
         private readonly DelegateCommand _logout;
         public ICommand Logout => _logout;
 
+        private readonly DelegateCommand _home;
+        public ICommand Home => _home;
+
+        private readonly DelegateCommand _back;
+        public ICommand Back => _back;
+
         private readonly DelegateCommand _newUserStory;
         public ICommand NewUserStory => _newUserStory;
 
@@ -52,6 +58,8 @@ namespace Client.ViewModels
             ProjectRequest = new ProjectRequest(httpClient);
             _logout = new DelegateCommand(OnLogout);
             _newUserStory = new DelegateCommand(OnNewUserStory);
+            _home = new DelegateCommand(OnHome);
+            _back = new DelegateCommand(OnBack);
             GetProject(projectId);
             GetUserStories();
         }
@@ -64,6 +72,24 @@ namespace Client.ViewModels
             App.Current.MainWindow = login;
             home.Close();
             login.Show();
+        }
+
+        private void OnHome(object commandParameter)
+        {
+            var home = new Home(HttpClient);
+            var projecyBacklog = App.Current.MainWindow;
+            App.Current.MainWindow = home;
+            projecyBacklog.Close();
+            home.Show();
+        }
+
+        private void OnBack(object commandParameter)
+        {
+            var back = new Views.Project(HttpClient, projectId);
+            var projecyBacklog = App.Current.MainWindow;
+            App.Current.MainWindow = back;
+            projecyBacklog.Close();
+            back.Show();
         }
 
         private void GetProject(string projectId)

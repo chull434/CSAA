@@ -55,7 +55,14 @@
                 <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
             </Menu>
             <StackPanel x:Name="IntroText" Margin="25,25,25,0">
-                <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding ProjectTitle, StringFormat={}{0} Backlog}" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Top" Height="AUTO" Width="auto"/>
+                <Grid Background="#173654">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding ProjectTitle, StringFormat={}{0} Backlog}" HorizontalAlignment="Stretch" Grid.Column="1" Background="#173654" Foreground="White" Margin="-150, 0, 0, 0" Padding="0,20,20,20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Center" Height="AUTO" Width="auto"/>
+                    <Button x:Name="btn_Back" Background="#9bafb9" Content="Back" Margin="22.5,0,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Back}"/>
+                </Grid>
             </StackPanel>
             <StackPanel Margin="25,25,25,0" Grid.Column="0">
                 <Grid Margin="0,2" Background="#173654">
