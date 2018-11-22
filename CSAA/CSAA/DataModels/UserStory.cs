@@ -27,12 +27,10 @@ namespace CSAA.DataModels
 
         public ServiceModels.UserStory Map()
         {
-            return new ServiceModels.UserStory()
+            return new ServiceModels.UserStory(Title, Description)
             {              
                 Id = Id.ToString(),
                 ProjectId = ProjectId.ToString(),
-                Title = Title,
-                Description = Description
             };
         }
     }

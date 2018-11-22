@@ -134,9 +134,11 @@
                         <StackPanel Grid.Column="1">
                             <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
                         </StackPanel>
+                        
                     </Grid>
                 </StackPanel>
             </Grid>
+            <Button x:Name="btn_ViewBacklog" Content="View Backlog" FontSize="18" HorizontalAlignment="Left" Margin="29,25,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding ViewBacklog}"/>
         </StackPanel>
     </Grid>
 </Window>

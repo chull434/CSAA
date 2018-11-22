@@ -209,6 +209,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
+    <Compile Include="Areas\API\UserStoryController.cs" />
+    <Compile Include="App_Data\UserStoryRepository.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.Designer.cs">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>
@@ -275,9 +277,11 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\IProjectTeamMemberService.cs" />
+    <Compile Include="Services\IUserStoryService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ProjectTeamMemberService.cs" />
     <Compile Include="App_Data\Repository.cs" />
+    <Compile Include="Services\UserStoryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

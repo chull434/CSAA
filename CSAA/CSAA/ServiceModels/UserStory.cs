@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CSAA.ServiceModels
+﻿namespace CSAA.ServiceModels
 {
     public class UserStory
     {
@@ -14,6 +10,13 @@ namespace CSAA.ServiceModels
         public UserStory()
         {
 
+        }
+
+        public UserStory(string title, string description)
+        {
+            Id = Id;
+            Title = title;
+            Description = description;
         }
     }
 }

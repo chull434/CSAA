@@ -28,6 +28,8 @@ namespace Client.ViewModels
         private readonly DelegateCommand _addTeamMember;
         public ICommand AddTeamMember => _addTeamMember;
 
+        private readonly DelegateCommand _viewBacklog;
+        public ICommand ViewBacklog => _viewBacklog;
 
         string _projectTitle;
         public string ProjectTitle
@@ -81,6 +83,7 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
+            _viewBacklog = new DelegateCommand(OnViewBacklog);
         }
 
         public ProjectViewModel(IAccountRequest accountRequest)
@@ -90,6 +93,7 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
+            _viewBacklog = new DelegateCommand(OnViewBacklog);
         }
 
         private void GetProject(string projectId)
@@ -129,6 +133,15 @@ namespace Client.ViewModels
         {
             ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId);
             GetProject(projectId);
+        }
+
+        private void OnViewBacklog(object commandParameter)
+        {
+            var backlog = new ProductBacklog(HttpClient, projectId);
+            var project = App.Current.MainWindow;
+            App.Current.MainWindow = backlog;
+            project.Close();
+            backlog.Show();
         }
     }
 }
