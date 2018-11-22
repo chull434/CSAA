@@ -38,6 +38,11 @@ namespace Client.Requests
             return LogoutAsync().GetAwaiter().GetResult();
         }
 
+        public string Save(string id, User user)
+        {
+            return SaveAsync(id, user).GetAwaiter().GetResult();
+        }
+
         #endregion
 
         #region Private Methods
@@ -92,6 +97,12 @@ namespace Client.Requests
             client.SetAuthorizationToken(LoginData.access_token);
 
             return string.Empty;
+        }
+
+        private async Task<string> SaveAsync(string id, User user)
+        {
+            var response = await client.PutAsJsonAsync("api/Account/EditProfile/" + id, user).ConfigureAwait(false);
+            return await CheckResponse(response).ConfigureAwait(false);
         }
 
         #endregion

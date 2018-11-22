@@ -381,6 +381,19 @@ namespace Server.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        public IHttpActionResult EditProfile(string id, User user) 
+        {
+            var dataUser = UserManager.FindUserById(id);
+            dataUser.UserName = user.Name;
+            dataUser.Email = user.Email;
+            dataUser.developer = user.developer;
+            dataUser.product_owner = user.product_owner;
+            dataUser.scrum_master = user.scrum_master;
+            UserManager.UpdateUser(dataUser);
+            return Ok();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
