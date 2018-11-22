@@ -20,6 +20,12 @@ namespace Client.ViewModels
         private readonly DelegateCommand _logout;
         public ICommand Logout => _logout;
 
+        private readonly DelegateCommand _back;
+        public ICommand Back => _back;
+
+        string projectId;
+        string userStoryId;
+
         string _userStoryTitle;
         public string UserStoryTitle
         {
@@ -41,14 +47,17 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
         }
 
-        public UserStoryViewModel(IHttpClient httpClient)
+        public UserStoryViewModel(IHttpClient httpClient, string userStoryId, string projectId)
         {
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
             UserStoryRequest = new UserStoryRequest(httpClient);          
 
             _home = new DelegateCommand(OnHome);
-            _logout = new DelegateCommand(OnLogout);          
+            _logout = new DelegateCommand(OnLogout);
+            _back = new DelegateCommand(OnBack);
+            this.projectId = projectId;
+            GetUserStory(userStoryId);
         }
 
         private void OnLogout(object commandParameter)
@@ -68,6 +77,23 @@ namespace Client.ViewModels
             App.Current.MainWindow = home;
             userStory.Close();
             home.Show();
+        }
+
+        private void OnBack(object commandParameter)
+        {
+            var back = new ProductBacklog(HttpClient, projectId);
+            var userStory = App.Current.MainWindow;
+            App.Current.MainWindow = back;
+            userStory.Close();
+            back.Show();
+        }
+
+        private void GetUserStory(string userStoryId)
+        {
+            this.userStoryId = userStoryId;
+            var userStory = UserStoryRequest.GetUserStoryById(userStoryId);
+            UserStoryTitle = userStory.Title;
+            UserStoryDescription = userStory.Description;
         }
     }
 }

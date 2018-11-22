@@ -10,9 +10,9 @@ namespace Client.Views
     /// </summary>
     public partial class UserStory : Window
     {
-        public UserStory(IHttpClient client, string userStoryid)
+        public UserStory(IHttpClient client, string userStoryid, string projectId)
         {
-            DataContext = new UserStoryViewModel(client);
+            DataContext = new UserStoryViewModel(client, userStoryid, projectId);
             InitializeComponent();
         }
     }

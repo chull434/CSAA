@@ -75,7 +75,7 @@ namespace Client.ViewModels
 
         private void OnOpenUserStory(string userStoryId)
         {
-            var userStoryWindow = new Views.UserStory(HttpClient, userStoryId);
+            var userStoryWindow = new Views.UserStory(HttpClient, userStoryId, projectId);
             var currentWindow = App.Current.MainWindow;
             App.Current.MainWindow = userStoryWindow;
             currentWindow.Close();
@@ -85,7 +85,7 @@ namespace Client.ViewModels
         private void OnNewUserStory(object commandParameter)
         {
             var userStoryId = UserStoryRequest.CreateUserStory(new UserStory("New User Story", "Description goes here...", projectId));
-            var userStoryWindow = new Views.UserStory(HttpClient, userStoryId);
+            var userStoryWindow = new Views.UserStory(HttpClient, userStoryId, projectId);
             var currentWindow = App.Current.MainWindow;
             App.Current.MainWindow = userStoryWindow;
             currentWindow.Close();
