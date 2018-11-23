@@ -18,7 +18,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="1" >
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="0" >
                             <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
@@ -60,9 +60,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding UserStoryTitle}" HorizontalAlignment="Stretch" Grid.Column="1" Background="#173654" Foreground="White" Margin="-150, 0, 0, 0" Padding="0,20,20,20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Center" Height="AUTO" Width="auto"/>
                     <Button x:Name="btn_Back" Background="#9bafb9" Content="Back" Margin="22.5,0,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Back}"/>
+                    <Button x:Name="btn_Delete" Background="#691717" Content="Delete" Margin="0,0,22.5,0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding DeleteUserStory}"/>
                 </Grid>
             </StackPanel>
             <StackPanel Margin="25,25,25,0" Grid.Column="0">

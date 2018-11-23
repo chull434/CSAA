@@ -23,6 +23,9 @@ namespace Client.ViewModels
         private readonly DelegateCommand _back;
         public ICommand Back => _back;
 
+        private readonly DelegateCommand _deleteUserStory;
+        public ICommand DeleteUserStory => _deleteUserStory;
+
         private readonly DelegateCommand _saveUserStory;
         public ICommand SaveUserStory => _saveUserStory;
 
@@ -62,6 +65,7 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
             _back = new DelegateCommand(OnBack);
             _saveUserStory = new DelegateCommand(OnSaveUserStory);
+            _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
         }
 
         private void OnLogout(object commandParameter)
@@ -104,6 +108,12 @@ namespace Client.ViewModels
         {
             UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId));
             GetUserStory(userStoryId);
+        }
+
+        private void OnDeleteUserStory(object commandParameter)
+        {
+            UserStoryRequest.DeleteUserStory(userStoryId);
+            _back.Execute(_back);
         }
     }
 }
