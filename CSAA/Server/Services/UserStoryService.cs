@@ -53,6 +53,7 @@ namespace Server.Services
             var dataUserStory = repository.GetByID(userStoryId);
             dataUserStory.Title = userStory.Title;
             dataUserStory.Description = userStory.Description;
+            dataUserStory.StoryPoints = userStory.StoryPoints;
             repository.Save();
         }
 

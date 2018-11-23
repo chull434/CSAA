@@ -45,7 +45,14 @@ namespace Client.ViewModels
             get => _userStoryDescription;
             set => SetProperty(ref _userStoryDescription, value);
         }
-   
+
+        int _userStoryPoints;
+        public int UserStoryPoints
+        {
+            get => _userStoryPoints;
+            set => SetProperty(ref _userStoryPoints, value);
+        }
+
 
         public UserStoryViewModel()
         {
@@ -102,11 +109,12 @@ namespace Client.ViewModels
             var userStory = UserStoryRequest.GetUserStoryById(userStoryId);
             UserStoryTitle = userStory.Title;
             UserStoryDescription = userStory.Description;
+            UserStoryPoints = userStory.StoryPoints;
         }
 
         private void OnSaveUserStory(object commandParameter)
         {
-            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId));
+            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) {StoryPoints = UserStoryPoints});
             GetUserStory(userStoryId);
         }
 

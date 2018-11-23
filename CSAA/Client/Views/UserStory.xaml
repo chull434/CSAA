@@ -79,11 +79,13 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel>
                         <Label x:Name="lbl_UserStoryTitle" Content="Title:" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                        <Label x:Name="lbl_UserStoryStoryPoints" Content="Story Points:" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
                         <Label x:Name="lbl_UserStoryDescription" Content="Description:" HorizontalAlignment="Left" Margin="25,10,25,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBox x:Name="txt_Title" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryTitle}"/>
-                        <TextBox x:Name="txt_Description" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryDescription}"/>
+                        <TextBox x:Name="txt_StoryPoints" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryPoints}"/>
+                        <TextBox x:Name="txt_Description" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryDescription}" AcceptsReturn="True"/>
                         <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Right" Margin="5,10,25,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveUserStory}"/>
                     </StackPanel>
                 </Grid>

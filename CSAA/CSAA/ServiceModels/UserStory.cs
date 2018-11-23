@@ -6,6 +6,7 @@
         public string ProjectId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public int StoryPoints { get; set; }
 
         public UserStory()
         {
@@ -17,6 +18,7 @@
             Title = title;
             Description = description;
             ProjectId = projectId;
+            StoryPoints = 0;
         }
     }
 }

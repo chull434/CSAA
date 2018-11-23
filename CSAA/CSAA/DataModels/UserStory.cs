@@ -16,6 +16,8 @@ namespace CSAA.DataModels
 
         public string Description { get; set; }
 
+        public int StoryPoints { get; set; }
+
         public virtual Project Project { get; set; }
 
         public UserStory()
@@ -28,13 +30,16 @@ namespace CSAA.DataModels
             Id = Guid.NewGuid();
             Title = title;
             Description = description;
+            StoryPoints = 0;
+
         }
 
         public ServiceModels.UserStory Map()
         {
             return new ServiceModels.UserStory(Title, Description, ProjectId.ToString())
-            {              
+            {
                 Id = Id.ToString(),
+                StoryPoints = StoryPoints,
             };
         }
     }
