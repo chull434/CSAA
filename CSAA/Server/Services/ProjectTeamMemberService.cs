@@ -58,7 +58,7 @@ namespace Server.Services
         public void UpdateProjectTeamMember(string projectTeamMemberId, ServiceModel.ProjectTeamMember projectTeamMember)
         {
             var dataProjectTeamMember = repository.GetByID(projectTeamMemberId);
-            dataProjectTeamMember.Role = projectTeamMember.Role;
+            //dataProjectTeamMember.Role = projectTeamMember.Role;
             repository.Save();
         }
 
