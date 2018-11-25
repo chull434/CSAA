@@ -64,7 +64,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="25,25,12.5,0" Grid.Column="0">
+                <StackPanel Margin="25,25,12.5,0" Grid.Column="0" IsEnabled="{Binding IsProjectManager}">
                     <TextBlock x:Name="txtblk_ProjectDetails" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Project Details
                     </TextBlock>
@@ -84,7 +84,7 @@
                     </Grid>
 
                 </StackPanel>
-                <StackPanel x:Name="TeamMembers" Grid.Column="1" Margin="25,25,25,0">
+                <StackPanel x:Name="TeamMembers" Grid.Column="1" Margin="25,25,25,0" IsEnabled="{Binding IsProjectManager}">
                     <TextBlock x:Name="txtblk_TeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                     My Team Members
                     </TextBlock>
@@ -117,7 +117,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="25,25,12.5,0" Grid.Column="0">
+                <StackPanel Margin="25,25,12.5,0" Grid.Column="0" IsEnabled="{Binding IsProjectManager}">
                     <TextBlock x:Name="txtblk_AddTeamMember" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Add Team Member
                     </TextBlock>

@@ -23,7 +23,7 @@ namespace Server.Services
             this.UserManager = UserManager;
         }
 
-        public List<ServiceModel.Project> GetProjects()
+        public List<ServiceModel.Project> GetProjects(IApplicationUserManager UserManager)
         {
             var projects = repository.GetAll().Select(p => p.Map()).ToList();
             foreach (var project in projects)
@@ -37,7 +37,7 @@ namespace Server.Services
             return projects;
         }
 
-        public ServiceModel.Project GetProject(string projectId)
+        public ServiceModel.Project GetProject(string projectId, string userId, IApplicationUserManager UserManager)
         {
             var project = repository.GetByID(projectId).Map();
             foreach (var projectTeamMember in project.ProjectTeam)
@@ -45,6 +45,7 @@ namespace Server.Services
                 projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
                 projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
             }
+            project.IsProjectManager = project.ProjectTeam.FirstOrDefault(m => m.UserId == userId).Roles.Contains(Role.ProjectManager);
             return project;
         }
 
