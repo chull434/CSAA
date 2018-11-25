@@ -94,7 +94,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
                 Id = Guid.NewGuid(),
                 UserId = userId,
                 ProjectId = Guid.NewGuid(),
-                Role = Role.Developer,
+                //Role = Role.Developer,
                 Project = new Project("My Title")
             };
             Repository.GetByID(projectTeamMemberId).Returns(dataProjectTeamMember);
@@ -129,7 +129,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             projectTeamMember = new ServiceModel.ProjectTeamMember();
             projectTeamMember.Role = Role.Developer;
             dataProjectTeamMember = new ProjectTeamMember();
-            dataProjectTeamMember.Role = Role.TeamMember;
+            //dataProjectTeamMember.Role = Role.TeamMember;
             Repository.GetByID(projectTeamMemberId).Returns(dataProjectTeamMember);
         };
 
@@ -140,7 +140,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
         It updates_project_team_member = () =>
         {
-            dataProjectTeamMember.Role.ShouldEqual(Role.Developer);
+            //dataProjectTeamMember.Role.ShouldEqual(Role.Developer);
             Repository.Received().Save();
         };
     }

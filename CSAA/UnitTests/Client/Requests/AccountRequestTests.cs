@@ -93,7 +93,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
                 developer = true
             };
             var anonymousErrorObject = new { message = "", ModelState = new Dictionary<string, string[]>() };
-            anonymousErrorObject.ModelState.Add("", new string[] {"test"});
+            anonymousErrorObject.ModelState.Add("", new string[] {"test", "test"});
             var json = JsonConvert.SerializeObject(anonymousErrorObject);
             var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
             response.Content = new StringContent(json);
@@ -109,7 +109,7 @@ namespace UnitTests.Client.Requests.AccountRequestsTest
         It sends_a_register_request_and_returns_error = () =>
         {
             HttpClient.Received().PostAsJsonAsync("api/Account/Register", user);
-            result.ShouldEqual("test");
+            result.ShouldEqual("test test");
         };
     }
 

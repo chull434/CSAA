@@ -5,10 +5,11 @@ namespace Server.Services
 {
     public interface IProjectService
     {
-        List<Project> GetProjects(IApplicationUserManager UserManager);
-        Project GetProject(string projectId, string userId, IApplicationUserManager UserManager);
+        List<Project> GetProjects();
+        Project GetProject(string projectId, string userId);
         string CreateProject(Project project, string userId);
         void UpdateProject(string projectId, Project project);
         void DeleteProject(string projectId);
+        void SetApplicationUserManager(IApplicationUserManager applicationUserManager);
     }
 }
