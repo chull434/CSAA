@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using CSAA.ServiceModels;
@@ -17,6 +20,7 @@ using Microsoft.Owin.Security.OAuth;
 using Server.Models;
 using Server.Providers;
 using Server.Results;
+
 
 namespace Server.Controllers
 {
@@ -339,11 +343,33 @@ namespace Server.Controllers
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
+            
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+
+            
+                
+            SmtpClient client = new SmtpClient();
+            client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+            
+            if (!Directory.Exists("C:\\Temp"))
+            {
+                Directory.CreateDirectory("C:\\Temp");
+            }
+
+            client.PickupDirectoryLocation = @"C:\Temp";
+
+            MailMessage registrationConfirmationMessage = new MailMessage();
+            MailAddress fromAddress = new MailAddress("admin@kingukongu.com");
+            registrationConfirmationMessage.From = fromAddress;
+            registrationConfirmationMessage.To.Add(model.Email);
+            registrationConfirmationMessage.Body = "Thank you for registering with KinguKongu.";
+            registrationConfirmationMessage.IsBodyHtml = true;
+            registrationConfirmationMessage.Subject = "KinguKongu Registration Confirmation";
+            client.Send(registrationConfirmationMessage);
+            
 
             return Ok();
         }
