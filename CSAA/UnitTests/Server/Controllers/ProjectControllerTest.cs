@@ -130,4 +130,54 @@ namespace UnitTests.Server.Controllers.ProjectControllerTests
     }
 
     #endregion
+
+    #region Put Tests
+
+    public class when_I_call_Put : Context
+    {
+        static string id; 
+        static Project project;
+
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            project = new Project("My Project");
+        };
+
+        Because of = () =>
+        {
+            ProjectController.Put(id, project);
+        };
+
+        It updates_project = () =>
+        {
+            ProjectService.Received().UpdateProject(id, project);
+        };
+    }
+
+    #endregion
+
+    #region Delete Tests
+
+    public class when_I_call_Delete : Context
+    {
+        static string id;
+
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+        };
+
+        Because of = () =>
+        {
+            ProjectController.Delete(id);
+        };
+
+        It updates_project = () =>
+        {
+            ProjectService.Received().DeleteProject(id);
+        };
+    }
+
+    #endregion
 }

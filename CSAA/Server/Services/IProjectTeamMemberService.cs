@@ -10,5 +10,6 @@ namespace Server.Services
         void AddProjectTeamMember(string userId, string projectId);
         void UpdateProjectTeamMember(string projectTeamMemberId, ProjectTeamMember projectTeamMember);
         void DeleteProjectTeamMember(string projectTeamMemberId);
+        void SetApplicationUserManager(IApplicationUserManager applicationUserManager);
     }
 }

@@ -40,14 +40,14 @@ namespace Server.Areas.API
         [HttpGet]
         public List<ServiceModel.ProjectTeamMember> Get()
         {
-            service = new ProjectTeamMemberService(repository, projectRepository, UserManager);
+            service.SetApplicationUserManager(UserManager);
             return service.GetAllProjectTeamMembers();
         }
 
         [HttpGet]
         public ServiceModel.ProjectTeamMember Get(string id)
         {
-            service = new ProjectTeamMemberService(repository, projectRepository, UserManager);
+            service.SetApplicationUserManager(UserManager);
             return service.GetProjectTeamMember(id);
         }
 

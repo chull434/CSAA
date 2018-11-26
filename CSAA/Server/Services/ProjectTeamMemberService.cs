@@ -67,5 +67,10 @@ namespace Server.Services
             repository.Delete(projectTeamMemberId);
             repository.Save();
         }
+
+        public void SetApplicationUserManager(IApplicationUserManager applicationUserManager)
+        {
+            UserManager = applicationUserManager;
+        }
     }
 }
