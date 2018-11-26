@@ -95,7 +95,7 @@ namespace Client.ViewModels
         private void GetProject(string projectId)
         {
             this.projectId = projectId;
-            var project = ProjectRequest.GetProjectById(projectId);
+            var project = ProjectRequest.GetProject(projectId);
             ProjectTitle = project.Title;
         }
 
