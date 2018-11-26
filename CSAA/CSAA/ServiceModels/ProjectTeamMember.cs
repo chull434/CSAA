@@ -14,7 +14,7 @@ namespace CSAA.ServiceModels
         public string UserEmail { get; set; }
         public string ProjectTitle { get; set; }
 
-        public List<Role> Roles { get; set; }
+        public string Roles { get; set; }
 
         public delegate void OnChange(ProjectTeamMember projectTeamMember);
 
@@ -29,11 +29,6 @@ namespace CSAA.ServiceModels
                 _role = value;
                 OnRoleChange?.Invoke(this);
             }
-        }
-
-        public ProjectTeamMember()
-        {
-            Roles = new List<Role>();
         }
     }
 }

@@ -118,6 +118,7 @@ namespace Client.ViewModels
         {
             projectTeamMember.OnRoleChange = null;
             ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+            GetProject(projectId);
             projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
         }
     }

@@ -32,7 +32,7 @@ namespace CSAA.DataModels
             RoleAssignments = new List<RoleAssignment>();
             this.UserId = UserId;
             this.Project = Project;
-            RoleAssignments.Add(new RoleAssignment(Role, this));
+            AddRole(Role);
         }
 
         public ServiceModels.ProjectTeamMember Map()
@@ -44,11 +44,22 @@ namespace CSAA.DataModels
                 ProjectId = ProjectId.ToString(),
                 ProjectTitle = Project.Title,
             };
-            foreach (var roleAssignment in RoleAssignments)
+            foreach (var roleAssignment in RoleAssignments.OrderBy(r => r.Role))
             {
-                projectTeamMember.Roles.Add(roleAssignment.Role);
+                projectTeamMember.Roles += roleAssignment.Role + ", ";
             }
             return projectTeamMember;
+        }
+
+        public void AddRole(Role role)
+        {
+            if(HasRole(role)) return;
+            RoleAssignments.Add(new RoleAssignment(role, this));
+        }
+
+        public bool HasRole(Role role)
+        {
+            return RoleAssignments.Any(r => r.Role == role);
         }
     }
 }
