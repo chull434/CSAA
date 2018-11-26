@@ -54,7 +54,8 @@ namespace Server.Areas.API
         [HttpPost]
         public void Post(ServiceModel.ProjectTeamMember projectTeamMember)
         {
-            service.AddProjectTeamMember(UserManager.FindUserByEmail(projectTeamMember.UserEmail).Id, projectTeamMember.ProjectId);
+            var user = UserManager.FindUserByEmail(projectTeamMember.UserEmail);
+            if(user != null) service.AddProjectTeamMember(user.Id, projectTeamMember.ProjectId);
         }
 
         [HttpPut]

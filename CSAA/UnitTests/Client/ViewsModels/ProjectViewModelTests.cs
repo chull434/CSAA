@@ -159,6 +159,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
 
         Establish context = () =>
         {
+            ProjectRequest.GetProject(Id).Returns(new Project("test"));
             projectTeamMember = new ProjectTeamMember();
         };
 
@@ -170,6 +171,11 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
         It updates_role = () =>
         {
             ProjectTeamMemberRequest.Received().UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+        };
+
+        It gets_project = () =>
+        {
+            ProjectRequest.Received().GetProject(Id);
         };
     }
 

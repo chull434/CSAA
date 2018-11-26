@@ -54,6 +54,8 @@ namespace Client.ViewModels
             }
         }
 
+        public bool IsProjectManager { get; set; }
+
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
             HttpClient = httpClient;
@@ -86,6 +88,7 @@ namespace Client.ViewModels
             var project = ProjectRequest.GetProject(projectId);
             ProjectTitle = project.Title;
             MemberList = project.ProjectTeam;
+            IsProjectManager = project.IsProjectManager;
         }
 
         private void OnLogout(object commandParameter)
@@ -115,6 +118,7 @@ namespace Client.ViewModels
         {
             projectTeamMember.OnRoleChange = null;
             ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+            GetProject(projectId);
             projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
         }
     }
