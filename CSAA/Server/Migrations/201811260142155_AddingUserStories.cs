@@ -15,6 +15,7 @@ namespace Server.Migrations
                         ProjectId = c.Guid(nullable: false),
                         Title = c.String(),
                         Description = c.String(),
+                        StoryPoints = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)

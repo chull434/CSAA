@@ -219,13 +219,9 @@
     <Compile Include="Migrations\201811251944351_AddingRoleAssignment.Designer.cs">
       <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811211304562_AddingUserStories.cs" />
-    <Compile Include="Migrations\201811211304562_AddingUserStories.Designer.cs">
-      <DependentUpon>201811211304562_AddingUserStories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811231701403_AddingUserStoryPoints.cs" />
-    <Compile Include="Migrations\201811231701403_AddingUserStoryPoints.Designer.cs">
-      <DependentUpon>201811231701403_AddingUserStoryPoints.cs</DependentUpon>
+    <Compile Include="Migrations\201811260142155_AddingUserStories.cs" />
+    <Compile Include="Migrations\201811260142155_AddingUserStories.Designer.cs">
+      <DependentUpon>201811260142155_AddingUserStories.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
@@ -402,11 +398,8 @@
     <EmbeddedResource Include="Migrations\201811251944351_AddingRoleAssignment.resx">
       <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811211304562_AddingUserStories.resx">
-      <DependentUpon>201811211304562_AddingUserStories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811231701403_AddingUserStoryPoints.resx">
-      <DependentUpon>201811231701403_AddingUserStoryPoints.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811260142155_AddingUserStories.resx">
+      <DependentUpon>201811260142155_AddingUserStories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
