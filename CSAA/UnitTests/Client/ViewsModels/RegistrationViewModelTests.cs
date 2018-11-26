@@ -22,23 +22,6 @@ namespace UnitTests.Client.ViewsModels.RegistrationViewModelTests
 
     #region Constructor Tests
 
-    public class when_I_Construct : Context
-    {
-        static RegistrationViewModel viewModel;
-
-        Establish context = () => { };
-
-        Because of = () =>
-        {
-            viewModel = new RegistrationViewModel();
-        };
-
-        It creates_a_viewModel = () =>
-        {
-            viewModel.ShouldNotBeNull();
-        };
-    }
-
     public class when_I_Construct_with_http_client : Context
     {
         static RegistrationViewModel viewModel;

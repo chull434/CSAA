@@ -26,12 +26,12 @@ namespace Client.Requests
         /// </summary>
         /// <returns></returns>
         /// List of Project Team Members.
-        public List<ProjectTeamMember> GetAllProjectTeamMembers()
+        public List<ProjectTeamMember> GetProjectTeamMembers()
         {
-            return GetAllProjectTeamMembersAsync().GetAwaiter().GetResult();
+            return GetProjectTeamMembersAsync().GetAwaiter().GetResult();
         }
 
-        public ProjectTeamMember GetProjectTeamMembers(string projectTeamMemberId)
+        public ProjectTeamMember GetProjectTeamMember(string projectTeamMemberId)
         {
             return GetProjectTeamMemberAsync(projectTeamMemberId).GetAwaiter().GetResult();
         }
@@ -55,7 +55,7 @@ namespace Client.Requests
 
         #region Private Methods
 
-        private async Task<List<ProjectTeamMember>> GetAllProjectTeamMembersAsync()
+        private async Task<List<ProjectTeamMember>> GetProjectTeamMembersAsync()
         {
             var response = await client.GetAsync("api/ProjectTeamMember").ConfigureAwait(false);
             var result = await CheckResponse(response).ConfigureAwait(false);

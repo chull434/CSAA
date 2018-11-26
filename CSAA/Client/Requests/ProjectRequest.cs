@@ -26,9 +26,9 @@ namespace Client.Requests
             return GetProjectsAsync().GetAwaiter().GetResult();
         }
 
-        public Project GetProjectById(string projectId)
+        public Project GetProject(string projectId)
         {
-            return GetProjectByIdAsync(projectId).GetAwaiter().GetResult();
+            return GetProjectAsync(projectId).GetAwaiter().GetResult();
         }
 
         public string CreateProject(Project project)
@@ -57,7 +57,7 @@ namespace Client.Requests
             return await response.Content.ReadAsAsync<List<Project>>().ConfigureAwait(false);
         }
 
-        private async Task<Project> GetProjectByIdAsync(string projectId)
+        private async Task<Project> GetProjectAsync(string projectId)
         {
             var response = await client.GetAsync("api/Project/" + projectId).ConfigureAwait(false);
             var result = await CheckResponse(response).ConfigureAwait(false);

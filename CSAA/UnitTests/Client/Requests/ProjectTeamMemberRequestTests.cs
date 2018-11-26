@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Client.Requests;
 using CSAA.ServiceModels;
 using Machine.Specifications;
+using Newtonsoft.Json;
 using NSubstitute;
 
 
@@ -42,19 +44,69 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
 
     #endregion
 
-    #region GetAllProjectTeamMembersAsync() Tests
+    #region GetProjectTeamMembers() Tests
 
+    public class when_I_call_GetProjectTeamMembers : Context
+    {
+        static List<ProjectTeamMember> result;
 
+        Establish context = () =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var projectTeamMembers = new List<ProjectTeamMember>
+            {
+                new ProjectTeamMember()
+            };
+            response.Content = new StringContent(JsonConvert.SerializeObject(projectTeamMembers));
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.GetAsync("api/ProjectTeamMember").Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectTeamMemberRequest.GetProjectTeamMembers();
+        };
+
+        It return_projectTeamMembers = () =>
+        {
+            HttpClient.Received().GetAsync("api/ProjectTeamMember");
+            result.Count.ShouldEqual(1);
+        };
+    }
 
     #endregion
 
-    #region GetProjectTeamMemberAsync(string projectTeamMemberId) Tests
+    #region GetProjectTeamMember(string projectTeamMemberId) Tests
 
+    public class when_I_call_GetProjectTeamMember : Context
+    {
+        static ProjectTeamMember result;
+        static string id;
 
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(new ProjectTeamMember()));
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.GetAsync("api/ProjectTeamMember/" + id).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectTeamMemberRequest.GetProjectTeamMember(id);
+        };
+
+        It returns_projectTeamMember = () =>
+        {
+            HttpClient.Received().GetAsync("api/ProjectTeamMember/" + id);
+            result.ShouldNotBeNull();
+        };
+    }
 
     #endregion
 
-    #region AddProjectTeamMemberAsync(string email, string projectId)
+    #region AddProjectTeamMember(string email, string projectId)
 
     public class when_I_call_AddTeamMember : Context
     {
@@ -83,15 +135,61 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
 
     #endregion
 
-    #region UpdateProjectTeamMemberAsync(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
+    #region UpdateProjectTeamMember(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
 
+    public class when_I_call_UpdateProjectTeamMember : Context
+    {
+        static bool result;
+        static string id;
+        static ProjectTeamMember projectTeamMember;
 
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            projectTeamMember = new ProjectTeamMember();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            HttpClient.PutAsJsonAsync("api/ProjectTeamMember/" + id, projectTeamMember).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectTeamMemberRequest.UpdateProjectTeamMember(id, projectTeamMember);
+        };
+
+        It send_a_update_request = () =>
+        {
+            HttpClient.Received().PutAsJsonAsync("api/ProjectTeamMember/" + id, projectTeamMember);
+            result.ShouldBeTrue();
+        };
+    }
 
     #endregion
 
-    #region DeleteProjectTeamMemberAsync(string projectTeamMemberId) Tests
+    #region DeleteProjectTeamMember(string projectTeamMemberId) Tests
 
+    public class when_I_call_DeleteProjectTeamMember : Context
+    {
+        static bool result;
+        static string id;
 
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            HttpClient.DeleteAsync("api/ProjectTeamMember/" + id).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectTeamMemberRequest.DeleteProjectTeamMember(id);
+        };
+
+        It sends_a_delete_request = () =>
+        {
+            HttpClient.Received().DeleteAsync("api/ProjectTeamMember/" + id);
+            result.ShouldBeTrue();
+        };
+    }
 
     #endregion
 }

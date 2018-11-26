@@ -15,34 +15,23 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
     {
         public static ProjectViewModel ViewModel;
         public static IHttpClient HttpClient;
-        public static IAccountRequest Request;
+        public static IAccountRequest AccountRequest;
+        public static IProjectRequest ProjectRequest;
+        public static IProjectTeamMemberRequest ProjectTeamMemberRequest;
+        public static string Id;
 
         Establish context = () =>
         {
+            Id = new Guid().ToString();
             HttpClient = Substitute.For<IHttpClient>();
-            Request = Substitute.For<IAccountRequest>();
-            ViewModel = new ProjectViewModel(Request);
+            AccountRequest = Substitute.For<IAccountRequest>();
+            ProjectRequest = Substitute.For<IProjectRequest>();
+            ProjectTeamMemberRequest = Substitute.For<IProjectTeamMemberRequest>();
+            ViewModel = new ProjectViewModel(AccountRequest, ProjectRequest, ProjectTeamMemberRequest, Id);
         };
     }
 
     #region Constructor Tests
-
-    public class when_I_Construct : Context
-    {
-        static ProjectViewModel viewModel;
-
-        Establish context = () => { };
-
-        Because of = () =>
-        {
-            viewModel = new ProjectViewModel();
-        };
-
-        It creates_a_viewModel = () =>
-        {
-            viewModel.ShouldNotBeNull();
-        };
-    }
 
     public class when_I_Construct_with_http_client : Context
     {
@@ -68,6 +57,11 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
         {
             viewModel.ShouldNotBeNull();
         };
+
+        It gets_project = () =>
+        {
+            HttpClient.Received().GetAsync("api/Project/" + projectId);
+        };
     }
 
     public class when_I_Construct_with_request : Context
@@ -78,7 +72,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
 
         Because of = () =>
         {
-            viewModel = new ProjectViewModel(Request);
+            viewModel = new ProjectViewModel(AccountRequest, ProjectRequest, ProjectTeamMemberRequest, Id);
         };
 
         It creates_a_viewModel = () =>
@@ -88,4 +82,103 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
     }
 
     #endregion
+
+    #region Logout Tests
+
+    public class when_I_call_Logout : Context
+    {
+        Establish context = () =>
+        {
+
+        };
+
+        Because of = () =>
+        {
+            ViewModel.Logout.Execute(null);
+        };
+
+        It logs_out = () =>
+        {
+            AccountRequest.Received().Logout();
+        };
+    }
+
+    #endregion
+
+    #region Save Project Tests
+
+    public class when_I_call_SaveProject : Context
+    {
+        Establish context = () =>
+        {
+            ProjectRequest.GetProject(Id).Returns(new Project("test"));
+        };
+
+        Because of = () =>
+        {
+            ViewModel.SaveProject.Execute(null);
+        };
+
+        It saves_the_project = () =>
+        {
+            ProjectRequest.Received().UpdateProject(Id, Arg.Any<Project>());
+            ProjectRequest.Received().GetProject(Id);
+        };
+    }
+
+    #endregion
+
+    #region Add Team Member Tests
+
+    public class when_I_call_AddTeamMember : Context
+    {
+        Establish context = () =>
+        {
+            ProjectRequest.GetProject(Id).Returns(new Project("test"));
+        };
+
+        Because of = () =>
+        {
+            ViewModel.AddTeamMember.Execute(null);
+        };
+
+        It adds_team_member_to_project = () =>
+        {
+            ProjectTeamMemberRequest.Received().AddProjectTeamMember(Arg.Any<string>(), Id);
+            ProjectRequest.Received().GetProject(Id);
+        };
+    }
+
+    #endregion
+
+    #region OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
+
+    public class when_I_call_OnProjectTeamMemberRoleChange : Context
+    {
+        static ProjectTeamMember projectTeamMember;
+
+        Establish context = () =>
+        {
+            ProjectRequest.GetProject(Id).Returns(new Project("test"));
+            projectTeamMember = new ProjectTeamMember();
+        };
+
+        Because of = () =>
+        {
+            ViewModel.OnProjectTeamMemberRoleChange(projectTeamMember);
+        };
+
+        It updates_role = () =>
+        {
+            ProjectTeamMemberRequest.Received().UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+        };
+
+        It gets_project = () =>
+        {
+            ProjectRequest.Received().GetProject(Id);
+        };
+    }
+
+    #endregion
+
 }

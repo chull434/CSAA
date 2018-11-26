@@ -1,27 +1,48 @@
-﻿using Machine.Specifications;
+﻿using System;
+using System.Collections.Generic;
+using Machine.Specifications;
 using NSubstitute;
 using Server.App_Data;
 using Server.Areas.API;
 using Server.Services;
 using CSAA.ServiceModels;
+using Server;
 
 namespace UnitTests.Server.Controllers.ProjectControllerTests
 {
     public class Context
     {
         public static IProjectService ProjectService;
+        public static IApplicationUserManager ApplicationUserManager;
         public static ProjectController ProjectController;
 
         Establish context = () =>
         {
             ProjectService = Substitute.For<IProjectService>();
+            ApplicationUserManager = Substitute.For<IApplicationUserManager>();
             ProjectController = new ProjectController(ProjectService);
+            ProjectController.UserManager = ApplicationUserManager;
         };
     }
 
     #region Constructor Tests
 
     public class when_I_Construct_ProjectController : Context
+    {
+        static ProjectController projectController;
+
+        Because of = () =>
+        {
+            projectController = new ProjectController();
+        };
+
+        It Constructs_ProjectService = () =>
+        {
+            projectController.ShouldNotBeNull();
+        };
+    }
+
+    public class when_I_Construct_ProjectController_with_service : Context
     {
         static ProjectController projectController;
 
@@ -35,6 +56,54 @@ namespace UnitTests.Server.Controllers.ProjectControllerTests
             projectController.ShouldNotBeNull();
         };
     }
+
+    #endregion
+
+    #region Get Tests
+
+    public class when_I_call_Get : Context
+    {
+        static List<Project> result;
+
+        Establish context = () =>
+        {
+            ProjectService.GetProjects().Returns(new List<Project>());
+        };
+
+        Because of = () =>
+        {
+            result = ProjectController.Get();
+        };
+
+        It returns_list_of_projects = () =>
+        {
+            result.ShouldNotBeNull();
+            ProjectService.Received().GetProjects();
+        };
+    };
+
+    public class when_I_call_Get_with_id : Context
+    {
+        static Project result;
+        static string id;
+
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            ProjectService.GetProject(id, Arg.Any<string>()).Returns(new Project());
+        };
+
+        Because of = () =>
+        {
+            result = ProjectController.Get(id);
+        };
+
+        It returns_project = () =>
+        {
+            result.ShouldNotBeNull();
+            ProjectService.Received().GetProject(id, Arg.Any<string>());
+        };
+    };
 
     #endregion
 

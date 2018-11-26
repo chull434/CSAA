@@ -56,20 +56,7 @@ namespace Client.ViewModels
             }
         }
 
-        public void OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
-        {
-            projectTeamMember.OnRoleChange = null;
-            ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
-            projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
-        }
-
-        public ProjectViewModel()
-        {
-            _home = new DelegateCommand(OnHome);
-            _logout = new DelegateCommand(OnLogout);
-            _saveProject = new DelegateCommand(OnSaveProject);
-            _addTeamMember = new DelegateCommand(OnAddTeamMember);
-        }
+        public bool IsProjectManager { get; set; }
 
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
@@ -86,41 +73,37 @@ namespace Client.ViewModels
             _viewBacklog = new DelegateCommand(OnViewBacklog);
         }
 
-        public ProjectViewModel(IAccountRequest accountRequest)
+        public ProjectViewModel(IAccountRequest accountRequest, IProjectRequest projectRequest, IProjectTeamMemberRequest projectTeamMemberRequest, string Id)
         {
             AccountRequest = accountRequest;
+            ProjectRequest = projectRequest;
+            ProjectTeamMemberRequest = projectTeamMemberRequest;
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
             _viewBacklog = new DelegateCommand(OnViewBacklog);
+            projectId = Id;
         }
 
         private void GetProject(string projectId)
         {
             this.projectId = projectId;
-            var project = ProjectRequest.GetProjectById(projectId);
+            var project = ProjectRequest.GetProject(projectId);
             ProjectTitle = project.Title;
             MemberList = project.ProjectTeam;
+            IsProjectManager = project.IsProjectManager;
         }
 
         private void OnLogout(object commandParameter)
         {
             AccountRequest.Logout();
-            var login = new Login(HttpClient);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = login;
-            currentWindow.Close();
-            login.Show();
+            ChangeView(new Login(HttpClient));
         }
 
         private void OnHome(object commandParameter)
         {
-            var home = new Home(HttpClient);
-            var project = App.Current.MainWindow;
-            App.Current.MainWindow = home;
-            project.Close();
-            home.Show();
+            ChangeView(new Home(HttpClient));
         }
 
         private void OnSaveProject(object commandParameter)
@@ -133,6 +116,14 @@ namespace Client.ViewModels
         {
             ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId);
             GetProject(projectId);
+        }
+
+        public void OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
+        {
+            projectTeamMember.OnRoleChange = null;
+            ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+            GetProject(projectId);
+            projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
         }
 
         private void OnViewBacklog(object commandParameter)

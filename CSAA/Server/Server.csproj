@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.Designer.cs">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811251944351_AddingRoleAssignment.cs" />
+    <Compile Include="Migrations\201811251944351_AddingRoleAssignment.Designer.cs">
+      <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201811211304562_AddingUserStories.cs" />
     <Compile Include="Migrations\201811211304562_AddingUserStories.Designer.cs">
       <DependentUpon>201811211304562_AddingUserStories.cs</DependentUpon>
@@ -394,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811012335475_AddingProjectTeamMembers.resx">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251944351_AddingRoleAssignment.resx">
+      <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811211304562_AddingUserStories.resx">
       <DependentUpon>201811211304562_AddingUserStories.cs</DependentUpon>

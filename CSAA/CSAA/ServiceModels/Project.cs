@@ -9,6 +9,8 @@ namespace CSAA.ServiceModels
         public int Completion { get; set; }
         public List<ProjectTeamMember> ProjectTeam { get; set; }
 
+        public bool IsProjectManager { get; set; }
+
         public Project()
         {
             ProjectTeam = new List<ProjectTeamMember>();

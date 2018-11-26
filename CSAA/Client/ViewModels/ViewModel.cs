@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace Client.ViewModels
 {
@@ -17,6 +18,16 @@ namespace Client.ViewModels
                 return true;
             }
             return false;
+        }
+
+        public void ChangeView(Window newView)
+        {
+            if (App.Current == null) return;
+
+            var home = App.Current.MainWindow;
+            App.Current.MainWindow = newView;
+            home.Close();
+            newView.Show();
         }
     }
 }

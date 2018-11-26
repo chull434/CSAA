@@ -66,17 +66,42 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
            result = ProjectRequest.GetProjects();
         };
 
-        It creates_a_accountRequest = () =>
+        It returns_list_of_projects = () =>
         {
-            result.ShouldNotBeNull();
+            HttpClient.Received().GetAsync("api/Project");
+            result.Count.ShouldEqual(1);
         };
     }
 
     #endregion
 
-    #region GetProjectById(string projectId)
+    #region GetProject(string projectId)
 
+    public class when_I_GetProject : Context
+    {
+        static Project result;
+        static string id;
 
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(new Project("My Project")));
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.GetAsync("api/Project/" + id).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectRequest.GetProject(id);
+        };
+
+        It returns_a_project = () =>
+        {
+            HttpClient.Received().GetAsync("api/Project/" + id);
+            result.ShouldNotBeNull();
+        };
+    }
 
     #endregion
 
@@ -113,13 +138,59 @@ namespace UnitTests.Client.Requests.ProjectRequestTests
 
     #region UpdateProject(string projectId, Project project) Tests
 
+    public class when_I_call_UpdateProject : Context
+    {
+        static bool result;
+        static string id;
+        static Project project;
 
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            project = new Project("test");
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            HttpClient.PutAsJsonAsync("api/Project/" + id, project).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectRequest.UpdateProject(id, project);
+        };
+
+        It updates_project = () =>
+        {
+            HttpClient.Received().PutAsJsonAsync("api/Project/" + id, project);
+            result.ShouldBeTrue();
+        };
+    }
 
     #endregion
 
     #region DeleteProject(string projectId) Tests
 
+    public class when_I_call_DeleteProject : Context
+    {
+        static bool result;
+        static string id;
 
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            HttpClient.DeleteAsync("api/Project/" + id).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectRequest.DeleteProject(id);
+        };
+
+        It deletes_project = () =>
+        {
+            HttpClient.Received().DeleteAsync("api/Project/" + id);
+            result.ShouldBeTrue();
+        };
+    }
 
     #endregion
 }
