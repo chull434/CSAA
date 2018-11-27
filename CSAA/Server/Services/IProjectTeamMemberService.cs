@@ -6,6 +6,7 @@ namespace Server.Services
     public interface IProjectTeamMemberService
     {
         List<ProjectTeamMember> GetAllProjectTeamMembers();
+        List<User> SearchProjectTeamMembers(User user);
         ProjectTeamMember GetProjectTeamMember(string projectTeamMemberId);
         void AddProjectTeamMember(string userId, string projectId);
         void UpdateProjectTeamMember(string projectTeamMemberId, ProjectTeamMember projectTeamMember);

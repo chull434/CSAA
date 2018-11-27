@@ -31,6 +31,11 @@ namespace Client.Requests
             return GetProjectTeamMembersAsync().GetAwaiter().GetResult();
         }
 
+        public List<User> SearchProjectTeamMembers(User user)
+        {
+            return SearchProjectTeamMembersAsync(user).GetAwaiter().GetResult();
+        }
+
         public ProjectTeamMember GetProjectTeamMember(string projectTeamMemberId)
         {
             return GetProjectTeamMemberAsync(projectTeamMemberId).GetAwaiter().GetResult();
@@ -60,6 +65,13 @@ namespace Client.Requests
             var response = await client.GetAsync("api/ProjectTeamMember").ConfigureAwait(false);
             var result = await CheckResponse(response).ConfigureAwait(false);
             return await response.Content.ReadAsAsync<List<ProjectTeamMember>>().ConfigureAwait(false);
+        }
+
+        private async Task<List<User>> SearchProjectTeamMembersAsync(User user)
+        {
+            var response = await client.PostAsJsonAsync("api/ProjectTeamMember/Search", user).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<List<User>>().ConfigureAwait(false);
         }
 
         private async Task<ProjectTeamMember> GetProjectTeamMemberAsync(string projectTeamMemberId)

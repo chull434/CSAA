@@ -207,8 +207,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Data\UserRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
+    <Compile Include="Areas\API\UserController.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.Designer.cs">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>

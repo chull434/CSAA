@@ -6,6 +6,7 @@ using CSAA.DataModels;
 using ServiceModel = CSAA.ServiceModels;
 using CSAA.Enums;
 using Server.App_Data;
+using Server.Models;
 
 namespace Server.Services
 {
@@ -13,19 +14,22 @@ namespace Server.Services
     {
         private IRepository<ProjectTeamMember> repository;
         private IRepository<Project> projectRepository;
+        private IRepository<ApplicationUser> userRepository;
         private IApplicationUserManager UserManager;
 
-        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository)
+        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IRepository<ApplicationUser> userRepository)
         {
             this.repository = repository;
             this.projectRepository = projectRepository;
+            this.userRepository = userRepository;
         }
 
-        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IApplicationUserManager UserManager)
+        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IApplicationUserManager UserManager, IRepository<ApplicationUser> userRepository)
         {
             this.repository = repository;
             this.projectRepository = projectRepository;
             this.UserManager = UserManager;
+            this.userRepository = userRepository;
         }
 
         public List<ServiceModel.ProjectTeamMember> GetAllProjectTeamMembers()
@@ -71,6 +75,12 @@ namespace Server.Services
         public void SetApplicationUserManager(IApplicationUserManager applicationUserManager)
         {
             UserManager = applicationUserManager;
+        }
+
+        public List<ServiceModel.User> SearchProjectTeamMembers(ServiceModel.User user)
+        {
+            var users = userRepository.GetAll().Where(u => u.Email == user.Email || u.UserName == user.Name || u.product_owner == user.product_owner || u.scrum_master == user.scrum_master || u.developer == user.developer).Select(u => u.Map()).ToList();
+            return users;
         }
     }
 }
