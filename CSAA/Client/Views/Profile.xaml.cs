@@ -26,5 +26,10 @@ namespace Client.Views
             DataContext = new ProfileViewModel(client);
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged()
+        {
+
+        }
     }
 }
