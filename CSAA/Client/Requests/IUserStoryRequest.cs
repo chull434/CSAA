@@ -3,7 +3,7 @@ using CSAA.ServiceModels;
 
 namespace Client.Requests
 {
-    interface IUserStoryRequest
+    public interface IUserStoryRequest
     {
         List<UserStory> GetUserStories();
         UserStory GetUserStoryById(string userStoryId);

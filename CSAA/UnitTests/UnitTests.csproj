@@ -98,6 +98,7 @@
     <Compile Include="Client\Requests\ProjectTeamMemberRequestTests.cs" />
     <Compile Include="Client\ViewsModels\HomeViewModelTests.cs" />
     <Compile Include="Client\ViewsModels\LoginViewModelTests.cs" />
+    <Compile Include="Client\ViewsModels\ProductBacklogViewModelTests.cs" />
     <Compile Include="Client\ViewsModels\ProjectViewModelTests.cs" />
     <Compile Include="Client\ViewsModels\RegistrationViewModelTests.cs" />
     <Compile Include="CSAA\DataModels\ProjectTeamMemberTests.cs" />

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Client.ViewModels
 {
-    class ProductBacklogViewModel : ViewModel
+    public class ProductBacklogViewModel : ViewModel
     {
         readonly IAccountRequest AccountRequest;
         readonly IUserStoryRequest UserStoryRequest;
@@ -56,40 +56,42 @@ namespace Client.ViewModels
             AccountRequest = new AccountRequest(httpClient);
             UserStoryRequest = new UserStoryRequest(httpClient);
             ProjectRequest = new ProjectRequest(httpClient);
-            _logout = new DelegateCommand(OnLogout);
-            _newUserStory = new DelegateCommand(OnNewUserStory);
-            _home = new DelegateCommand(OnHome);
-            _back = new DelegateCommand(OnBack);
             GetProject(projectId);
             GetUserStories();
+
+            _home = new DelegateCommand(OnHome);
+            _logout = new DelegateCommand(OnLogout);
+            _back = new DelegateCommand(OnBack);
+            _newUserStory = new DelegateCommand(OnNewUserStory);
+        }
+
+        public ProductBacklogViewModel(IHttpClient httpClient, IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string id)
+        {
+            HttpClient = httpClient;
+            AccountRequest = accountRequest;
+            UserStoryRequest = userStoryRequest;
+            ProjectRequest = projectRequest;
+            _home = new DelegateCommand(OnHome);
+            _logout = new DelegateCommand(OnLogout);
+            _back = new DelegateCommand(OnBack);
+            _newUserStory = new DelegateCommand(OnNewUserStory);
+            projectId = id;
         }
 
         private void OnLogout(object commandParameter)
         {
             AccountRequest.Logout();
-            var login = new Login(HttpClient);
-            var home = App.Current.MainWindow;
-            App.Current.MainWindow = login;
-            home.Close();
-            login.Show();
+            ChangeView(new Login(HttpClient));
         }
 
         private void OnHome(object commandParameter)
         {
-            var home = new Home(HttpClient);
-            var projecyBacklog = App.Current.MainWindow;
-            App.Current.MainWindow = home;
-            projecyBacklog.Close();
-            home.Show();
+            ChangeView(new Home(HttpClient));
         }
 
         private void OnBack(object commandParameter)
         {
-            var back = new Views.Project(HttpClient, projectId);
-            var projecyBacklog = App.Current.MainWindow;
-            App.Current.MainWindow = back;
-            projecyBacklog.Close();
-            back.Show();
+            ChangeView(new Views.Project(HttpClient, projectId));
         }
 
         private void GetProject(string projectId)
@@ -101,21 +103,13 @@ namespace Client.ViewModels
 
         private void OnOpenUserStory(string userStoryId)
         {
-            var userStoryWindow = new Views.UserStory(HttpClient, userStoryId, projectId);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = userStoryWindow;
-            currentWindow.Close();
-            userStoryWindow.Show();
+            ChangeView(new Views.UserStory(HttpClient, userStoryId, projectId));
         }
 
         private void OnNewUserStory(object commandParameter)
         {
             var userStoryId = UserStoryRequest.CreateUserStory(new UserStory("New User Story", "Description goes here...", projectId));
-            var userStoryWindow = new Views.UserStory(HttpClient, userStoryId, projectId);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = userStoryWindow;
-            currentWindow.Close();
-            userStoryWindow.Show();
+            ChangeView(new Views.UserStory(HttpClient, userStoryId, projectId));
         }
 
         private void GetUserStories()

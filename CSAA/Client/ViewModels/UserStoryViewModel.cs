@@ -11,7 +11,8 @@ namespace Client.ViewModels
     class UserStoryViewModel : ViewModel
     {
         readonly IAccountRequest AccountRequest;
-        readonly IUserStoryRequest UserStoryRequest;      
+        readonly IUserStoryRequest UserStoryRequest; 
+        readonly IProjectRequest ProjectRequest;
         readonly IHttpClient HttpClient;       
 
         private readonly DelegateCommand _home;
@@ -67,6 +68,21 @@ namespace Client.ViewModels
             UserStoryRequest = new UserStoryRequest(httpClient);
             this.projectId = projectId;
             GetUserStory(userStoryId);
+
+            _home = new DelegateCommand(OnHome);
+            _logout = new DelegateCommand(OnLogout);
+            _back = new DelegateCommand(OnBack);
+            _saveUserStory = new DelegateCommand(OnSaveUserStory);
+            _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
+        }
+
+        public UserStoryViewModel(IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string userStoryId, string projectId)
+        {
+            AccountRequest = accountRequest;
+            ProjectRequest = projectRequest;
+            UserStoryRequest = userStoryRequest;
+            this.projectId = projectId;
+            this.userStoryId = userStoryId;
 
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
