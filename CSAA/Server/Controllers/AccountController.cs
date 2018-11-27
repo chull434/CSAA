@@ -20,6 +20,7 @@ using Microsoft.Owin.Security.OAuth;
 using Server.Models;
 using Server.Providers;
 using Server.Results;
+using Server.Services;
 
 
 namespace Server.Controllers
@@ -349,28 +350,22 @@ namespace Server.Controllers
                 return GetErrorResult(result);
             }
 
+            var email = new EmailService();
+            email.SendEmail(model.Email, "KinguKongu Registration Confirmation", "Thank you for registering with KinguKongu. Please click on the following link to verify your email: http://localhost:62676/api/Account/VerifyEmail/" + user.Id);
             
-                
-            SmtpClient client = new SmtpClient();
-            client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
-            
-            if (!Directory.Exists("C:\\Temp"))
-            {
-                Directory.CreateDirectory("C:\\Temp");
-            }
+            return Ok();
+        }
 
-            client.PickupDirectoryLocation = @"C:\Temp";
+        [AllowAnonymous]
+        [Route("VerifyEmail")]
+        [HttpGet]
+        public async Task<IHttpActionResult> VerifyEmail(string userId)
+        {
+            var user = UserManager.FindUserById(userId);
+            if (user == null) return NotFound();
 
-            MailMessage registrationConfirmationMessage = new MailMessage();
-            MailAddress fromAddress = new MailAddress("admin@kingukongu.com");
-            registrationConfirmationMessage.From = fromAddress;
-            registrationConfirmationMessage.To.Add(model.Email);
-            registrationConfirmationMessage.Body = "Thank you for registering with KinguKongu.";
-            registrationConfirmationMessage.IsBodyHtml = true;
-            registrationConfirmationMessage.Subject = "KinguKongu Registration Confirmation";
-            client.Send(registrationConfirmationMessage);
-            
-
+            user.EmailConfirmed = true;
+            UserManager.UpdateUser(user);
             return Ok();
         }
 

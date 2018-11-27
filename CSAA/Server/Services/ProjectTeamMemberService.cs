@@ -53,6 +53,12 @@ namespace Server.Services
             var teamMember = new ProjectTeamMember(userId, project, Role.TeamMember);
             project.ProjectTeam.Add(teamMember);
             repository.Save();
+
+            var email = new EmailService();
+            var user = UserManager.FindUserById(userId);
+            email.SendEmail(user.Email, "KinguKongu Project Team Member Confirmation", "Hi " + user.UserName + "/n You have been assigned to the following project: /n" + 
+                                                                                       "- " + project.Title);
+
         }
 
         public void UpdateProjectTeamMember(string projectTeamMemberId, ServiceModel.ProjectTeamMember projectTeamMember)
