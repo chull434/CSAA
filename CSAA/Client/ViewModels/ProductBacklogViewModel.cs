@@ -50,6 +50,8 @@ namespace Client.ViewModels
         private readonly DelegateCommand _newUserStory;
         public ICommand NewUserStory => _newUserStory;
 
+        public bool IsProductOwner { get; set; }
+
         public ProductBacklogViewModel(IHttpClient httpClient, string projectId)
         {
             HttpClient = httpClient;
@@ -99,6 +101,7 @@ namespace Client.ViewModels
             this.projectId = projectId;
             var project = ProjectRequest.GetProject(projectId);
             ProjectTitle = project.Title;
+            IsProductOwner = project.IsProductOwner;
         }
 
         private void OnOpenUserStory(string userStoryId)

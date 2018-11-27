@@ -38,6 +38,7 @@
                 <x:Type TypeName="enums:Role"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid>
         <StackPanel>
@@ -73,7 +74,7 @@
                     <TextBlock x:Name="txtblk_ProjectListHeader" Grid.Column="0" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="20" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="22" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         User Stories
                     </TextBlock>
-                    <Button x:Name="btn_NewUserStory" Background="#9bafb9" Content="New Story" Margin="0,0,25,0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding NewUserStory}"/>
+                    <Button x:Name="btn_NewUserStory" Background="#9bafb9" Content="New Story" Margin="0,0,25,0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding NewUserStory}" IsEnabled="{Binding IsProductOwner}" Visibility= "{Binding IsProductOwner, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </Grid>
                 <Grid  Background="#9bafb9">
                     <Grid.ColumnDefinitions>

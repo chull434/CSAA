@@ -10,6 +10,7 @@ namespace CSAA.ServiceModels
         public List<ProjectTeamMember> ProjectTeam { get; set; }
 
         public bool IsProjectManager { get; set; }
+        public bool IsProductOwner { get; set; }
 
         public Project()
         {
