@@ -44,15 +44,14 @@
                 <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
                 <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
             </Menu>
             <StackPanel x:Name="IntroText" Margin="25,25,25,0">
                 <TextBlock x:Name="txtblk_WelcomeHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-               Introduction
+               Edit Profile
                 </TextBlock>
-                <TextBlock x:Name="txtblk_Welcome" HorizontalAlignment="Stretch" Margin="0,0,0,0" Background="#9bafb9" TextWrapping="Wrap" Padding="10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="100" Width="auto">          
-               Welcome to KinguKongu!<LineBreak></LineBreak><LineBreak></LineBreak> To get started, create a new project and begin adding team members
+                <TextBlock x:Name="txtblk_Profile" HorizontalAlignment="Stretch" Margin="0,0,0,0" Background="#9bafb9" TextWrapping="Wrap" Padding="10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="100" Width="auto">          
+               Please edit you profile information below<LineBreak></LineBreak><LineBreak></LineBreak>
                 </TextBlock>
             </StackPanel>
             <Grid>
@@ -61,9 +60,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="25,25,12.5,0" Grid.Column="0">
-                    <TextBlock x:Name="txtblk_ProjectListHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                        Project List
-                    </TextBlock>
+
                     <ListBox Name="lb_ProjectList" ItemsSource="{Binding ProjectList}" SelectedItem="{Binding SelectedProject}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -80,9 +77,7 @@
                     </ListBox>
                 </StackPanel>
                 <StackPanel Margin="12.5,25,25,0" Grid.Column="1">
-                    <TextBlock x:Name="txtblk_AssignedTaskHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                        Assigned Tasks
-                    </TextBlock>
+
                     <ListBox Name="lb_AssignedTasks" ItemsSource="{Binding AssignedTasks}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -100,21 +95,38 @@
                 </StackPanel>
             </Grid>
             <StackPanel x:Name="TeamMembers" Margin="25,25,25,0">
-                <TextBlock x:Name="txtblk_TeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                    My Team Members
+                <TextBlock x:Name="txtblk_Edit_Profile" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Edit Profile
                 </TextBlock>
-                <Grid  Background="#9bafb9">
+                <Grid Background="#9bafb9">
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="9*" />
+                        <ColumnDefinition Width="86*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="46*"/>
+                        <ColumnDefinition Width="458*"/>
+                        <ColumnDefinition Width="611*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
-                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Email" />
-                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Role" />
-                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="Project" />
+                    <StackPanel Grid.ColumnSpan="5">
+                        <Label x:Name="lbl_Edit_Name" Content="Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                        <Label x:Name="lbl_Edit" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                        <CheckBox x:Name="chk_ProductOwner" Content="Product Owner" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="172" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ProductOwner}"/>
+                        <CheckBox x:Name="chk_ScumMaster" Content="Scrum Master" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="160" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ScumMaster}"/>
+                        <CheckBox x:Name="chk_Developer" Content="Developer" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="127" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding Developer}"/>
+                        <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTeamMember}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="5">
+                        <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
+                        <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
+                    </StackPanel>
+                    <Image Grid.Column="5" HorizontalAlignment="Left" Height="122" Margin="10,169,0,0" VerticalAlignment="Top" Width="160"/>
+                    <Label Content="Profile Picture" Grid.Column="5" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="160"/>
                 </Grid>
+
+
+
+
                 <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
