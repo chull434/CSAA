@@ -27,7 +27,12 @@ namespace Client.Views
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged()
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txt_Bio_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
