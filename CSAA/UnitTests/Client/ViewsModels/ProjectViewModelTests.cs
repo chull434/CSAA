@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using CSAA.Enums;
 using CSAA.ServiceModels;
 using Newtonsoft.Json;
 
@@ -144,7 +145,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
 
         It adds_team_member_to_project = () =>
         {
-            ProjectTeamMemberRequest.Received().AddProjectTeamMember(Arg.Any<string>(), Id);
+            ProjectTeamMemberRequest.Received().AddProjectTeamMember(Arg.Any<string>(), Id, Role.TeamMember);
             ProjectRequest.Received().GetProject(Id);
         };
     }
