@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using CSAA.ServiceModels;
@@ -17,6 +20,8 @@ using Microsoft.Owin.Security.OAuth;
 using Server.Models;
 using Server.Providers;
 using Server.Results;
+using Server.Services;
+
 
 namespace Server.Controllers
 {
@@ -339,12 +344,28 @@ namespace Server.Controllers
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
+            
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
+            var email = new EmailService();
+            email.SendEmail(model.Email, "KinguKongu Registration Confirmation", "Thank you for registering with KinguKongu. Please click on the following link to verify your email: http://localhost:62676/api/Account/VerifyEmail/" + user.Id);
+            
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [Route("VerifyEmail")]
+        [HttpGet]
+        public async Task<IHttpActionResult> VerifyEmail(string userId)
+        {
+            var user = UserManager.FindUserById(userId);
+            if (user == null) return NotFound();
+
+            user.EmailConfirmed = true;
+            UserManager.UpdateUser(user);
             return Ok();
         }
 

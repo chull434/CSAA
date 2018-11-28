@@ -219,6 +219,8 @@
     <Compile Include="Migrations\201811251944351_AddingRoleAssignment.Designer.cs">
       <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

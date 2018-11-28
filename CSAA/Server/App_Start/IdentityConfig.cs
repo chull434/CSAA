@@ -47,6 +47,11 @@ namespace Server
             return this.FindByEmail(email);
         }
 
+        public ApplicationUser FindUserById(string id)
+        {
+            return this.FindById(id);
+        }
+
         public string GetUserNameById(string userId)
         {
             return this.FindById(userId).UserName;
@@ -56,5 +61,11 @@ namespace Server
         {
             return this.FindById(userId).Email;
         }
+
+        public void UpdateUser(ApplicationUser user)
+        {
+            this.Update(user);
+        }
     }
+
 }
