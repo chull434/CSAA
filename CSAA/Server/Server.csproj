@@ -198,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\AcceptanceTestRepository.cs" />
     <Compile Include="App_Data\IRepository.cs" />
     <Compile Include="App_Data\ProjectRepository.cs" />
     <Compile Include="App_Data\ServerDbContext.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\API\AcceptanceTestController.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
     <Compile Include="Areas\API\UserStoryController.cs" />
     <Compile Include="App_Data\UserStoryRepository.cs" />
@@ -231,6 +233,8 @@
     <Compile Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.Designer.cs">
       <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\AcceptanceTestService.cs" />
+    <Compile Include="Services\IAcceptanceTestService.cs" />
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

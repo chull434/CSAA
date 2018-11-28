@@ -13,6 +13,7 @@ namespace Client.ViewModels
         readonly IAccountRequest AccountRequest;
         readonly IUserStoryRequest UserStoryRequest; 
         readonly IProjectRequest ProjectRequest;
+        readonly IAcceptanceTestRequest AcceptanceTestRequest;
         readonly IHttpClient HttpClient;       
 
         private readonly DelegateCommand _home;
@@ -26,9 +27,15 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _deleteUserStory;
         public ICommand DeleteUserStory => _deleteUserStory;
+        
+        private readonly DelegateCommand _deleteAcceptanceTest;
+        public ICommand DeleteAcceptanceTest => _deleteAcceptanceTest;
 
         private readonly DelegateCommand _saveUserStory;
         public ICommand SaveUserStory => _saveUserStory;
+
+        private readonly DelegateCommand _addAcceptanceTest;
+        public ICommand AddAcceptanceTest => _addAcceptanceTest;
 
         string projectId;
         string userStoryId;
@@ -64,6 +71,29 @@ namespace Client.ViewModels
             set => SetProperty(ref _canEdit, value);
         }
 
+        private string _selectedAcceptanceTestId { get; set; }
+        public AcceptanceTest SelectedAcceptanceTest
+        {
+            set
+            {
+                if (value != null)
+                { 
+                    _selectedAcceptanceTestId = value.Id;
+                }
+            }
+        }
+
+        List<AcceptanceTest> _AcceptanceTestList = new List<AcceptanceTest>();
+        public List<AcceptanceTest> AcceptanceTestList
+        {
+            get => _AcceptanceTestList;
+            set
+            {
+                value.ForEach(m => m.OnValueChange = OnAcceptanceTestChange);
+                SetProperty(ref _AcceptanceTestList, value);
+            }
+        }
+
         public UserStoryViewModel()
         {
             _home = new DelegateCommand(OnHome);
@@ -76,6 +106,7 @@ namespace Client.ViewModels
             AccountRequest = new AccountRequest(httpClient);
             UserStoryRequest = new UserStoryRequest(httpClient);
             ProjectRequest = new ProjectRequest(httpClient);
+            AcceptanceTestRequest = new AcceptanceTestRequest(httpClient);
             GetProject(projectId);
             this.projectId = projectId;
             GetUserStory(userStoryId);
@@ -85,6 +116,8 @@ namespace Client.ViewModels
             _back = new DelegateCommand(OnBack);
             _saveUserStory = new DelegateCommand(OnSaveUserStory);
             _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
+            _deleteAcceptanceTest = new DelegateCommand(OnDeleteAcceptanceTest);
+            _addAcceptanceTest = new DelegateCommand(OnAddAcceptanceTest);
         }
 
         private void GetProject(string projectId)
@@ -109,6 +142,7 @@ namespace Client.ViewModels
             _back = new DelegateCommand(OnBack);
             _saveUserStory = new DelegateCommand(OnSaveUserStory);
             _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
+            _deleteAcceptanceTest = new DelegateCommand(OnDeleteAcceptanceTest);
         }
 
         private void OnLogout(object commandParameter)
@@ -146,6 +180,7 @@ namespace Client.ViewModels
             UserStoryTitle = userStory.Title;
             UserStoryDescription = userStory.Description;
             UserStoryPoints = userStory.StoryPoints;
+            AcceptanceTestList = userStory.UserStoryAcceptanceTests;
         }
 
         private void OnSaveUserStory(object commandParameter)
@@ -158,6 +193,33 @@ namespace Client.ViewModels
         {
             UserStoryRequest.DeleteUserStory(userStoryId);
             _back.Execute(_back);
+        }
+
+        private void OnAddAcceptanceTest(object commandParameter)
+        {
+            AcceptanceTestRequest.CreateAcceptanceTest(new AcceptanceTest("Accecptance Test Title", "Description goes here...", userStoryId));
+            GetUserStory(userStoryId);
+        }
+
+        private void OnSaveAcceptanceTests(object commandParameter)
+        {
+            AcceptanceTestList.ForEach(m => m.Title = m.Title);
+        }
+
+        public void OnAcceptanceTestChange(AcceptanceTest acceptanceTest)
+        {
+            acceptanceTest.OnValueChange = null;
+
+            AcceptanceTestRequest.UpdateAcceptanceTest(acceptanceTest.Id, acceptanceTest);
+            GetProject(projectId);
+
+            acceptanceTest.OnValueChange = OnAcceptanceTestChange;
+        }
+
+        private void OnDeleteAcceptanceTest(object commandParameter)
+        {
+            AcceptanceTestRequest.DeleteAcceptanceTest(_selectedAcceptanceTestId);
+            GetUserStory(userStoryId);
         }
     }
 }

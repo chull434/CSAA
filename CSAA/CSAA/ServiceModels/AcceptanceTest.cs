@@ -8,9 +8,42 @@ namespace CSAA.ServiceModels
     {
         public string Id { get; set; }
         public string UserStoryId { get; set; }
-        public string Title { get; set; }
-        public string Criteria { get; set; }
-        public bool Completed { get; set; }
+
+        public delegate void OnChange(AcceptanceTest acceptanceTest);
+        public OnChange OnValueChange;
+
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                OnValueChange?.Invoke(this);
+            }
+        }
+
+        private string _criteria;
+        public string Criteria
+        {
+            get => _criteria;
+            set
+            {
+                _criteria = value;
+                OnValueChange?.Invoke(this);
+            }
+        }
+
+        private bool _completed;
+        public bool Completed
+        {
+            get => _completed;
+            set
+            {
+                _completed = value;
+                OnValueChange?.Invoke(this);
+            }
+        }
 
         public AcceptanceTest()
         {
