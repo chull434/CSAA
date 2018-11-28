@@ -16,20 +16,23 @@ namespace Server.Services
         private IRepository<Project> projectRepository;
         private IRepository<ApplicationUser> userRepository;
         private IApplicationUserManager UserManager;
+        private IEmailService EmailService;
 
         public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IRepository<ApplicationUser> userRepository)
         {
             this.repository = repository;
             this.projectRepository = projectRepository;
             this.userRepository = userRepository;
+            var EmailService = new EmailService();
         }
 
-        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IApplicationUserManager UserManager, IRepository<ApplicationUser> userRepository)
+        public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IApplicationUserManager UserManager, IRepository<ApplicationUser> userRepository, IEmailService EmailService)
         {
             this.repository = repository;
             this.projectRepository = projectRepository;
             this.UserManager = UserManager;
             this.userRepository = userRepository;
+            this.EmailService = EmailService;
         }
 
         public List<ServiceModel.ProjectTeamMember> GetAllProjectTeamMembers()
@@ -58,11 +61,8 @@ namespace Server.Services
             project.ProjectTeam.Add(teamMember);
             repository.Save();
 
-            var email = new EmailService();
             var user = UserManager.FindUserById(userId);
-            email.SendEmail(user.Email, "KinguKongu Project Team Member Confirmation", "Hi " + user.UserName + "/n You have been assigned to the following project: /n" + 
-                                                                                       "- " + project.Title);
-
+            EmailService.SendEmail(user.Email, "KinguKongu Project Team Member Confirmation", "Hi " + user.UserName + "/n You have been assigned to the following project: /n" + "- " + project.Title);
         }
 
         public void UpdateProjectTeamMember(string projectTeamMemberId, ServiceModel.ProjectTeamMember projectTeamMember)

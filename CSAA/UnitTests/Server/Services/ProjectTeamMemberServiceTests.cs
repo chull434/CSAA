@@ -19,6 +19,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
         public static IRepository<Project> ProjectRepository;
         public static IRepository<ApplicationUser> UserRepository;
         public static IApplicationUserManager UserManager;
+        public static IEmailService EmailService;
         public static ProjectTeamMemberService Service;
 
         Establish context = () =>
@@ -27,7 +28,8 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             ProjectRepository = Substitute.For<IRepository<Project>>();
             UserRepository = Substitute.For<IRepository<ApplicationUser>>();
             UserManager = Substitute.For<IApplicationUserManager>();
-            Service = new ProjectTeamMemberService(Repository, ProjectRepository, UserManager, UserRepository);
+            EmailService = Substitute.For<IEmailService>();
+            Service = new ProjectTeamMemberService(Repository, ProjectRepository, UserManager, UserRepository, EmailService);
         };
     }
 
@@ -40,6 +42,21 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
         Because of = () =>
         {
             projectTeamMemberService = new ProjectTeamMemberService(Repository, ProjectRepository, UserRepository);
+        };
+
+        It constructs_project_team_member_service = () =>
+        {
+            projectTeamMemberService.ShouldNotBeNull();
+        };
+    }
+
+    public class when_I_Construct_ProjectService_test : Context
+    {
+        static ProjectTeamMemberService projectTeamMemberService;
+
+        Because of = () =>
+        {
+            projectTeamMemberService = new ProjectTeamMemberService(Repository, ProjectRepository, UserManager, UserRepository, EmailService);
         };
 
         It constructs_project_team_member_service = () =>
@@ -64,6 +81,8 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             userId = Guid.NewGuid().ToString();
             project = new Project("My Title");
             ProjectRepository.GetByID(projectId).Returns(project);
+            var user = new ApplicationUser();
+            UserManager.FindUserById(userId).Returns(user);
         };
 
         Because of = () =>
@@ -73,8 +92,15 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
         It adds_team_member_to_team = () =>
         {
+            ProjectRepository.Received().GetByID(projectId);
             project.ProjectTeam.FirstOrDefault(m => m.UserId == userId).ShouldNotBeNull();
             Repository.Received().Save();
+        };
+
+        It sends_email_notification = () =>
+        {
+            UserManager.Received().FindUserById(userId);
+            EmailService.Received().SendEmail(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
         };
     }
 
