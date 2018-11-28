@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CSAA.Enums;
 
 namespace CSAA.ServiceModels
@@ -12,6 +13,8 @@ namespace CSAA.ServiceModels
         public string UserName { get; set; }
         public string UserEmail { get; set; }
         public string ProjectTitle { get; set; }
+
+        public string Roles { get; set; }
 
         public delegate void OnChange(ProjectTeamMember projectTeamMember);
 

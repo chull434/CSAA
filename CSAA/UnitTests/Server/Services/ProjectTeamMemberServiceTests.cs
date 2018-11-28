@@ -9,6 +9,7 @@ using Server.App_Data;
 using Server.Services;
 using Microsoft.AspNet.Identity;
 using Server;
+using Server.Models;
 
 namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 {
@@ -16,6 +17,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
     {
         public static IRepository<ProjectTeamMember> Repository;
         public static IRepository<Project> ProjectRepository;
+        public static IRepository<ApplicationUser> UserRepository;
         public static IApplicationUserManager UserManager;
         public static ProjectTeamMemberService Service;
 
@@ -23,8 +25,9 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
         {
             Repository = Substitute.For<IRepository<ProjectTeamMember>>();
             ProjectRepository = Substitute.For<IRepository<Project>>();
+            UserRepository = Substitute.For<IRepository<ApplicationUser>>();
             UserManager = Substitute.For<IApplicationUserManager>();
-            Service = new ProjectTeamMemberService(Repository, ProjectRepository, UserManager);
+            Service = new ProjectTeamMemberService(Repository, ProjectRepository, UserManager, UserRepository);
         };
     }
 
@@ -36,7 +39,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
         Because of = () =>
         {
-            projectTeamMemberService = new ProjectTeamMemberService(Repository, ProjectRepository);
+            projectTeamMemberService = new ProjectTeamMemberService(Repository, ProjectRepository, UserRepository);
         };
 
         It constructs_project_team_member_service = () =>
@@ -65,7 +68,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
         Because of = () =>
         {
-            Service.AddProjectTeamMember(userId, projectId);
+            Service.AddProjectTeamMember(userId, projectId, Role.TeamMember);
         };
 
         It adds_team_member_to_team = () =>
@@ -94,7 +97,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
                 Id = Guid.NewGuid(),
                 UserId = userId,
                 ProjectId = Guid.NewGuid(),
-                Role = Role.Developer,
+                //Role = Role.Developer,
                 Project = new Project("My Title")
             };
             Repository.GetByID(projectTeamMemberId).Returns(dataProjectTeamMember);
@@ -129,7 +132,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
             projectTeamMember = new ServiceModel.ProjectTeamMember();
             projectTeamMember.Role = Role.Developer;
             dataProjectTeamMember = new ProjectTeamMember();
-            dataProjectTeamMember.Role = Role.TeamMember;
+            //dataProjectTeamMember.Role = Role.TeamMember;
             Repository.GetByID(projectTeamMemberId).Returns(dataProjectTeamMember);
         };
 
@@ -140,7 +143,7 @@ namespace UnitTests.Server.Services.ProjectTeamMemberServiceTests
 
         It updates_project_team_member = () =>
         {
-            dataProjectTeamMember.Role.ShouldEqual(Role.Developer);
+            //dataProjectTeamMember.Role.ShouldEqual(Role.Developer);
             Repository.Received().Save();
         };
     }

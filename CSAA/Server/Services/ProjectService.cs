@@ -37,7 +37,7 @@ namespace Server.Services
             return projects;
         }
 
-        public ServiceModel.Project GetProject(string projectId)
+        public ServiceModel.Project GetProject(string projectId, string userId)
         {
             var project = repository.GetByID(projectId).Map();
             foreach (var projectTeamMember in project.ProjectTeam)
@@ -45,6 +45,8 @@ namespace Server.Services
                 projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
                 projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
             }
+            var member = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId);
+            if (member != null) project.IsProjectManager = member.HasRole(Role.ProjectManager);
             return project;
         }
 
@@ -69,6 +71,11 @@ namespace Server.Services
         {
             repository.Delete(projectId);
             repository.Save();
+        }
+
+        public void SetApplicationUserManager(IApplicationUserManager applicationUserManager)
+        {
+            UserManager = applicationUserManager;
         }
     }
 }

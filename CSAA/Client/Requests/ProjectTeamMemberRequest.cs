@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CSAA.Enums;
 
 namespace Client.Requests
 {
@@ -31,14 +32,19 @@ namespace Client.Requests
             return GetProjectTeamMembersAsync().GetAwaiter().GetResult();
         }
 
+        public List<User> SearchProjectTeamMembers(string projectId, User user)
+        {
+            return SearchProjectTeamMembersAsync(projectId, user).GetAwaiter().GetResult();
+        }
+
         public ProjectTeamMember GetProjectTeamMember(string projectTeamMemberId)
         {
             return GetProjectTeamMemberAsync(projectTeamMemberId).GetAwaiter().GetResult();
         }
 
-        public bool AddProjectTeamMember(string email, string projectId)
+        public bool AddProjectTeamMember(string email, string projectId, Role role)
         {
-            return AddProjectTeamMemberAsync(email, projectId).GetAwaiter().GetResult();
+            return AddProjectTeamMemberAsync(email, projectId, role).GetAwaiter().GetResult();
         }
 
         public bool UpdateProjectTeamMember(string projectTeamMemberId, ProjectTeamMember projectTeamMember)
@@ -62,6 +68,13 @@ namespace Client.Requests
             return await response.Content.ReadAsAsync<List<ProjectTeamMember>>().ConfigureAwait(false);
         }
 
+        private async Task<List<User>> SearchProjectTeamMembersAsync(string projectId, User user)
+        {
+            var response = await client.PostAsJsonAsync("api/ProjectTeamMember/Search?id=" + projectId, user).ConfigureAwait(false);
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return await response.Content.ReadAsAsync<List<User>>().ConfigureAwait(false);
+        }
+
         private async Task<ProjectTeamMember> GetProjectTeamMemberAsync(string projectTeamMemberId)
         {
             var response = await client.GetAsync("api/ProjectTeamMember/" + projectTeamMemberId).ConfigureAwait(false);
@@ -69,9 +82,9 @@ namespace Client.Requests
             return await response.Content.ReadAsAsync<ProjectTeamMember>().ConfigureAwait(false);
         }
 
-        private async Task<bool> AddProjectTeamMemberAsync(string email, string projectId)
+        private async Task<bool> AddProjectTeamMemberAsync(string email, string projectId, Role role)
         {
-            var response = await client.PostAsJsonAsync("api/ProjectTeamMember", new ProjectTeamMember{ UserEmail = email, ProjectId = projectId}).ConfigureAwait(false);
+            var response = await client.PostAsJsonAsync("api/ProjectTeamMember", new ProjectTeamMember{ UserEmail = email, ProjectId = projectId, Role = role}).ConfigureAwait(false);
             var result = await CheckResponse(response).ConfigureAwait(false);
             return true;
         }
