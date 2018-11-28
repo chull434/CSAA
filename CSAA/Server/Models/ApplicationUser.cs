@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.ComponentModel;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CSAA.ServiceModels;
 using Microsoft.AspNet.Identity;
@@ -11,8 +13,12 @@ namespace Server.Models
         public bool product_owner { get; set; }
         public bool scrum_master { get; set; }
         public bool developer { get; set; }
+        public string Description { get; set; }
+        public byte[] UserImage { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager,
+            string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
@@ -26,10 +32,15 @@ namespace Server.Models
             {
                 Name = UserName,
                 Email = Email,
+                Description = Description,
+                UserImage = UserImage,
                 product_owner = product_owner,
                 scrum_master = scrum_master,
                 developer = developer
+
             };
+
         }
+
     }
-}
+}   

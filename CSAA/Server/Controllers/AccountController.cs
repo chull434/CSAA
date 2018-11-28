@@ -390,7 +390,10 @@ namespace Server.Controllers
             dataUser.developer = user.developer;
             dataUser.product_owner = user.product_owner;
             dataUser.scrum_master = user.scrum_master;
-            UserManager.UpdateUser(dataUser);
+            dataUser.Description = user.Description;
+            dataUser.UserImage = user.UserImage;
+            
+
             return Ok();
         }
 
