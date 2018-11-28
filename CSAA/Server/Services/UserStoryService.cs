@@ -29,7 +29,16 @@ namespace Server.Services
 
         public List<ServiceModel.UserStory> GetAllUserStories()
         {
-            return repository.GetAll().Select(u => u.Map()).ToList();
+            List<ServiceModel.UserStory> projectUserStories = new List<ServiceModel.UserStory>();
+            var userStories = repository.GetAll().Select(m => m.Map()).ToList();
+            foreach (var projectUserStory in userStories)
+            {
+                if(projectUserStory.ProjectId == projectRepository.GetByID(projectUserStory.ProjectId).Id.ToString())
+                {
+                    projectUserStories.Add(projectUserStory);
+                }
+            }
+            return projectUserStories;
         }
 
         public ServiceModel.UserStory GetUserStory(string UserStoryId)
@@ -43,6 +52,7 @@ namespace Server.Services
             var dataUserStory = new UserStory(userStory.Title, userStory.Description);
             dataUserStory.Project = projectRepository.GetByID(userStory.ProjectId);
             dataUserStory.ProjectId = dataUserStory.Project.Id;
+            dataUserStory.Project.ProjectUserStories.Add(dataUserStory);
             repository.Insert(dataUserStory);
             repository.Save();
             return dataUserStory.Id.ToString();
