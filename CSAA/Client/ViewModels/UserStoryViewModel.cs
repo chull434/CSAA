@@ -96,16 +96,6 @@ namespace Client.ViewModels
             CanEdit = (IsProductOwner || IsScrumMaster);
         }
 
-        /*private bool CanEditFields()
-        {
-            if (IsScrumMaster || IsProductOwner)
-            {
-                return true;
-            }
-           
-            return false;                 
-        }
-        */
         public UserStoryViewModel(IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string userStoryId, string projectId)
         {
             AccountRequest = accountRequest;
