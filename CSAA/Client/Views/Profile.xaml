@@ -33,86 +33,89 @@
         </Style>
     </Window.Resources>
     <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
-    <Grid>
-        <StackPanel>
-            <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate >
-                        <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-                <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
-                <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
-            </Menu>
-            <StackPanel x:Name="IntroText" Margin="25,25,25,0">
-                <TextBlock x:Name="txtblk_WelcomeHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+        <Grid>
+            <StackPanel>
+                <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
+                    <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
+                </Menu>
+                <StackPanel x:Name="IntroText" Margin="25,25,25,0">
+                    <TextBlock x:Name="txtblk_WelcomeHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                Edit Profile
-                </TextBlock>
-                <TextBlock x:Name="txtblk_Profile" HorizontalAlignment="Stretch" Margin="0,0,0,0" Background="#9bafb9" TextWrapping="Wrap" Padding="10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="62" Width="auto">          
+                    </TextBlock>
+                    <TextBlock x:Name="txtblk_Profile" HorizontalAlignment="Stretch" Margin="0,0,0,0" Background="#9bafb9" TextWrapping="Wrap" Padding="10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="62" Width="auto">          
                Please edit you profile information below<LineBreak></LineBreak><LineBreak></LineBreak>
-                </TextBlock>
-                <TextBlock x:Name="txtblk_Profile_bio" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                    </TextBlock>
+                    <TextBlock x:Name="txtblk_Profile_bio" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                Bio
-                </TextBlock>
-                <TextBox x:Name="txt_Bio" HorizontalAlignment="Left" Height="50" Margin="0,10" AcceptsReturn ="true" TextWrapping="Wrap" VerticalAlignment="Top" Width="1222" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}" TextChanged="txt_Bio_TextChanged" IsEnabled="False"/>
+                    </TextBlock>
+                    <TextBox x:Name="txt_Bio" HorizontalAlignment="Left" Height="50" Margin="0,10" AcceptsReturn ="true" TextWrapping="Wrap" VerticalAlignment="Top" Width="1222" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}" TextChanged="txt_Bio_TextChanged" IsEnabled="False"/>
 
-            </StackPanel>
+                </StackPanel>
 
-            <StackPanel x:Name="TeamMembers" Margin="25,25,25,0">
-                <TextBlock x:Name="txtblk_Edit_Profile" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                <StackPanel x:Name="TeamMembers" Margin="25,25,25,0">
+                    <TextBlock x:Name="txtblk_Edit_Profile" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Edit Profile
-                </TextBlock>
-                <Grid Background="#9bafb9">
+                    </TextBlock>
+                    <Grid Background="#9bafb9">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="9*" />
-                        <ColumnDefinition Width="86*"/>
-                        <ColumnDefinition Width="12*"/>
-                        <ColumnDefinition Width="46*"/>
-                        <ColumnDefinition Width="458*"/>
-                        <ColumnDefinition Width="611*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.ColumnSpan="5">
-                        <Label x:Name="lbl_Edit_Name" Content="Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                        <Label x:Name="lbl_Edit" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                        <CheckBox x:Name="chk_ProductOwner" Content="Product Owner" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="172" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ProductOwner}"/>
-                        <CheckBox x:Name="chk_ScumMaster" Content="Scrum Master" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="160" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ScumMaster}"/>
-                        <CheckBox x:Name="chk_Developer" Content="Developer" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="127" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding Developer}"/>
-                        <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTeamMember}"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="5">
-                        <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
-                        <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
-                    </StackPanel>
-                    <Image Grid.Column="5" HorizontalAlignment="Left" Height="122" Margin="10,169,0,0" VerticalAlignment="Top" Width="160"/>
-                    <Label Content="Profile Picture" Grid.Column="5" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="160"/>
-                </Grid>
-            
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="86*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="46*"/>
+                            <ColumnDefinition Width="458*"/>
+                            <ColumnDefinition Width="611*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.ColumnSpan="5">
+                            <Label x:Name="lbl_Edit_Name" Content="Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_Edit" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <CheckBox x:Name="chk_ProductOwner" Content="Product Owner" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="172" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ProductOwner}"/>
+                            <CheckBox x:Name="chk_ScumMaster" Content="Scrum Master" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="160" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ScumMaster}"/>
+                            <CheckBox x:Name="chk_Developer" Content="Developer" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="127" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding Developer}"/>
+                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTeamMember}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="5">
+                            <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
+                            <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
+                        </StackPanel>
+                        <Image Grid.Column="5" HorizontalAlignment="Left" Height="122" Margin="10,169,0,0" VerticalAlignment="Top" Width="160"/>
+                        <Label x:Name="lbl_profile_pic" Content="Profile Picture" Grid.Column="5" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="160"/>
+                        <TextBox x:Name="txb_browse_image" Grid.Column="5" HorizontalAlignment="Left" Height="28" Margin="292,218,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged_1" RenderTransformOrigin="0.6,0.5"/>
+                        <Button x:Name="btn_Browse_for_profile_pic" Content="Upload" Grid.Column="5" HorizontalAlignment="Left" Margin="194,263,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.507,1.05" Height="28"/>
+                        <Button x:Name="btn_upload_profile_pic" Content="Browse" Grid.Column="5" HorizontalAlignment="Left" Margin="194,218,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.347,0.5" Click="Button_Click" Height="28"/>
+                    </Grid>
 
-                <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="{Binding UserEmail}" />
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="{Binding Role}" />
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="{Binding ProjectTitle}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+
+                    <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
+                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="{Binding UserEmail}" />
+                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="{Binding Role}" />
+                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="{Binding ProjectTitle}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-    </Grid>
+        </Grid>
     </ScrollViewer>
 </Window>
 
