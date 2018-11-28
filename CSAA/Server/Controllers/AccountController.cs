@@ -351,7 +351,7 @@ namespace Server.Controllers
             }
 
             var email = new EmailService();
-            email.SendEmail(model.Email, "KinguKongu Registration Confirmation", "Thank you for registering with KinguKongu. Please click on the following link to verify your email: http://localhost:62676/api/Account/VerifyEmail/" + user.Id);
+            email.SendEmail(model.Email, "KinguKongu Registration Confirmation", "Thank you for registering with KinguKongu. Please click on the following link to verify your email: http://localhost:62676/api/Account/VerifyEmail?userId=" + user.Id);
             
             return Ok();
         }

@@ -23,7 +23,7 @@ namespace Server.Services
             this.repository = repository;
             this.projectRepository = projectRepository;
             this.userRepository = userRepository;
-            var EmailService = new EmailService();
+            EmailService = new EmailService();
         }
 
         public ProjectTeamMemberService(IRepository<ProjectTeamMember> repository, IRepository<Project> projectRepository, IApplicationUserManager UserManager, IRepository<ApplicationUser> userRepository, IEmailService EmailService)
@@ -62,7 +62,7 @@ namespace Server.Services
             repository.Save();
 
             var user = UserManager.FindUserById(userId);
-            EmailService.SendEmail(user.Email, "KinguKongu Project Team Member Confirmation", "Hi " + user.UserName + "/n You have been assigned to the following project: /n" + "- " + project.Title);
+            EmailService.SendEmail(user.Email, "KinguKongu Project Team Member Confirmation", "Hi " + user.UserName + ", You have been assigned to the following project: " + project.Title);
         }
 
         public void UpdateProjectTeamMember(string projectTeamMemberId, ServiceModel.ProjectTeamMember projectTeamMember)

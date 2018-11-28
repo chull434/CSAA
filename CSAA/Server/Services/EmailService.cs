@@ -9,7 +9,7 @@ namespace Server.Services
 
         public EmailService()
         {
-            SmtpClient client = new SmtpClient();
+            client = new SmtpClient();
             client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
             client.PickupDirectoryLocation = @"C:\Temp";
         }
