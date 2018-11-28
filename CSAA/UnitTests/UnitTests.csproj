@@ -103,8 +103,11 @@
     <Compile Include="Client\ViewsModels\RegistrationViewModelTests.cs" />
     <Compile Include="CSAA\DataModels\ProjectTeamMemberTests.cs" />
     <Compile Include="CSAA\DataModels\ProjectTests.cs" />
+    <Compile Include="CSAA\DataModels\RoleAssignmentTests.cs" />
     <Compile Include="CSAA\ServiceModels\ProjectTeamMemberTests.cs" />
     <Compile Include="CSAA\ServiceModels\ProjectTests.cs" />
+    <Compile Include="CSAA\ServiceModels\TaskTests.cs" />
+    <Compile Include="CSAA\ServiceModels\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Controllers\ProjectTeamMemberControllerTests.cs" />
     <Compile Include="Server\Controllers\ProjectControllerTest.cs" />

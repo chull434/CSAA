@@ -66,6 +66,7 @@ namespace UnitTests.CSAA.DataModels.ProjectTests
         Establish context = () =>
         {
             project = new Project();
+            project.ProjectTeam.Add(new ProjectTeamMember{ Project = new Project("test")});
         };
 
         Because of = () =>

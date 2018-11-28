@@ -208,9 +208,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Data\UserRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\API\AcceptanceTestController.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
+    <Compile Include="Areas\API\UserController.cs" />
     <Compile Include="Areas\API\UserStoryController.cs" />
     <Compile Include="App_Data\UserStoryRepository.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.cs" />
@@ -235,6 +237,8 @@
     </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

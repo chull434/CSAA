@@ -40,132 +40,173 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
-    <Grid>
-        <StackPanel>
-            <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate >
-                        <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-                <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
-                <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Home}"/>
-                <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
-                <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
-            </Menu>
-            <StackPanel x:Name="IntroText" Margin="25,25,25,0">
-                <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding ProjectTitle}" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Top" Height="AUTO" Width="auto"/>
-            </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel>
+                <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
+                    <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Home}"/>
+                    <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
+                    <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
+                </Menu>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="25,25,12.5,0" Grid.Column="0" IsEnabled="{Binding IsProjectManager}">
-                    <TextBlock x:Name="txtblk_ProjectDetails" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                <StackPanel x:Name="IntroText" Margin="25,25,25,0">
+                    <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding ProjectTitle}" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Top" Height="AUTO" Width="auto"/>
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="25,25,12.5,0" Grid.Column="0" IsEnabled="{Binding IsProjectManager}">
+                        <TextBlock x:Name="txtblk_ProjectDetails" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Project Details
-                    </TextBlock>
-                    <Grid Background="#9bafb9">
-                        
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <Label x:Name="lbl_ProjectName" Content="Project Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveProject}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <TextBox x:Name="txt_Title" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding ProjectTitle}"/>
-                        </StackPanel>
-                    </Grid>
+                        </TextBlock>
+                        <Grid Background="#9bafb9">
 
-                </StackPanel>
-                <StackPanel x:Name="TeamMembers" Grid.Column="1" Margin="25,25,25,0" IsEnabled="{Binding IsProjectManager}">
-                    <TextBlock x:Name="txtblk_TeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <Label x:Name="lbl_ProjectName" Content="Project Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                                <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveProject}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBox x:Name="txt_Title" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding ProjectTitle}"/>
+                            </StackPanel>
+                        </Grid>
+
+                    </StackPanel>
+                    <StackPanel x:Name="TeamMembers" Grid.Column="1" Margin="25,25,25,0" IsEnabled="{Binding IsProjectManager}">
+                        <TextBlock x:Name="txtblk_TeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                     My Team Members
-                    </TextBlock>
-                    <Grid  Background="#9bafb9">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Roles" />
-                    </Grid>
-                    <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
-                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="{Binding Roles}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="25,25,12.5,0" Grid.Column="0" IsEnabled="{Binding IsProjectManager}">
-                    <TextBlock x:Name="txtblk_AddTeamMember" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                        Add Team Member
-                    </TextBlock>
-                    <Grid Background="#9bafb9">
+                        </TextBlock>
+                        <Grid  Background="#9bafb9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
+                            <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Roles" />
+                        </Grid>
+                        <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
+                                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="{Binding Roles}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="25,25,12.5,0" Grid.Column="0" IsEnabled="{Binding IsProjectManager}">
+                        <TextBlock x:Name="txtblk_AddTeamMember" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto"><Run Text="Add Team Member"/></TextBlock>
+                        <Grid Background="#9bafb9">
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <Label x:Name="lbl_Email" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                            <Button x:Name="btn_Add" Content="Add" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTeamMember}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
-                        </StackPanel>
-                        
-                    </Grid>
-                </StackPanel>
-                <StackPanel x:Name="EditTeamMembers" Grid.Column="1" Margin="25,25,25,0" IsEnabled="{Binding IsProjectManager}">
-                    <TextBlock x:Name="txtblk_EditTeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <Label x:Name="lbl_Email" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                                <Label x:Name="lbl_Username" Content="Username:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                                <Label x:Name="lbl_Roles" Content="Roles" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                                <Button x:Name="btn_Search" Content="Search" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SearchTeamMember}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
+                                <TextBox x:Name="txt_Username" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserName}"/>
+                                <CheckBox x:Name="chk_ProductOwner" Content="Product Owner" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="280" FontSize="18" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ProductOwner}"/>
+                                <CheckBox x:Name="chk_ScumMaster" Content="Scrum Master" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="280" FontSize="18" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ScumMaster}"/>
+                                <CheckBox x:Name="chk_Developer" Content="Developer" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="280" FontSize="18" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding Developer}"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel x:Name="EditTeamMembers" Grid.Column="1" Margin="25,25,25,0" IsEnabled="{Binding IsProjectManager}">
+                        <TextBlock x:Name="txtblk_EditTeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                     Edit Team Members
-                    </TextBlock>
-                    <Grid  Background="#9bafb9">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Add Role" />
-                    </Grid>
-                    <ListBox Name="lb_EditProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
-                                    <ComboBox Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" ItemsSource="{Binding Source={StaticResource Role}}" SelectedItem="{Binding Role}" IsSynchronizedWithCurrentItem="false"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
-            </Grid>
-            <Button x:Name="btn_ViewBacklog" Content="View Backlog" FontSize="18" HorizontalAlignment="Left" Margin="29,25,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding ViewBacklog}"/>
-        </StackPanel>
-    </Grid>
+                        </TextBlock>
+                        <Grid  Background="#9bafb9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
+                            <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Add Role" />
+                        </Grid>
+                        <ListBox Name="lb_EditProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
+                                        <ComboBox Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" ItemsSource="{Binding Source={StaticResource Role}}" SelectedItem="{Binding Role}" IsSynchronizedWithCurrentItem="false"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel x:Name="searchResult" Grid.Column="0" Margin="25,25,12.5,25" IsEnabled="{Binding IsProjectManager}">
+                        <TextBlock x:Name="txtblk_searchResultHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                    Search Results
+                        </TextBlock>
+                        <Grid  Background="#9bafb9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
+                            <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Add with Role" />
+                        </Grid>
+                        <ListBox Name="lb_searchResult" ItemsSource="{Binding UserList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Name}" />
+                                        <ComboBox Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" ItemsSource="{Binding Source={StaticResource Role}}" SelectedItem="{Binding Role}" IsSynchronizedWithCurrentItem="false"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+				<Button x:Name="btn_ViewBacklog" Content="View Backlog" FontSize="18" HorizontalAlignment="Left" Margin="29,25,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding ViewBacklog}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>
