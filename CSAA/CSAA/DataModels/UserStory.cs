@@ -35,7 +35,6 @@ namespace CSAA.DataModels
             Description = description;
             StoryPoints = 0;
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
-
         }
 
         public ServiceModels.UserStory Map()

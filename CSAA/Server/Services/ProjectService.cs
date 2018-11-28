@@ -46,9 +46,12 @@ namespace Server.Services
                 projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
             }
             var member = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId);
-            if (member != null) project.IsProjectManager = member.HasRole(Role.ProjectManager);
-            project.IsProductOwner = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId).HasRole(Role.ProductOwner);
-            project.IsScrumMaster = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId).HasRole(Role.ScrumMaster);
+            if (member != null)
+            {
+                project.IsProjectManager = member.HasRole(Role.ProjectManager);
+                project.IsProductOwner = member.HasRole(Role.ProductOwner);
+                project.IsScrumMaster = member.HasRole(Role.ScrumMaster);
+            }
             return project;
         }
 

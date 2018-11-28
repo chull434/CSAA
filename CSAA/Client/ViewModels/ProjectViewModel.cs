@@ -195,11 +195,7 @@ namespace Client.ViewModels
 
         private void OnViewBacklog(object commandParameter)
         {
-            var backlog = new ProductBacklog(HttpClient, projectId);
-            var project = App.Current.MainWindow;
-            App.Current.MainWindow = backlog;
-            project.Close();
-            backlog.Show();
+            ChangeView(new ProductBacklog(HttpClient, projectId));
         }
     }
 }

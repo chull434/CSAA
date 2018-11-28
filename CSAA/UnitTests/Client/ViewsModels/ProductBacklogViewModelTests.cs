@@ -46,15 +46,6 @@ namespace UnitTests.Client.ViewsModels.ProductBacklogViewModelTests
             response.Content = new StringContent(JsonConvert.SerializeObject(project));
             response.Content.Headers.ContentType.MediaType = "application/json";
             HttpClient.GetAsync("api/Project/" + Id).Returns(response);
-
-            var response1 = new HttpResponseMessage(HttpStatusCode.OK);
-            var userStories = new List<UserStory>
-            {
-                new UserStory("My User Story", "My Description...", Id)
-            };
-            response1.Content = new StringContent(JsonConvert.SerializeObject(userStories));
-            response1.Content.Headers.ContentType.MediaType = "application/json";
-            HttpClient.GetAsync("api/UserStory").Returns(response1);
         };
 
         Because of = () =>
@@ -70,11 +61,6 @@ namespace UnitTests.Client.ViewsModels.ProductBacklogViewModelTests
         It gets_project = () =>
         {
             HttpClient.Received().GetAsync("api/Project/" + Id);
-        };
-
-        It gets_all_UserStories = () =>
-        {
-            HttpClient.Received().GetAsync("api/UserStory");
         };
     }
 
@@ -132,6 +118,12 @@ namespace UnitTests.Client.ViewsModels.ProductBacklogViewModelTests
             response.Content = new StringContent(JsonConvert.SerializeObject(userStory));
             response.Content.Headers.ContentType.MediaType = "application/json";
             HttpClient.GetAsync("api/UserStory/" + usersStoryId).Returns(response);
+
+            var response1 = new HttpResponseMessage(HttpStatusCode.OK);
+            var project = new Project("My Project");
+            response1.Content = new StringContent(JsonConvert.SerializeObject(project));
+            response1.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.GetAsync("api/Project/" + Id).Returns(response1);
         };
 
         Because of = () =>
@@ -147,6 +139,11 @@ namespace UnitTests.Client.ViewsModels.ProductBacklogViewModelTests
         It gets_user_story = () =>
         {
             HttpClient.Received().GetAsync("api/UserStory/" + usersStoryId);
+        };
+
+        It gets_project = () =>
+        {
+            HttpClient.Received().GetAsync("api/Project/" + Id);
         };
     }
 

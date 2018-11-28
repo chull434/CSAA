@@ -21,30 +21,18 @@ namespace Server.Services
 
         public List<ServiceModel.UserStory> GetAllUserStories()
         {
-            List<ServiceModel.UserStory> projectUserStories = new List<ServiceModel.UserStory>();
-            var userStories = repository.GetAll().Select(m => m.Map()).ToList();
-            foreach (var projectUserStory in userStories)
-            {
-                if(projectUserStory.ProjectId == projectRepository.GetByID(projectUserStory.ProjectId).Id.ToString())
-                {
-                    projectUserStories.Add(projectUserStory);
-                }
-            }
-            return projectUserStories;
+            return repository.GetAll().Select(m => m.Map()).ToList();
         }
 
         public ServiceModel.UserStory GetUserStory(string UserStoryId)
         {
-            var userStory = repository.GetByID(UserStoryId).Map();
-            return userStory;
+            return repository.GetByID(UserStoryId).Map();
         }
 
         public string CreateUserStory(ServiceModel.UserStory userStory)
         {
             var dataUserStory = new UserStory(userStory.Title, userStory.Description);
             dataUserStory.Project = projectRepository.GetByID(userStory.ProjectId);
-            dataUserStory.ProjectId = dataUserStory.Project.Id;
-            dataUserStory.Project.ProjectUserStories.Add(dataUserStory);
             repository.Insert(dataUserStory);
             repository.Save();
             return dataUserStory.Id.ToString();

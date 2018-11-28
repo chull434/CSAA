@@ -108,7 +108,6 @@ namespace Client.ViewModels
             ProjectRequest = new ProjectRequest(httpClient);
             AcceptanceTestRequest = new AcceptanceTestRequest(httpClient);
             GetProject(projectId);
-            this.projectId = projectId;
             GetUserStory(userStoryId);
 
             _home = new DelegateCommand(OnHome);
@@ -126,7 +125,7 @@ namespace Client.ViewModels
             var project = ProjectRequest.GetProject(projectId);           
             IsProductOwner = project.IsProductOwner;
             IsScrumMaster = project.IsScrumMaster;
-            CanEdit = (IsProductOwner || IsScrumMaster);
+            CanEdit = IsProductOwner;
         }
 
         public UserStoryViewModel(IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string userStoryId, string projectId)
@@ -148,29 +147,17 @@ namespace Client.ViewModels
         private void OnLogout(object commandParameter)
         {
             AccountRequest.Logout();
-            var login = new Login(HttpClient);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = login;
-            currentWindow.Close();
-            login.Show();
+            ChangeView(new Login(HttpClient));
         }
 
         private void OnHome(object commandParameter)
         {
-            var home = new Home(HttpClient);
-            var userStory = App.Current.MainWindow;
-            App.Current.MainWindow = home;
-            userStory.Close();
-            home.Show();
+            ChangeView(new Home(HttpClient));
         }
 
         private void OnBack(object commandParameter)
         {
-            var back = new ProductBacklog(HttpClient, projectId);
-            var userStory = App.Current.MainWindow;
-            App.Current.MainWindow = back;
-            userStory.Close();
-            back.Show();
+            ChangeView(new ProductBacklog(HttpClient, projectId));
         }
 
         private void GetUserStory(string userStoryId)

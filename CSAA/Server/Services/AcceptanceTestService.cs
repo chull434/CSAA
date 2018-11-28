@@ -21,30 +21,18 @@ namespace Server.Services
 
         public List<ServiceModel.AcceptanceTest> GetAllAcceptanceTests()
         {
-            List<ServiceModel.AcceptanceTest> userStoryAcceptanceTests = new List<ServiceModel.AcceptanceTest>();
-            var AcceptanceTests = repository.GetAll().Select(m => m.Map()).ToList();
-            foreach (var userStoryAcceptanceTest in AcceptanceTests)
-            {
-                if (userStoryAcceptanceTest.UserStoryId == userStoryRepository.GetByID(userStoryAcceptanceTest.UserStoryId).Id.ToString())
-                {
-                    userStoryAcceptanceTests.Add(userStoryAcceptanceTest);
-                }
-            }
-            return userStoryAcceptanceTests;
+            return repository.GetAll().Select(m => m.Map()).ToList();
         }
 
         public ServiceModel.AcceptanceTest GetAcceptanceTest(string AcceptanceTestId)
         {
-            var acceptanceTest = repository.GetByID(AcceptanceTestId).Map();
-            return acceptanceTest;
+            return repository.GetByID(AcceptanceTestId).Map();
         }
 
         public string CreateAcceptanceTest(ServiceModel.AcceptanceTest acceptanceTest)
         {
             var dataAcceptanceTest = new AcceptanceTest(acceptanceTest.Title, acceptanceTest.Criteria, acceptanceTest.Completed);
             dataAcceptanceTest.UserStory = userStoryRepository.GetByID(acceptanceTest.UserStoryId);
-            dataAcceptanceTest.UserStoryId = dataAcceptanceTest.UserStory.Id;
-            dataAcceptanceTest.UserStory.UserStoryAcceptanceTests.Add(dataAcceptanceTest);
             repository.Insert(dataAcceptanceTest);
             repository.Save();
             return dataAcceptanceTest.Id.ToString();
