@@ -11,6 +11,7 @@ namespace CSAA.ServiceModels
 
         public bool IsProjectManager { get; set; }
         public bool IsProductOwner { get; set; }
+        public bool IsScrumMaster { get; set; }
 
         public Project()
         {

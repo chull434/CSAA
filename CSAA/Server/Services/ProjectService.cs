@@ -47,6 +47,7 @@ namespace Server.Services
             }
             project.IsProjectManager = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId).HasRole(Role.ProjectManager);
             project.IsProductOwner = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId).HasRole(Role.ProductOwner);
+            project.IsScrumMaster = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId).HasRole(Role.ScrumMaster);
             return project;
         }
 

@@ -54,6 +54,15 @@ namespace Client.ViewModels
             set => SetProperty(ref _userStoryPoints, value);
         }
 
+        public bool IsScrumMaster { get; set; }
+        public bool IsProductOwner { get; set; }
+
+        bool _canEdit;
+        public bool CanEdit
+        {
+            get => _canEdit;
+            set => SetProperty(ref _canEdit, value);
+        }
 
         public UserStoryViewModel()
         {
@@ -66,6 +75,8 @@ namespace Client.ViewModels
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
             UserStoryRequest = new UserStoryRequest(httpClient);
+            ProjectRequest = new ProjectRequest(httpClient);
+            GetProject(projectId);
             this.projectId = projectId;
             GetUserStory(userStoryId);
 
@@ -76,6 +87,25 @@ namespace Client.ViewModels
             _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
         }
 
+        private void GetProject(string projectId)
+        {
+            this.projectId = projectId;
+            var project = ProjectRequest.GetProject(projectId);           
+            IsProductOwner = project.IsProductOwner;
+            IsScrumMaster = project.IsScrumMaster;
+            CanEdit = (IsProductOwner || IsScrumMaster);
+        }
+
+        /*private bool CanEditFields()
+        {
+            if (IsScrumMaster || IsProductOwner)
+            {
+                return true;
+            }
+           
+            return false;                 
+        }
+        */
         public UserStoryViewModel(IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string userStoryId, string projectId)
         {
             AccountRequest = accountRequest;
