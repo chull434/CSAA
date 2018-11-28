@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSAA.Enums;
 
 namespace CSAA.DataModels
 {
@@ -35,6 +36,16 @@ namespace CSAA.DataModels
                 ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList(),
                 Id = Id.ToString()
             };
+        }
+
+        public bool RoleAssigned(Role role)
+        {
+            foreach (var projectTeamMember in ProjectTeam)
+            {
+                if (projectTeamMember.HasRole(role)) return true;
+            }
+
+            return false;
         }
     }
 }

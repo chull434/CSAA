@@ -54,6 +54,9 @@ namespace CSAA.DataModels
         public void AddRole(Role role)
         {
             if(HasRole(role)) return;
+            if (role == Role.ProjectManager && Project.RoleAssigned(Role.ProjectManager)) return;
+            if (role == Role.ProductOwner && Project.RoleAssigned(Role.ProductOwner)) return;
+
             RoleAssignments.Add(new RoleAssignment(role, this));
         }
 

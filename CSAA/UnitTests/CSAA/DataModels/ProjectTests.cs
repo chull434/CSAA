@@ -1,4 +1,6 @@
-﻿using CSAA.DataModels;
+﻿using System;
+using CSAA.DataModels;
+using CSAA.Enums;
 using ServiceModel = CSAA.ServiceModels;
 using Machine.Specifications;
 
@@ -6,9 +8,11 @@ namespace UnitTests.CSAA.DataModels.ProjectTests
 {
     public class Context
     {
+        public static Project project;
+
         Establish context = () =>
         {
-
+            project = new Project();
         };
     }
 
@@ -77,6 +81,54 @@ namespace UnitTests.CSAA.DataModels.ProjectTests
         It maps = () =>
         {
             result.ShouldNotBeNull();
+        };
+    }
+
+    #endregion
+
+    #region RoleAssigned(Role role) Tests
+
+    class when_I_call_RoleAssigned_true : Context
+    {
+        static bool result;
+
+        Establish context = () =>
+        {
+            var userId = new Guid().ToString();
+            var member = new ProjectTeamMember(userId, project, Role.ProductOwner);
+            project.ProjectTeam.Add(member);
+        };
+
+        Because of = () =>
+        {
+            result = project.RoleAssigned(Role.ProductOwner);
+        };
+
+        It returns_true = () =>
+        {
+            result.ShouldBeTrue();
+        };
+    }
+
+    class when_I_call_RoleAssigned_false : Context
+    {
+        static bool result;
+
+        Establish context = () =>
+        {
+            var userId = new Guid().ToString();
+            var member = new ProjectTeamMember(userId, project, Role.ProjectManager);
+            project.ProjectTeam.Add(member);
+        };
+
+        Because of = () =>
+        {
+            result = project.RoleAssigned(Role.ProductOwner);
+        };
+
+        It returns_false = () =>
+        {
+            result.ShouldBeFalse();
         };
     }
 

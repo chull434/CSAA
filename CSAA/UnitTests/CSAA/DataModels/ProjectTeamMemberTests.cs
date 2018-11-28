@@ -12,7 +12,8 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
 
         Establish context = () =>
         {
-            projectTeamMember = new ProjectTeamMember(); 
+            projectTeamMember = new ProjectTeamMember();
+            projectTeamMember.Project = new Project("test");
         };
     }
 
@@ -67,13 +68,10 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
 
     public class when_I_call_Map : Context
     {
-        static ProjectTeamMember projectTeamMember;
         static ServiceModel.ProjectTeamMember result;
 
         Establish context = () =>
         {
-            projectTeamMember = new ProjectTeamMember();
-            projectTeamMember.Project = new Project("test");
             projectTeamMember.AddRole(Role.Developer);
         };
 
@@ -110,7 +108,7 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
         };
     }
 
-    class when_I_call_AddRole_role_already_exists : Context
+    class when_I_call_AddRole_already_has_role : Context
     {
         Establish context = () =>
         {
@@ -122,9 +120,49 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
             projectTeamMember.AddRole(Role.TeamMember);
         };
 
-        It adds_role = () =>
+        It does_not_add_duplicate_role = () =>
         {
             projectTeamMember.RoleAssignments.Count.ShouldEqual(1);
+        };
+    }
+
+    class when_I_call_AddRole_project_manager : Context
+    {
+        Establish context = () =>
+        {
+            var userId = new Guid().ToString();
+            var member = new ProjectTeamMember(userId, projectTeamMember.Project, Role.ProjectManager);
+            projectTeamMember.Project.ProjectTeam.Add(member);
+        };
+
+        Because of = () =>
+        {
+            projectTeamMember.AddRole(Role.ProjectManager);
+        };
+
+        It does_not_add_role = () =>
+        {
+            projectTeamMember.RoleAssignments.Count.ShouldEqual(0);
+        };
+    }
+
+    class when_I_call_AddRole_product_owner : Context
+    {
+        Establish context = () =>
+        {
+            var userId = new Guid().ToString();
+            var member = new ProjectTeamMember(userId, projectTeamMember.Project, Role.ProductOwner);
+            projectTeamMember.Project.ProjectTeam.Add(member);
+        };
+
+        Because of = () =>
+        {
+            projectTeamMember.AddRole(Role.ProductOwner);
+        };
+
+        It does_not_add_role = () =>
+        {
+            projectTeamMember.RoleAssignments.Count.ShouldEqual(0);
         };
     }
 
