@@ -11,19 +11,11 @@ namespace Server.Services
     public class UserStoryService : IUserStoryService
     {
         private IRepository<UserStory> repository;
-        private IRepository<Project> projectRepository;
-        private IApplicationUserManager UserManager;
+        private IRepository<Project> projectRepository;       
 
         public UserStoryService(IRepository<UserStory> repository, IRepository<Project> projectRepository)
         {
             this.repository = repository;
-            this.projectRepository = projectRepository;
-        }
-
-        public UserStoryService(IRepository<UserStory> repository, IApplicationUserManager UserManager, IRepository<Project> projectRepository)
-        {
-            this.repository = repository;
-            this.UserManager = UserManager;
             this.projectRepository = projectRepository;
         }
 

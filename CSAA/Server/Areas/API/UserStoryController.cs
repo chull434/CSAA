@@ -18,14 +18,7 @@ namespace Server.Areas.API
         private ServerDbContext context;
         private IRepository<UserStory> repository;
         private IRepository<Project> projectRepository;
-        private IUserStoryService service;
-
-        private IApplicationUserManager _userManager;
-        public IApplicationUserManager UserManager
-        {
-            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            set => _userManager = value;
-        }
+        private IUserStoryService service;    
 
         public UserStoryController()
         {

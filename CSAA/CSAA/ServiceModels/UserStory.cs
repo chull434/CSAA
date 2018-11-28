@@ -1,4 +1,6 @@
-﻿namespace CSAA.ServiceModels
+﻿using System.Collections.Generic;
+
+namespace CSAA.ServiceModels
 {
     public class UserStory
     {
@@ -7,10 +9,11 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public int StoryPoints { get; set; }
+        public List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
 
         public UserStory()
         {
-
+            UserStoryAcceptanceTests = new List<AcceptanceTest>();
         }
 
         public UserStory(string title, string description, string projectId)
@@ -19,6 +22,7 @@
             Description = description;
             ProjectId = projectId;
             StoryPoints = 0;
+            UserStoryAcceptanceTests = new List<AcceptanceTest>();
         }
     }
 }

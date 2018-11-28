@@ -223,6 +223,14 @@
     <Compile Include="Migrations\201811260142155_AddingUserStories.Designer.cs">
       <DependentUpon>201811260142155_AddingUserStories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811281531096_AddingAcceptanceTestTable.cs" />
+    <Compile Include="Migrations\201811281531096_AddingAcceptanceTestTable.Designer.cs">
+      <DependentUpon>201811281531096_AddingAcceptanceTestTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.cs" />
+    <Compile Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.Designer.cs">
+      <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\IProjectService.cs" />
     <Compile Include="Areas\API\ProjectController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -400,6 +408,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811260142155_AddingUserStories.resx">
       <DependentUpon>201811260142155_AddingUserStories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281531096_AddingAcceptanceTestTable.resx">
+      <DependentUpon>201811281531096_AddingAcceptanceTestTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.resx">
+      <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

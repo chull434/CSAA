@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace CSAA.DataModels
@@ -20,6 +21,8 @@ namespace CSAA.DataModels
 
         public virtual Project Project { get; set; }
 
+        public virtual List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
+
         public UserStory()
         {
             Id = Guid.NewGuid();
@@ -31,6 +34,7 @@ namespace CSAA.DataModels
             Title = title;
             Description = description;
             StoryPoints = 0;
+            UserStoryAcceptanceTests = new List<AcceptanceTest>();
 
         }
 
@@ -38,6 +42,7 @@ namespace CSAA.DataModels
         {
             return new ServiceModels.UserStory(Title, Description, ProjectId.ToString())
             {
+                UserStoryAcceptanceTests = UserStoryAcceptanceTests.Select(m => m.Map()).ToList(),
                 Id = Id.ToString(),
                 StoryPoints = StoryPoints,
             };
