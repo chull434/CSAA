@@ -59,7 +59,6 @@ namespace Client.ViewModels
             UserStoryRequest = new UserStoryRequest(httpClient);
             ProjectRequest = new ProjectRequest(httpClient);
             GetProject(projectId);
-            //GetUserStories();
 
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
@@ -115,10 +114,5 @@ namespace Client.ViewModels
             var userStoryId = UserStoryRequest.CreateUserStory(new UserStory("New User Story", "Description goes here...", projectId));
             ChangeView(new Views.UserStory(HttpClient, userStoryId, projectId));
         }
-
-        /*private void GetUserStories()
-        {
-            UserStoryList = UserStoryRequest.GetUserStories();
-        }*/
     }
 }
