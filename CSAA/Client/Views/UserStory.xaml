@@ -1,0 +1,148 @@
+﻿<Window x:Class="Client.Views.UserStory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.Views"
+        xmlns:enums="clr-namespace:CSAA.Enums;assembly=CSAA"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Title="Project" Height="720" Width="1280" Background="#f1f1f1">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#173654" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="0" >
+                            <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value="#FF0058B9"/>
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property= "Background" Value="#FF032F60"/>
+                </Trigger>
+                <Trigger Property="Button.IsEnabled" Value="false">
+                    <Setter Property= "Visibility" Value="Hidden"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="ListBox.IsEnabled" Value="false">
+                    <Setter Property="Background" Value="#9bafb9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ObjectDataProvider x:Key="Role" MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Role"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel>
+                <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
+                    <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Home}"/>
+                    <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
+                    <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
+                </Menu>
+                <StackPanel x:Name="IntroText" Margin="25,25,25,0">
+                    <Grid Background="#173654">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding UserStoryTitle}" HorizontalAlignment="Stretch" Grid.Column="1" Background="#173654" Foreground="White" Margin="-150, 0, 0, 0" Padding="0,20,20,20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Center" Height="AUTO" Width="auto"/>
+                        <Button x:Name="btn_Back" Background="#9bafb9" Content="Back" Margin="22.5,0,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Back}"/>
+                        <Button x:Name="btn_Delete" Background="#691717" Content="Delete" Margin="0,0,22.5,0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding DeleteUserStory}" IsEnabled="{Binding CanEdit}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="25,25,25,0" Grid.Column="0">
+                    <TextBlock x:Name="txtblk_UserStoryDetails" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="25,10,10,10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        User Story Details
+                    </TextBlock>
+                    <Grid Background="#9bafb9">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Label x:Name="lbl_UserStoryTitle" Content="Title:" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStoryStoryPoints" Content="Story Points:" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStoryDescription" Content="Description:" HorizontalAlignment="Left" Margin="25,10,25,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBox x:Name="txt_Title" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryTitle}" IsEnabled="{Binding CanEdit}"/>
+                            <TextBox x:Name="txt_StoryPoints" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryPoints}" IsEnabled="{Binding IsScrumMaster}"/>
+                            <TextBox x:Name="txt_Description" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryDescription}" AcceptsReturn="True" IsEnabled="{Binding CanEdit}"/>
+                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Right" Margin="5,10,25,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveUserStory}" IsEnabled="{Binding CanEdit}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Margin="25,25,25,0" Grid.Column="0" IsEnabled="{Binding CanEdit}">
+                    <TextBlock x:Name="txtblk_AcceptanceTests" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="25,10,10,10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Acceptance Tests
+                    </TextBlock>
+                    <Grid  Background="#9bafb9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Title" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Criteria" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Completed" />
+                    </Grid>
+                    <ListBox Name="lb_AcceptanceTests" ItemsSource="{Binding AcceptanceTestList}" SelectedItem="{Binding SelectedAcceptanceTest}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="txt_AcceptanceTestTitle" HorizontalAlignment="Stretch" Height="30" Grid.Column="0" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Title}"/>
+                                    <TextBox x:Name="txt_Criteria" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Criteria}" AcceptsReturn="True"/>
+                                    <CheckBox x:Name="chkBx_Completed" Margin="5,10,25,10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" IsChecked="{Binding Completed}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btn_DeleteAcceptanceTest" Background="#691717" Content="Delete" Margin="22.5,0,22.5,0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" IsEnabled="{Binding ElementName=lb_AcceptanceTests, Path=SelectedItems.Count}" Command="{Binding DeleteAcceptanceTest}"/>
+                        <Button x:Name="btn_AddAcceptanceTest" Grid.Column="1" Content="Add" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddAcceptanceTest}"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

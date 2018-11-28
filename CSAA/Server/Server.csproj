@@ -198,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\AcceptanceTestRepository.cs" />
     <Compile Include="App_Data\IRepository.cs" />
     <Compile Include="App_Data\ProjectRepository.cs" />
     <Compile Include="App_Data\ServerDbContext.cs" />
@@ -209,8 +210,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Data\UserRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\API\AcceptanceTestController.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
     <Compile Include="Areas\API\UserController.cs" />
+    <Compile Include="Areas\API\UserStoryController.cs" />
+    <Compile Include="App_Data\UserStoryRepository.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.cs" />
     <Compile Include="Migrations\201811012335475_AddingProjectTeamMembers.Designer.cs">
       <DependentUpon>201811012335475_AddingProjectTeamMembers.cs</DependentUpon>
@@ -219,6 +223,20 @@
     <Compile Include="Migrations\201811251944351_AddingRoleAssignment.Designer.cs">
       <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811260142155_AddingUserStories.cs" />
+    <Compile Include="Migrations\201811260142155_AddingUserStories.Designer.cs">
+      <DependentUpon>201811260142155_AddingUserStories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811281531096_AddingAcceptanceTestTable.cs" />
+    <Compile Include="Migrations\201811281531096_AddingAcceptanceTestTable.Designer.cs">
+      <DependentUpon>201811281531096_AddingAcceptanceTestTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.cs" />
+    <Compile Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.Designer.cs">
+      <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AcceptanceTestService.cs" />
+    <Compile Include="Services\IAcceptanceTestService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IProjectService.cs" />
@@ -279,9 +297,11 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\IProjectTeamMemberService.cs" />
+    <Compile Include="Services\IUserStoryService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ProjectTeamMemberService.cs" />
     <Compile Include="App_Data\Repository.cs" />
+    <Compile Include="Services\UserStoryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +413,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811251944351_AddingRoleAssignment.resx">
       <DependentUpon>201811251944351_AddingRoleAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260142155_AddingUserStories.resx">
+      <DependentUpon>201811260142155_AddingUserStories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281531096_AddingAcceptanceTestTable.resx">
+      <DependentUpon>201811281531096_AddingAcceptanceTestTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.resx">
+      <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

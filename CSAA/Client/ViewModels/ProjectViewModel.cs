@@ -31,6 +31,8 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _searchTeamMember;
         public ICommand SearchTeamMember => _searchTeamMember;
+        private readonly DelegateCommand _viewBacklog;
+        public ICommand ViewBacklog => _viewBacklog;
 
 
         string _projectTitle;
@@ -112,6 +114,7 @@ namespace Client.ViewModels
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
             _searchTeamMember = new DelegateCommand(OnSearchTeamMember);
+            _viewBacklog = new DelegateCommand(OnViewBacklog);
         }
 
         public ProjectViewModel(IAccountRequest accountRequest, IProjectRequest projectRequest, IProjectTeamMemberRequest projectTeamMemberRequest, string Id)
@@ -124,6 +127,7 @@ namespace Client.ViewModels
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
             _searchTeamMember = new DelegateCommand(OnSearchTeamMember);
+            _viewBacklog = new DelegateCommand(OnViewBacklog);
             projectId = Id;
         }
 
@@ -187,6 +191,11 @@ namespace Client.ViewModels
             GetProject(projectId);
             SearchTeamMember.Execute(null);
             user.OnRoleChange = OnUserRoleChange;
+        }
+
+        private void OnViewBacklog(object commandParameter)
+        {
+            ChangeView(new ProductBacklog(HttpClient, projectId));
         }
     }
 }
