@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Client.Requests;
+using CSAA.Enums;
 using CSAA.ServiceModels;
 using Machine.Specifications;
 using Newtonsoft.Json;
@@ -123,7 +124,7 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
 
         Because of = () =>
         {
-            result = ProjectTeamMemberRequest.AddProjectTeamMember(email, projectId);
+            result = ProjectTeamMemberRequest.AddProjectTeamMember(email, projectId, Role.TeamMember);
         };
 
         It sends_a_add_team_member_request = () =>

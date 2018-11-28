@@ -45,7 +45,8 @@ namespace Server.Services
                 projectTeamMember.UserName = UserManager.GetUserNameById(projectTeamMember.UserId);
                 projectTeamMember.UserEmail = UserManager.GetUserEmailById(projectTeamMember.UserId);
             }
-            project.IsProjectManager = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId).HasRole(Role.ProjectManager);
+            var member = repository.GetByID(projectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId);
+            if (member != null) project.IsProjectManager = member.HasRole(Role.ProjectManager);
             return project;
         }
 

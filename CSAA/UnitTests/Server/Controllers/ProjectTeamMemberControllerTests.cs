@@ -6,6 +6,7 @@ using Server.Areas.API;
 using Server.Models;
 using Server.Services;
 using System;
+using CSAA.Enums;
 
 namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
 {
@@ -112,7 +113,8 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
             projectTeamMember = new ProjectTeamMember
             {
                 UserEmail = "testuser@localhost.com",
-                ProjectId = new Guid().ToString()
+                ProjectId = new Guid().ToString(),
+                Role = Role.TeamMember
             };
             userId = new Guid().ToString();
             var user = new ApplicationUser
@@ -129,7 +131,7 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
 
         It adds_team_member = () =>
         {
-            Service.Received().AddProjectTeamMember(userId, projectTeamMember.ProjectId);
+            Service.Received().AddProjectTeamMember(userId, projectTeamMember.ProjectId, Role.TeamMember);
         };
     }
 
