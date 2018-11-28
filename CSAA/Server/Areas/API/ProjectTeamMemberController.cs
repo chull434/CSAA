@@ -50,10 +50,10 @@ namespace Server.Areas.API
 
         [HttpPost]
         [Route("Search")]
-        public List<ServiceModel.User> Search(ServiceModel.User user)
+        public List<ServiceModel.User> Search(string id, ServiceModel.User user)
         {
             service.SetApplicationUserManager(UserManager);
-            return service.SearchProjectTeamMembers(user);
+            return service.SearchProjectTeamMembers(id, user);
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace Server.Areas.API
         public void Post(ServiceModel.ProjectTeamMember projectTeamMember)
         {
             var user = UserManager.FindUserByEmail(projectTeamMember.UserEmail);
-            if(user != null) service.AddProjectTeamMember(user.Id, projectTeamMember.ProjectId);
+            if(user != null) service.AddProjectTeamMember(user.Id, projectTeamMember.ProjectId, projectTeamMember.Role);
         }
 
         [HttpPut]

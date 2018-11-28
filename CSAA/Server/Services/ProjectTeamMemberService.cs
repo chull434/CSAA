@@ -51,10 +51,10 @@ namespace Server.Services
             return projectTeamMember;
         }
 
-        public void AddProjectTeamMember(string userId, string projectId)
+        public void AddProjectTeamMember(string userId, string projectId, Role role)
         {
             var project = projectRepository.GetByID(projectId);
-            var teamMember = new ProjectTeamMember(userId, project, Role.TeamMember);
+            var teamMember = new ProjectTeamMember(userId, project, role);
             project.ProjectTeam.Add(teamMember);
             repository.Save();
         }
@@ -77,10 +77,20 @@ namespace Server.Services
             UserManager = applicationUserManager;
         }
 
-        public List<ServiceModel.User> SearchProjectTeamMembers(ServiceModel.User user)
+        public List<ServiceModel.User> SearchProjectTeamMembers(string projectId, ServiceModel.User user)
         {
-            var users = userRepository.GetAll().Where(u => u.Email == user.Email || u.UserName == user.Name || u.product_owner == user.product_owner || u.scrum_master == user.scrum_master || u.developer == user.developer).Select(u => u.Map()).ToList();
-            return users;
+            var users = userRepository.GetAll();
+            var project = projectRepository.GetByID(projectId);
+
+            users = users.Where(u => project.ProjectTeam.FirstOrDefault(m => m.UserId == u.Id) == null).ToList();
+
+            if(!string.IsNullOrEmpty(user.Email)) users = users.Where(u => u.Email.Contains(user.Email)).ToList();
+            if(!string.IsNullOrEmpty(user.Name))  users = users.Where(u => u.UserName.Contains(user.Name)).ToList();
+            if(user.product_owner)                users = users.Where(u => u.product_owner == user.product_owner).ToList();
+            if(user.scrum_master)                 users = users.Where(u => u.scrum_master == user.scrum_master).ToList();
+            if(user.developer)                    users = users.Where(u => u.developer == user.developer).ToList();
+
+            return users.Select(u => u.Map()).ToList();
         }
     }
 }

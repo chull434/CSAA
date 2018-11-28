@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Client.Requests;
 using Client.Views;
+using CSAA.Enums;
 using CSAA.ServiceModels;
 using Project = CSAA.ServiceModels.Project;
 
@@ -91,7 +92,7 @@ namespace Client.ViewModels
             get => _userList;
             set
             {
-                //value.ForEach(m => m.OnRoleChange = OnProjectTeamMemberRoleChange);
+                value.ForEach(m => m.OnRoleChange = OnUserRoleChange);
                 SetProperty(ref _userList, value);
             }
         }
@@ -154,7 +155,7 @@ namespace Client.ViewModels
 
         private void OnAddTeamMember(object commandParameter)
         {
-            ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId);
+            ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId, Role.TeamMember);
             GetProject(projectId);
         }
 
@@ -168,7 +169,7 @@ namespace Client.ViewModels
                 scrum_master = ScrumMaster,
                 developer = Developer
             };
-            UserList = ProjectTeamMemberRequest.SearchProjectTeamMembers(user);
+            UserList = ProjectTeamMemberRequest.SearchProjectTeamMembers(projectId, user);
         }
 
         public void OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
@@ -177,6 +178,15 @@ namespace Client.ViewModels
             ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
             GetProject(projectId);
             projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
+        }
+
+        public void OnUserRoleChange(User user)
+        {
+            user.OnRoleChange = null;
+            ProjectTeamMemberRequest.AddProjectTeamMember(user.Email, projectId, user.Role);
+            GetProject(projectId);
+            SearchTeamMember.Execute(null);
+            user.OnRoleChange = OnUserRoleChange;
         }
     }
 }

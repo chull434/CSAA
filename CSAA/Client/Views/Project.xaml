@@ -187,6 +187,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
+                            <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Add with Role" />
                         </Grid>
                         <ListBox Name="lb_searchResult" ItemsSource="{Binding UserList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
                             <ListBox.ItemTemplate>
