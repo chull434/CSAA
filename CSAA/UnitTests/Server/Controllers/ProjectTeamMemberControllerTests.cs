@@ -191,4 +191,29 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
     }
 
     #endregion
+
+    #region Seach Tests
+
+    public class when_I_call_Search : Context
+    {
+        static User user;
+        static string projectId;
+
+        Establish context = () =>
+        {
+
+        };
+
+        Because of = () =>
+        {
+            ProjectTeamMemberController.Search(projectId, user);
+        };
+
+        It adds_team_member = () =>
+        {
+            Service.Received().SearchProjectTeamMembers(projectId, user);
+        };
+    }
+
+    #endregion
 }

@@ -8,9 +8,11 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
 {
     public class Context
     {
+        public static ProjectTeamMember projectTeamMember;
+
         Establish context = () =>
         {
-
+            projectTeamMember = new ProjectTeamMember(); 
         };
     }
 
@@ -72,6 +74,7 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
         {
             projectTeamMember = new ProjectTeamMember();
             projectTeamMember.Project = new Project("test");
+            projectTeamMember.AddRole(Role.Developer);
         };
 
         Because of = () =>
@@ -82,6 +85,90 @@ namespace UnitTests.CSAA.DataModels.ProjectTeamMemberTests
         It maps = () =>
         {
             result.ShouldNotBeNull();
+        };
+    }
+
+    #endregion
+
+    #region AddRole(Role role) Tests
+
+    class when_I_call_AddRole : Context
+    {
+        Establish context = () =>
+        {
+
+        };
+
+        Because of = () =>
+        {
+            projectTeamMember.AddRole(Role.TeamMember);
+        };
+
+        It adds_role = () =>
+        {
+            projectTeamMember.RoleAssignments.Count.ShouldEqual(1);
+        };
+    }
+
+    class when_I_call_AddRole_role_already_exists : Context
+    {
+        Establish context = () =>
+        {
+            projectTeamMember.AddRole(Role.TeamMember);
+        };
+
+        Because of = () =>
+        {
+            projectTeamMember.AddRole(Role.TeamMember);
+        };
+
+        It adds_role = () =>
+        {
+            projectTeamMember.RoleAssignments.Count.ShouldEqual(1);
+        };
+    }
+
+    #endregion
+
+    #region HasRole(Role role) Tests
+
+    class when_I_call_HasRole_true : Context
+    {
+        static bool result;
+
+        Establish context = () =>
+        {
+            projectTeamMember.AddRole(Role.TeamMember);
+        };
+
+        Because of = () =>
+        {
+            result = projectTeamMember.HasRole(Role.TeamMember);
+        };
+
+        It returns_true = () =>
+        {
+            result.ShouldBeTrue();
+        };
+    }
+
+    class when_I_call_HasRole_false : Context
+    {
+        static bool result;
+
+        Establish context = () =>
+        {
+            projectTeamMember.AddRole(Role.ProductOwner);
+        };
+
+        Because of = () =>
+        {
+            result = projectTeamMember.HasRole(Role.TeamMember);
+        };
+
+        It returns_false = () =>
+        {
+            result.ShouldBeFalse();
         };
     }
 

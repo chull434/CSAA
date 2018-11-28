@@ -77,6 +77,42 @@ namespace UnitTests.Client.Requests.ProjectTeamMemberRequests
 
     #endregion
 
+    #region SearchProjectTeamMembers(string projectId, User user)
+
+    public class when_I_call_SearchProjectTeamMembers : Context
+    {
+        static List<User> result;
+        static string projectId;
+        static User user;
+
+        Establish context = () =>
+        {
+            projectId = new Guid().ToString();
+            user = new User();
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            var users = new List<User>
+            {
+                new User()
+            };
+            response.Content = new StringContent(JsonConvert.SerializeObject(users));
+            response.Content.Headers.ContentType.MediaType = "application/json";
+            HttpClient.PostAsJsonAsync("api/ProjectTeamMember/Search?id=" + projectId, user).Returns(response);
+        };
+
+        Because of = () =>
+        {
+            result = ProjectTeamMemberRequest.SearchProjectTeamMembers(projectId, user);
+        };
+
+        It returns_users = () =>
+        {
+            HttpClient.Received().PostAsJsonAsync("api/ProjectTeamMember/Search?id=" + projectId, user);
+            result.Count.ShouldEqual(1);
+        };
+    }
+
+    #endregion
+
     #region GetProjectTeamMember(string projectTeamMemberId) Tests
 
     public class when_I_call_GetProjectTeamMember : Context
