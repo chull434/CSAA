@@ -69,14 +69,20 @@ namespace Client.ViewModels
             GetTeamMembers();
         }
 
+        public HomeViewModel(IHttpClient httpClient, IAccountRequest accountRequest, IProjectRequest projectRequest, IProjectTeamMemberRequest projectTeamMemberRequest)
+        {
+            HttpClient = httpClient;
+            AccountRequest = accountRequest;
+            ProjectRequest = projectRequest;
+            ProjectTeamMemberRequest = projectTeamMemberRequest;
+            _logout = new DelegateCommand(OnLogout);
+            _createProject = new DelegateCommand(OnCreateProject);
+        }
+
         private void OnLogout(object commandParameter)
         {
             AccountRequest.Logout();
-            var login = new Login(HttpClient);
-            var home = App.Current.MainWindow;
-            App.Current.MainWindow = login;
-            home.Close();
-            login.Show();
+            ChangeView(new Login(HttpClient));
         }
 
         private void OnEditProfile(object commandParameter)
@@ -91,20 +97,12 @@ namespace Client.ViewModels
         private void OnCreateProject(object commandParameter)
         {
             var projectId = ProjectRequest.CreateProject(new Project("New Project"));
-            var projectWindow = new Views.Project(HttpClient, projectId);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = projectWindow;
-            currentWindow.Close();
-            projectWindow.Show();
+            ChangeView(new Views.Project(HttpClient, projectId));
         }
 
         private void OnOpenProject(string projectId)
         {
-            var projectWindow = new Views.Project(HttpClient, projectId);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = projectWindow;
-            currentWindow.Close();
-            projectWindow.Show();
+            ChangeView(new Views.Project(HttpClient, projectId));
         }
 
         private void GetProjects()
@@ -114,7 +112,7 @@ namespace Client.ViewModels
 
         private void GetTeamMembers()
         {
-            MemberList = ProjectTeamMemberRequest.GetAllProjectTeamMembers();
+            MemberList = ProjectTeamMemberRequest.GetProjectTeamMembers();
         }
 
         private void GetTasks()

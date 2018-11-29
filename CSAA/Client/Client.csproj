@@ -64,15 +64,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Requests\AcceptanceTestRequest.cs" />
     <Compile Include="Requests\AccountRequest.cs" />
     <Compile Include="Requests\HttpClient.cs" />
+    <Compile Include="Requests\IAcceptanceTestRequest.cs" />
     <Compile Include="Requests\IAccountRequest.cs" />
     <Compile Include="Requests\IHttpClient.cs" />
     <Compile Include="Requests\IProjectRequest.cs" />
     <Compile Include="Requests\IProjectTeamMemberRequest.cs" />
+    <Compile Include="Requests\IUserStoryRequest.cs" />
     <Compile Include="Requests\ProjectRequest.cs" />
     <Compile Include="Requests\ProjectTeamMemberRequest.cs" />
     <Compile Include="Requests\Request.cs" />
+    <Compile Include="Requests\UserStoryRequest.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -80,12 +84,17 @@
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\ProductBacklogViewModel.cs" />
+    <Compile Include="ViewModels\UserStoryViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductBacklog.xaml.cs">
+      <DependentUpon>ProductBacklog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
@@ -95,6 +104,9 @@
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserStory.xaml.cs">
+      <DependentUpon>UserStory.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +128,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProductBacklog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Project.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserStory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

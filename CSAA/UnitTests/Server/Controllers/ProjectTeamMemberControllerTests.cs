@@ -6,6 +6,7 @@ using Server.Areas.API;
 using Server.Models;
 using Server.Services;
 using System;
+using CSAA.Enums;
 
 namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
 {
@@ -41,6 +42,63 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
         };
     }
 
+    public class when_I_Construct_ProjectTeamMemberController_with_service : Context
+    {
+        static ProjectTeamMemberController projectTeamMemberController;
+
+        Because of = () =>
+        {
+            projectTeamMemberController = new ProjectTeamMemberController(Service);
+        };
+
+        It constructs_project_team_member_controller = () =>
+        {
+            projectTeamMemberController.ShouldNotBeNull();
+        };
+    }
+
+    #endregion
+
+    #region Gets Tests
+
+    public class when_I_call_Get : Context
+    {
+        Establish context = () =>
+        {
+            
+        };
+
+        Because of = () =>
+        {
+            ProjectTeamMemberController.Get();
+        };
+
+        It gets_team_members = () =>
+        {
+            Service.Received().GetAllProjectTeamMembers();
+        };
+    }
+
+    public class when_I_call_Get_by_id : Context
+    {
+        static string id;
+
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+        };
+
+        Because of = () =>
+        {
+            ProjectTeamMemberController.Get(id);
+        };
+
+        It gets_team_member = () =>
+        {
+            Service.Received().GetProjectTeamMember(id);
+        };
+    }
+
     #endregion
 
     #region Post Tests
@@ -55,7 +113,8 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
             projectTeamMember = new ProjectTeamMember
             {
                 UserEmail = "testuser@localhost.com",
-                ProjectId = new Guid().ToString()
+                ProjectId = new Guid().ToString(),
+                Role = Role.TeamMember
             };
             userId = new Guid().ToString();
             var user = new ApplicationUser
@@ -72,7 +131,87 @@ namespace UnitTests.Server.Controllers.ProjectTeamMemberControllerTests
 
         It adds_team_member = () =>
         {
-            Service.Received().AddProjectTeamMember(userId, projectTeamMember.ProjectId);
+            Service.Received().AddProjectTeamMember(userId, projectTeamMember.ProjectId, Role.TeamMember);
+        };
+    }
+
+    #endregion
+
+    #region Put Tests
+
+    public class when_I_call_Put : Context
+    {
+        static string id;
+        static ProjectTeamMember projectTeamMember;
+
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+            projectTeamMember = new ProjectTeamMember
+            {
+                UserEmail = "testuser@localhost.com",
+                ProjectId = new Guid().ToString()
+            };
+
+        };
+
+        Because of = () =>
+        {
+            ProjectTeamMemberController.Put(id, projectTeamMember);
+        };
+
+        It updates_team_member = () =>
+        {
+            Service.Received().UpdateProjectTeamMember(id, projectTeamMember);
+        };
+    }
+
+    #endregion
+
+    #region Delete Tests
+
+    public class when_I_call_Delete: Context
+    {
+        static string id;
+
+        Establish context = () =>
+        {
+            id = new Guid().ToString();
+        };
+
+        Because of = () =>
+        {
+            ProjectTeamMemberController.Delete(id);
+        };
+
+        It deletes_team_member = () =>
+        {
+            Service.Received().DeleteProjectTeamMember(id);
+        };
+    }
+
+    #endregion
+
+    #region Seach Tests
+
+    public class when_I_call_Search : Context
+    {
+        static User user;
+        static string projectId;
+
+        Establish context = () =>
+        {
+
+        };
+
+        Because of = () =>
+        {
+            ProjectTeamMemberController.Search(projectId, user);
+        };
+
+        It adds_team_member = () =>
+        {
+            Service.Received().SearchProjectTeamMembers(projectId, user);
         };
     }
 

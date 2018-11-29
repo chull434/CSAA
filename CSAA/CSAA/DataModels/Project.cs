@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSAA.Enums;
 
 namespace CSAA.DataModels
 {
@@ -9,12 +10,14 @@ namespace CSAA.DataModels
         public Guid Id { get; set; }
         public string Title { get; set; }
         public virtual List<ProjectTeamMember> ProjectTeam { get; set; }
+        public virtual List<UserStory> ProjectUserStories { get; set; }
 
         public Project()
         {
             Id = Guid.NewGuid();
             Title = "My Project";
             ProjectTeam = new List<ProjectTeamMember>();
+            ProjectUserStories = new List<UserStory>();
         }
 
         public Project(string Title)
@@ -22,15 +25,27 @@ namespace CSAA.DataModels
             Id = Guid.NewGuid();
             this.Title = Title;
             ProjectTeam = new List<ProjectTeamMember>();
+            ProjectUserStories = new List<UserStory>();
         }
 
         public ServiceModels.Project Map()
         {
             return new ServiceModels.Project(Title)
             {
+                ProjectUserStories = ProjectUserStories.Select(m => m.Map()).ToList(),
                 ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList(),
                 Id = Id.ToString()
             };
+        }
+
+        public bool RoleAssigned(Role role)
+        {
+            foreach (var projectTeamMember in ProjectTeam)
+            {
+                if (projectTeamMember.HasRole(role)) return true;
+            }
+
+            return false;
         }
     }
 }

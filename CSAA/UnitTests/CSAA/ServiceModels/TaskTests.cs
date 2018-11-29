@@ -1,7 +1,7 @@
-﻿using CSAA.DataModels;
-using Machine.Specifications;
+﻿using Machine.Specifications;
+using CSAA.ServiceModels;
 
-namespace UnitTests.CSAA.Models.ProjectTests
+namespace UnitTests.CSAA.ServiceModels.TaskTests
 {
     public class Context
     {
@@ -15,7 +15,7 @@ namespace UnitTests.CSAA.Models.ProjectTests
 
     public class when_I_Construct : Context
     {
-        static Project project;
+        static Task task;
 
         Establish context = () =>
         {
@@ -24,12 +24,12 @@ namespace UnitTests.CSAA.Models.ProjectTests
 
         Because of = () =>
         {
-            project = new Project("My Project");
+            task = new Task();
         };
 
-        It creates_a_project = () =>
+        It creates_a_task = () =>
         {
-            project.ShouldNotBeNull();
+            task.ShouldNotBeNull();
         };
     }
 

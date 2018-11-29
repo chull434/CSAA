@@ -32,12 +32,6 @@ namespace Client.ViewModels
         private readonly DelegateCommand _register;
         public ICommand Register => _register;
 
-        public LoginViewModel()
-        {
-            _login = new DelegateCommand(OnLogin);
-            _register = new DelegateCommand(OnRegister);
-        }
-
         public LoginViewModel(IHttpClient httpClient)
         {
             HttpClient = httpClient;
@@ -55,11 +49,7 @@ namespace Client.ViewModels
 
         private void OnRegister(object commandParameter)
         {
-            var registration = new Registration(HttpClient);
-            var login = App.Current.MainWindow;
-            App.Current.MainWindow = registration;
-            login.Close();
-            registration.Show();
+            ChangeView(new Registration(HttpClient));
         }
 
         private void OnLogin(object commandParameter)
@@ -77,11 +67,7 @@ namespace Client.ViewModels
                 return;
             }
 
-            var home = new Home(HttpClient);
-            var login = App.Current.MainWindow;
-            App.Current.MainWindow = home;
-            login.Close();
-            home.Show();
+            ChangeView(new Home(HttpClient));
         }
 
         private bool EmptyFieldValidation()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Client.Requests;
 using Client.Views;
+using CSAA.Enums;
 using CSAA.ServiceModels;
 using Project = CSAA.ServiceModels.Project;
 
@@ -28,6 +29,11 @@ namespace Client.ViewModels
         private readonly DelegateCommand _addTeamMember;
         public ICommand AddTeamMember => _addTeamMember;
 
+        private readonly DelegateCommand _searchTeamMember;
+        public ICommand SearchTeamMember => _searchTeamMember;
+        private readonly DelegateCommand _viewBacklog;
+        public ICommand ViewBacklog => _viewBacklog;
+
 
         string _projectTitle;
         public string ProjectTitle
@@ -43,6 +49,34 @@ namespace Client.ViewModels
             set => SetProperty(ref _email, value);
         }
 
+        string _userName;
+        public string UserName
+        {
+            get => _userName;
+            set => SetProperty(ref _userName, value);
+        }
+
+        bool _productOwner;
+        public bool ProductOwner
+        {
+            get => _productOwner;
+            set => SetProperty(ref _productOwner, value);
+        }
+
+        bool _scrumMaster;
+        public bool ScrumMaster
+        {
+            get => _scrumMaster;
+            set => SetProperty(ref _scrumMaster, value);
+        }
+
+        bool _developer;
+        public bool Developer
+        {
+            get => _developer;
+            set => SetProperty(ref _developer, value);
+        }
+
         List<ProjectTeamMember> _memberList = new List<ProjectTeamMember>();
         public List<ProjectTeamMember> MemberList
         {
@@ -54,20 +88,18 @@ namespace Client.ViewModels
             }
         }
 
-        public void OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
+        List<User> _userList = new List<User>();
+        public List<User> UserList
         {
-            projectTeamMember.OnRoleChange = null;
-            ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
-            projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
+            get => _userList;
+            set
+            {
+                value.ForEach(m => m.OnRoleChange = OnUserRoleChange);
+                SetProperty(ref _userList, value);
+            }
         }
 
-        public ProjectViewModel()
-        {
-            _home = new DelegateCommand(OnHome);
-            _logout = new DelegateCommand(OnLogout);
-            _saveProject = new DelegateCommand(OnSaveProject);
-            _addTeamMember = new DelegateCommand(OnAddTeamMember);
-        }
+        public bool IsProjectManager { get; set; }
 
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
@@ -81,42 +113,42 @@ namespace Client.ViewModels
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
+            _searchTeamMember = new DelegateCommand(OnSearchTeamMember);
+            _viewBacklog = new DelegateCommand(OnViewBacklog);
         }
 
-        public ProjectViewModel(IAccountRequest accountRequest)
+        public ProjectViewModel(IAccountRequest accountRequest, IProjectRequest projectRequest, IProjectTeamMemberRequest projectTeamMemberRequest, string Id)
         {
             AccountRequest = accountRequest;
+            ProjectRequest = projectRequest;
+            ProjectTeamMemberRequest = projectTeamMemberRequest;
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
+            _searchTeamMember = new DelegateCommand(OnSearchTeamMember);
+            _viewBacklog = new DelegateCommand(OnViewBacklog);
+            projectId = Id;
         }
 
         private void GetProject(string projectId)
         {
             this.projectId = projectId;
-            var project = ProjectRequest.GetProjectById(projectId);
+            var project = ProjectRequest.GetProject(projectId);
             ProjectTitle = project.Title;
             MemberList = project.ProjectTeam;
+            IsProjectManager = project.IsProjectManager;
         }
 
         private void OnLogout(object commandParameter)
         {
             AccountRequest.Logout();
-            var login = new Login(HttpClient);
-            var currentWindow = App.Current.MainWindow;
-            App.Current.MainWindow = login;
-            currentWindow.Close();
-            login.Show();
+            ChangeView(new Login(HttpClient));
         }
 
         private void OnHome(object commandParameter)
         {
-            var home = new Home(HttpClient);
-            var project = App.Current.MainWindow;
-            App.Current.MainWindow = home;
-            project.Close();
-            home.Show();
+            ChangeView(new Home(HttpClient));
         }
 
         private void OnSaveProject(object commandParameter)
@@ -127,8 +159,43 @@ namespace Client.ViewModels
 
         private void OnAddTeamMember(object commandParameter)
         {
-            ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId);
+            ProjectTeamMemberRequest.AddProjectTeamMember(Email, projectId, Role.TeamMember);
             GetProject(projectId);
+        }
+
+        private void OnSearchTeamMember(object commandParameter)
+        {
+            var user = new User
+            {
+                Name = UserName,
+                Email = Email,
+                product_owner = ProductOwner,
+                scrum_master = ScrumMaster,
+                developer = Developer
+            };
+            UserList = ProjectTeamMemberRequest.SearchProjectTeamMembers(projectId, user);
+        }
+
+        public void OnProjectTeamMemberRoleChange(ProjectTeamMember projectTeamMember)
+        {
+            projectTeamMember.OnRoleChange = null;
+            ProjectTeamMemberRequest.UpdateProjectTeamMember(projectTeamMember.Id, projectTeamMember);
+            GetProject(projectId);
+            projectTeamMember.OnRoleChange = OnProjectTeamMemberRoleChange;
+        }
+
+        public void OnUserRoleChange(User user)
+        {
+            user.OnRoleChange = null;
+            ProjectTeamMemberRequest.AddProjectTeamMember(user.Email, projectId, user.Role);
+            GetProject(projectId);
+            SearchTeamMember.Execute(null);
+            user.OnRoleChange = OnUserRoleChange;
+        }
+
+        private void OnViewBacklog(object commandParameter)
+        {
+            ChangeView(new ProductBacklog(HttpClient, projectId));
         }
     }
 }
