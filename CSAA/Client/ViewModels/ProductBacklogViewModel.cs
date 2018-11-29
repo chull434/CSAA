@@ -148,42 +148,49 @@ namespace Client.ViewModels
 
         private void OnMoveUp(object commandParameter)
         {
-            if(_selectedUserStory.Priority != 1)
+            if (SelectedUserStory.Id != null)
             {
-                foreach(UserStory userStory in UserStoryList)
+                if (_selectedUserStory.Priority != 1)
                 {
-                    if (userStory.Priority == _selectedUserStory.Priority - 1)
+
+                    foreach (UserStory userStory in UserStoryList)
                     {
-                        userStory.Priority = _selectedUserStory.Priority;
-                        UserStoryRequest.UpdateUserStory(userStory.Id, new UserStory(userStory.Title, userStory.Description, projectId) { Priority = userStory.Priority });
-                        break;
+                        if (userStory.Priority == _selectedUserStory.Priority - 1)
+                        {
+                            userStory.Priority = _selectedUserStory.Priority;
+                            UserStoryRequest.UpdateUserStory(userStory.Id, new UserStory(userStory.Title, userStory.Description, projectId) { Priority = userStory.Priority });
+                            break;
+                        }
                     }
+                    _selectedUserStory.Priority--;
                 }
-                _selectedUserStory.Priority--;
+                UserStoryRequest.UpdateUserStory(_selectedUserStory.Id, new UserStory(_selectedUserStory.Title, _selectedUserStory.Description, projectId) { Priority = _selectedUserStory.Priority });
+                _sortedUserStoryList = _userStoryList.OrderBy(o => o.Priority).ToList();
+                UserStoryList = _sortedUserStoryList;
             }
-            UserStoryRequest.UpdateUserStory(_selectedUserStory.Id, new UserStory(_selectedUserStory.Title, _selectedUserStory.Description, projectId) { Priority = _selectedUserStory.Priority});
-            _sortedUserStoryList = _userStoryList.OrderBy(o => o.Priority).ToList();
-            UserStoryList = _sortedUserStoryList;
         }
 
         private void OnMoveDown(object commandParameter)
         {
-            if (_selectedUserStory.Priority != _userStoryList.Count())
+            if (SelectedUserStory.Id != null)
             {
-                foreach (UserStory userStory in UserStoryList)
+                if (_selectedUserStory.Priority != _userStoryList.Count())
                 {
-                    if (userStory.Priority == _selectedUserStory.Priority + 1)
+                    foreach (UserStory userStory in UserStoryList)
                     {
-                        userStory.Priority = _selectedUserStory.Priority;
-                        UserStoryRequest.UpdateUserStory(userStory.Id, new UserStory(userStory.Title, userStory.Description, projectId) { Priority = userStory.Priority });
-                        break;
+                        if (userStory.Priority == _selectedUserStory.Priority + 1)
+                        {
+                            userStory.Priority = _selectedUserStory.Priority;
+                            UserStoryRequest.UpdateUserStory(userStory.Id, new UserStory(userStory.Title, userStory.Description, projectId) { Priority = userStory.Priority });
+                            break;
+                        }
                     }
+                    _selectedUserStory.Priority++;
                 }
-                _selectedUserStory.Priority++;
+                UserStoryRequest.UpdateUserStory(_selectedUserStory.Id, new UserStory(_selectedUserStory.Title, _selectedUserStory.Description, projectId) { Priority = _selectedUserStory.Priority });
+                _sortedUserStoryList = _userStoryList.OrderBy(o => o.Priority).ToList();
+                UserStoryList = _sortedUserStoryList;
             }
-            UserStoryRequest.UpdateUserStory(_selectedUserStory.Id, new UserStory(_selectedUserStory.Title, _selectedUserStory.Description, projectId) { Priority = _selectedUserStory.Priority });
-            _sortedUserStoryList = _userStoryList.OrderBy(o => o.Priority).ToList();
-            UserStoryList = _sortedUserStoryList;
         }
     }
 }
