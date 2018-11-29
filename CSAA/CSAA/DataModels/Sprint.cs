@@ -18,6 +18,8 @@ namespace CSAA.DataModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public virtual List<SprintTeamMember> SprintTeam { get; set; }
+
         public Sprint()
         {
             Id = Guid.NewGuid();

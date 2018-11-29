@@ -133,7 +133,7 @@ namespace Client.ViewModels
         }
 
         public bool IsProjectManager { get; set; }
-        public bool IsScumMaster { get; set; }
+        public bool IsScrumMaster { get; set; }
 
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
@@ -177,7 +177,7 @@ namespace Client.ViewModels
             MemberList = project.ProjectTeam;
             SprintList = project.Sprints;
             IsProjectManager = project.IsProjectManager;
-            IsScumMaster = project.IsScrumMaster;
+            IsScrumMaster = project.IsScrumMaster;
         }
 
         private void OnLogout(object commandParameter)

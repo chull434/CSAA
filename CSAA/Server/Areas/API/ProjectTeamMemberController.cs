@@ -56,6 +56,14 @@ namespace Server.Areas.API
             return service.SearchProjectTeamMembers(id, user);
         }
 
+        [HttpPost]
+        [Route("SearchSprint")]
+        public List<ServiceModel.User> SearchSprint(string projectId, string sprintId, ServiceModel.User user)
+        {
+            service.SetApplicationUserManager(UserManager);
+            return service.SearchProjectTeamMembersSprint(projectId, sprintId, user);
+        }
+
         [HttpGet]
         public ServiceModel.ProjectTeamMember Get(string id)
         {

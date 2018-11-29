@@ -12,6 +12,8 @@ namespace CSAA.ServiceModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public bool IsScrumMaster { get; set; }
+
         public Sprint()
         {
             

@@ -35,6 +35,11 @@ namespace Server.Services
         public ServiceModel.Sprint GetSprint(string sprintId, string userId)
         {
             var sprint = repository.GetByID(sprintId).Map();
+            var member = repository.GetByID(sprintId).Project.ProjectTeam.FirstOrDefault(m => m.UserId == userId);
+            if (member != null)
+            {
+                sprint.IsScrumMaster = member.HasRole(Role.ScrumMaster);
+            }
             return sprint;
         }
 

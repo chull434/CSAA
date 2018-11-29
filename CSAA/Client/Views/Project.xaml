@@ -245,7 +245,7 @@
                     </StackPanel>
                 </Grid>
 				<Button x:Name="btn_ViewBacklog" Content="View Backlog" FontSize="18" HorizontalAlignment="Left" Margin="29,25,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding ViewBacklog}"/>
-                <Button x:Name="btn_NewSprint" Content="New Sprint" FontSize="18" HorizontalAlignment="Left" Margin="29,25,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding NewSprint}" IsEnabled="{Binding IsScumMaster}" />
+                <Button x:Name="btn_NewSprint" Content="New Sprint" FontSize="18" HorizontalAlignment="Left" Margin="29,25,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding NewSprint}" IsEnabled="{Binding IsScrumMaster}" />
             </StackPanel>
         </Grid>
     </ScrollViewer>
