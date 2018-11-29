@@ -7,7 +7,7 @@
         xmlns:ViewModels="clr-namespace:Client.ViewModels" x:Class="Client.Views.Registration"
         mc:Ignorable="d"
         WindowState="Maximized"
-        WindowStyle="None"
+        WindowStyle="ToolWindow"
         Title="Registration" Height="720" Width="1280" Background="#c6d5c2">
 
 
@@ -52,7 +52,7 @@
         <PasswordBox x:Name="pwb_ConfirmPassword" ViewModels:PasswordBoxAssistant.BindPassword="true"  ViewModels:PasswordBoxAssistant.BoundPassword="{Binding Path=ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="179,267,0,0" VerticalAlignment="Top" Width="216" Height="23" BorderThickness="3" FontSize="14" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_preference" Content="Select Your Role Preferences" HorizontalAlignment="Left" Margin="427,94,0,0" VerticalAlignment="Top" Height="46" Width="230" FontSize="16" FontFamily="Calibri" FontWeight="Bold"/>
         <Button x:Name="btn_Register" Content="Register" HorizontalAlignment="Left" Margin="35,332,0,32" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding Register}"/>
-        <Button x:Name="btn_Login"  Content="Login" HorizontalAlignment="Left" Margin="244,332,0,40" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding Login, Mode=OneWay}"/>
+        <Button x:Name="btn_Login"  Content="Back To Login" HorizontalAlignment="Left" Margin="244,332,0,40" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding Login, Mode=OneWay}"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="125" Margin="427,249,0,0" VerticalAlignment="Top" Width="130" Source="Images/Kongu.png" />
         <Label x:Name="lbl_TitleRegistration" Content="Registration" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="294" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_InvalidFields" Content="{Binding FieldsError}" HorizontalAlignment="Left" Height="26" Margin="179,192,0,0" VerticalAlignment="Top" Width="216" Foreground="Red" FontWeight="Bold" FontFamily="Calibri" FontSize="14"/>

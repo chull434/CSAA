@@ -13,11 +13,13 @@ using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class UserStoryController : ApiController
     {
         private ServerDbContext context;
         private IRepository<UserStory> repository;
         private IRepository<Project> projectRepository;
+        private IRepository<Sprint> sprintRepository;
         private IUserStoryService service;    
 
         public UserStoryController()
@@ -25,7 +27,8 @@ namespace Server.Areas.API
             context = new ServerDbContext();
             repository = new UserStoryRepository(context);
             projectRepository = new ProjectRepository(context);
-            service = new UserStoryService(repository, projectRepository);
+            sprintRepository = new SprintRepository(context);
+            service = new UserStoryService(repository, projectRepository, sprintRepository);
         }
 
         public UserStoryController(IUserStoryService service)

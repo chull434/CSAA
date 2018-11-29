@@ -14,6 +14,7 @@ namespace Server.App_Data
         public virtual DbSet<UserStory> UserStories { get; set; }
         public virtual DbSet<AcceptanceTest> AcceptanceTests { get; set; }
         public virtual DbSet<Sprint> Sprints { get; set; }
+        public virtual DbSet<SprintTeamMember> SprintTeamMembers { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
     }
 }

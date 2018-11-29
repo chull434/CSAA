@@ -67,7 +67,7 @@ namespace UnitTests.Server.Controllers.ProjectControllerTests
 
         Establish context = () =>
         {
-            ProjectService.GetProjects().Returns(new List<Project>());
+            ProjectService.GetProjects(Arg.Any<string>()).Returns(new List<Project>());
         };
 
         Because of = () =>
@@ -78,7 +78,7 @@ namespace UnitTests.Server.Controllers.ProjectControllerTests
         It returns_list_of_projects = () =>
         {
             result.ShouldNotBeNull();
-            ProjectService.Received().GetProjects();
+            ProjectService.Received().GetProjects(Arg.Any<string>());
         };
     };
 

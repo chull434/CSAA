@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         WindowState="Maximized"
-        WindowStyle="None"
+        WindowStyle="ToolWindow"
         Title="Project" Height="720" Width="1280" Background="#f1f1f1">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
@@ -53,9 +53,6 @@
                 </Menu.ItemsPanel>
                 <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
                 <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Home}"/>
-                <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
                 <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
             </Menu>
             <StackPanel x:Name="IntroText" Margin="25,25,25,0">
@@ -85,12 +82,15 @@
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="priority" />
                     <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Story Title" />
                     <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Description" />
                     <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="Story Points" />
-                    
+                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="4" Text="Market Value" />
+                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="5" Text="Sprint" />
                 </Grid>
                 <ListBox Name="lb_UserStoryList" ItemsSource="{Binding UserStoryList}" SelectedItem="{Binding SelectedUserStory}" HorizontalContentAlignment="Stretch" Background="#9bafb9">
                     <ListBox.ItemTemplate>
@@ -101,11 +101,15 @@
                                     <ColumnDefinition Width="3*" />
                                     <ColumnDefinition Width="3*" />
                                     <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Padding="10,5,0,5" Grid.Column="0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Priority}" TextWrapping="Wrap"/>
                                 <TextBlock Padding="10,5,0,5" Grid.Column="1" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Title}" TextWrapping="Wrap"/>
                                 <TextBlock Padding="10,5,0,5" Grid.Column="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding Description}"  TextWrapping="Wrap"/>
                                 <TextBlock Padding="10,5,0,5" Grid.Column="3" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding StoryPoints}" TextWrapping="Wrap"/>
+                                <TextBlock Padding="10,5,0,5" Grid.Column="4" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding MarketValue}" TextWrapping="Wrap"/>
+                                <TextBlock Padding="10,5,0,5" Grid.Column="5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding SprintTitle}" TextWrapping="Wrap"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

@@ -11,7 +11,14 @@ namespace Server.Services
         {
             client = new SmtpClient();
             client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
-            client.PickupDirectoryLocation = @"C:\Temp";
+            string pickupDirectory = "C:\\Temp";
+            client.PickupDirectoryLocation = pickupDirectory;
+            bool exists = System.IO.Directory.Exists(pickupDirectory);
+            if (!exists)
+            {
+                System.IO.Directory.CreateDirectory(pickupDirectory);
+            }
+            
         }
 
         public void SendEmail(string address, string subject, string body)

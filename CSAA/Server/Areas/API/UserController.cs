@@ -1,39 +1,72 @@
-﻿using System;
+﻿using CSAA.DataModels;
+using Microsoft.AspNet.Identity;
+using Server.App_Data;
+using Server.Services;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity.Owin;
+using Server.Models;
+using ServiceModel = CSAA.ServiceModels;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class UserController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private ServerDbContext context;
+        private IRepository<ApplicationUser> repository;
+        private IUserService service;
+
+        private IApplicationUserManager _userManager;
+        public IApplicationUserManager UserManager
         {
-            return new string[] { "value1", "value2" };
+            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            set => _userManager = value;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        public UserController()
         {
-            return "value";
+            context = new ServerDbContext();
+            repository = new UserRepository(context);
+            service = new UserService(repository);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        public UserController(IUserService service)
         {
+            this.service = service;
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [HttpGet]
+        public List<ServiceModel.User> Get()
         {
+            service.SetApplicationUserManager(UserManager);
+            return service.GetUsers();
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        [HttpGet]
+        public ServiceModel.User Get(string id)
         {
+            service.SetApplicationUserManager(UserManager);
+            return service.GetUser(id);
+        }
+
+        [HttpPost]
+        public string Post(ServiceModel.User user)
+        {
+            return service.CreateUser(user);
+        }
+
+        [HttpPut]
+        public void Put(string id, ServiceModel.User user)
+        {
+            service.UpdateUser(id, user);
+        }
+
+        [HttpDelete]
+        public void Delete(string id)
+        {
+            service.DeleteUser(id);
         }
     }
 }

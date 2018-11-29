@@ -75,11 +75,15 @@
     <Compile Include="Requests\IProjectTeamMemberRequest.cs" />
     <Compile Include="Requests\ISprintRequest.cs" />
     <Compile Include="Requests\ITaskRequest.cs" />
+    <Compile Include="Requests\IUserRequest.cs" />
     <Compile Include="Requests\IUserStoryRequest.cs" />
     <Compile Include="Requests\ProjectRequest.cs" />
     <Compile Include="Requests\ProjectTeamMemberRequest.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="Requests\SprintRequest.cs" />
+    <Compile Include="Requests\ISprintTeamMemberRequest.cs" />
+    <Compile Include="Requests\SprintTeamMemberRequest.cs" />
+    <Compile Include="Requests\UserRequest.cs" />
     <Compile Include="Requests\TaskRequest.cs" />
     <Compile Include="Requests\UserStoryRequest.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />

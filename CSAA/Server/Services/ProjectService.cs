@@ -23,9 +23,9 @@ namespace Server.Services
             this.UserManager = UserManager;
         }
 
-        public List<ServiceModel.Project> GetProjects()
+        public List<ServiceModel.Project> GetProjects(string userId)
         {
-            var projects = repository.GetAll().Select(p => p.Map()).ToList();
+            var projects = repository.GetAll().Where(p => p.ProjectTeam.FirstOrDefault(m => m.UserId == userId) != null).Select(p => p.Map()).ToList();
             foreach (var project in projects)
             {
                 foreach (var projectTeamMember in project.ProjectTeam)

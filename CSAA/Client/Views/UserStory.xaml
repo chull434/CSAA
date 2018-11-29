@@ -8,7 +8,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         WindowState="Maximized"
-        WindowStyle="None"
+        WindowStyle="ToolWindow"
         Title="Project" Height="1000" Width="1280" Background="#f1f1f1">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
@@ -62,9 +62,6 @@
                     </Menu.ItemsPanel>
                     <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
                     <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Home}"/>
-                    <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                    <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                    <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
                     <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
                 </Menu>
                 <StackPanel x:Name="IntroText" Margin="25,25,25,0">
@@ -76,7 +73,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="txtblk_WelcomeHeader" Text="{Binding UserStoryTitle}" HorizontalAlignment="Stretch" Grid.Column="1" Background="#173654" Foreground="White" Margin="-150, 0, 0, 0" Padding="0,20,20,20" TextAlignment="Center" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="24" VerticalAlignment="Center" Height="AUTO" Width="auto"/>
                         <Button x:Name="btn_Back" Background="#9bafb9" Content="Back" Margin="22.5,0,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Back}"/>
-                        <Button x:Name="btn_Delete" Background="#691717" Content="Delete" Margin="0,0,22.5,0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding DeleteUserStory}" IsEnabled="{Binding CanEdit}"/>
+                        <Button x:Name="btn_Delete" Background="#691717" Content="Delete" Margin="0,0,22.5,0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding DeleteUserStory}" IsEnabled="{Binding IsProductOwner}"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel Margin="25,25,25,0" Grid.Column="0">
@@ -90,20 +87,24 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Label x:Name="lbl_UserStoryTitle" Content="Title:" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                            <Label x:Name="lbl_UserStoryStoryPoints" Content="Story Points:" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
-                            <Label x:Name="lbl_UserStoryDescription" Content="Description:" HorizontalAlignment="Left" Margin="25,10,25,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStoryTitle" Content="Title:" Height="30" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStoryStoryPoints" Content="Story Points:" Height="30" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStoryMarketValue" Content="Market Value:" Height="30" HorizontalAlignment="Left" Margin="25,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStoryDescription" Content="Description:" Height="130" HorizontalAlignment="Left" Margin="25,10,25,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_UserStorySprintTitle" Content="Sprint:"  Height="30" HorizontalAlignment="Left" Margin="25,10,25,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <TextBox x:Name="txt_Title" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryTitle}" IsEnabled="{Binding CanEdit}"/>
+                            <TextBox x:Name="txt_Title" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryTitle}" IsEnabled="{Binding IsProductOwner}"/>
                             <TextBox x:Name="txt_StoryPoints" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryPoints}" IsEnabled="{Binding IsScrumMaster}"/>
-                            <TextBox x:Name="txt_Description" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryDescription}" AcceptsReturn="True" IsEnabled="{Binding CanEdit}"/>
-                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Right" Margin="5,10,25,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveUserStory}" IsEnabled="{Binding CanEdit}"/>
+                            <TextBox x:Name="txt_MarketValue" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryMarketValue}" IsEnabled="{Binding IsProductOwner}"/>
+                            <TextBox x:Name="txt_Description" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserStoryDescription}" AcceptsReturn="True" IsEnabled="{Binding IsProductOwner}"/>
+                            <TextBox x:Name="txt_SprintTitle" HorizontalAlignment="Stretch" Height="30" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding SprintTitle}" IsEnabled="False"/>
+                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Right" Margin="5,10,25,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding SaveUserStory}" IsEnabled="{Binding CanSave}"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
 
-                <StackPanel Margin="25,25,25,0" Grid.Column="0" IsEnabled="{Binding CanEdit}">
+                <StackPanel Margin="25,25,25,0" Grid.Column="0" IsEnabled="{Binding IsProductOwner}">
                     <TextBlock x:Name="txtblk_Tasks" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="25,10,10,10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Tasks
                     </TextBlock>

@@ -62,11 +62,25 @@ namespace Client.ViewModels
             set => SetProperty(ref _userStoryDescription, value);
         }
 
+        string _sprintTitle;
+        public string SprintTitle
+        {
+            get => _sprintTitle;
+            set => SetProperty(ref _sprintTitle, value);
+        }
+
         int _userStoryPoints;
         public int UserStoryPoints
         {
             get => _userStoryPoints;
             set => SetProperty(ref _userStoryPoints, value);
+        }
+
+        int _userStoryMarketValue;
+        public int UserStoryMarketValue
+        {
+            get => _userStoryMarketValue;
+            set => SetProperty(ref _userStoryMarketValue, value);
         }
 
         int _userStoryPriority;
@@ -78,13 +92,7 @@ namespace Client.ViewModels
 
         public bool IsScrumMaster { get; set; }
         public bool IsProductOwner { get; set; }
-
-        bool _canEdit;
-        public bool CanEdit
-        {
-            get => _canEdit;
-            set => SetProperty(ref _canEdit, value);
-        }
+        public bool CanSave { get; set; }
 
         private string _selectedAcceptanceTestId { get; set; }
         public AcceptanceTest SelectedAcceptanceTest
@@ -166,7 +174,7 @@ namespace Client.ViewModels
             var project = ProjectRequest.GetProject(projectId);           
             IsProductOwner = project.IsProductOwner;
             IsScrumMaster = project.IsScrumMaster;
-            CanEdit = IsProductOwner;
+            CanSave = IsProductOwner || IsScrumMaster;
         }
 
         public UserStoryViewModel(IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string userStoryId, string projectId)
@@ -207,15 +215,23 @@ namespace Client.ViewModels
             var userStory = UserStoryRequest.GetUserStoryById(userStoryId);
             UserStoryTitle = userStory.Title;
             UserStoryDescription = userStory.Description;
+            SprintTitle = userStory.SprintTitle;
             UserStoryPoints = userStory.StoryPoints;
             UserStoryPriority = userStory.Priority;
+            UserStoryMarketValue = userStory.MarketValue;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
             TaskList = userStory.UserStoryTasks;
+            if (userStory.SprintId != null)
+            {
+                IsProductOwner = false;
+                IsScrumMaster = false;
+                CanSave = false;
+            }
         }
 
         private void OnSaveUserStory(object commandParameter)
         {
-            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, Priority = UserStoryPriority });
+            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, Priority = UserStoryPriority, MarketValue = UserStoryMarketValue});
             GetUserStory(userStoryId);
         }
 

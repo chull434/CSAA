@@ -40,7 +40,7 @@ namespace Server.Areas.API
         public List<ServiceModel.Project> Get()
         {
             service.SetApplicationUserManager(UserManager);
-            return service.GetProjects();
+            return service.GetProjects(User.Identity.GetUserId());
         }
 
         [HttpGet]

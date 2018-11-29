@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace CSAA.DataModels
@@ -18,6 +19,9 @@ namespace CSAA.DataModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public virtual List<SprintTeamMember> SprintTeam { get; set; }
+        public virtual List<UserStory> SprintUserStories { get; set; }
+
         public Sprint()
         {
             Id = Guid.NewGuid();
@@ -30,6 +34,8 @@ namespace CSAA.DataModels
             this.Project = Project;
             this.StartDate = StartDate;
             this.EndDate = EndDate;
+            SprintTeam = new List<SprintTeamMember>();
+            SprintUserStories = new List<UserStory>();
         }
 
         public ServiceModels.Sprint Map()
@@ -39,7 +45,10 @@ namespace CSAA.DataModels
                 Id = Id.ToString(),
                 Title = Title,
                 StartDate = StartDate,
-                EndDate = EndDate
+                EndDate = EndDate,
+                SprintTeam = SprintTeam.Select(m => m.Map()).ToList(),
+                SprintUserStories = SprintUserStories.Select(m => m.Map()).ToList(),
+                ProjectUserStories = Project.ProjectUserStories.Where(p => SprintUserStories.FirstOrDefault(s => s.Id.ToString() == p.Id.ToString()) == null).Select(m => m.Map()).ToList()
             };
         }
     }

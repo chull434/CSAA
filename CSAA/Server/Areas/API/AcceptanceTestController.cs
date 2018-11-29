@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class AcceptanceTestController : ApiController
     {
         private ServerDbContext context;
