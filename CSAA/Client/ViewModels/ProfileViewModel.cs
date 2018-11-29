@@ -88,7 +88,8 @@ namespace Client.ViewModels
                 Description = Description,
                 product_owner = ProductOwner,
                 scrum_master = ScumMaster,
-                developer = Developer
+                developer = Developer,
+                Profile = Profile.UriSource.AbsolutePath
             };
             AccountRequest.Save(userId, user);
         }
@@ -117,6 +118,7 @@ namespace Client.ViewModels
             ProductOwner = user.product_owner;
             ScumMaster = user.scrum_master;
             Developer = user.developer;
+            if (user.Profile != null) Profile = new BitmapImage(new Uri(user.Profile));
         }
     }
 }

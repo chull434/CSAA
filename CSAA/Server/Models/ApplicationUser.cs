@@ -14,7 +14,7 @@ namespace Server.Models
         public bool scrum_master { get; set; }
         public bool developer { get; set; }
         public string Description { get; set; }
-        public byte[] UserImage { get; set; }
+        public string Profile { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager,
             string authenticationType)
@@ -33,14 +33,12 @@ namespace Server.Models
                 Name = UserName,
                 Email = Email,
                 Description = Description,
-                UserImage = UserImage,
+                Profile = Profile,
                 product_owner = product_owner,
                 scrum_master = scrum_master,
                 developer = developer
-
             };
 
         }
-
     }
 }   

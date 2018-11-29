@@ -412,7 +412,7 @@ namespace Server.Controllers
             dataUser.product_owner = user.product_owner;
             dataUser.scrum_master = user.scrum_master;
             dataUser.Description = user.Description;
-            dataUser.UserImage = user.UserImage; 
+            dataUser.Profile = user.Profile; 
             UserManager.UpdateUser(dataUser);
             return Ok();
         }
