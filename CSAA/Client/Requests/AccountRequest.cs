@@ -38,6 +38,16 @@ namespace Client.Requests
             return LogoutAsync().GetAwaiter().GetResult();
         }
 
+        public string Save(string id, User user)
+        {
+            return SaveAsync(id, user).GetAwaiter().GetResult();
+        }
+
+        public User GetUser()
+        {
+            return GetUserAsync().GetAwaiter().GetResult();
+        }
+
         #endregion
 
         #region Private Methods
@@ -92,6 +102,25 @@ namespace Client.Requests
             client.SetAuthorizationToken(LoginData.access_token);
 
             return string.Empty;
+        }
+
+        private async Task<string> SaveAsync(string id, User user)
+        {
+            var response = await client.PutAsJsonAsync("api/Account/" + id, user).ConfigureAwait(false);
+            return await CheckResponse(response).ConfigureAwait(false);
+        }
+
+        private async Task<User> GetUserAsync()
+        {
+            var response = await client.GetAsync("api/Account").ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadAsAsync<User>().ConfigureAwait(false);
+                return user;
+            }
+
+            return null;
         }
 
         #endregion

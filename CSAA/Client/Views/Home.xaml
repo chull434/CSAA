@@ -42,9 +42,9 @@
                 </Menu.ItemsPanel>
                 <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
                 <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                <MenuItem Header="Edit Profile" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding EditProfile}"/> 
                 <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-                <MenuItem Header="Create Project" DockPanel.Dock="left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
+                <MenuItem Header="Create Project" DockPanel.Dock="left" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
                 <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
             </Menu>
             <StackPanel x:Name="IntroText" Margin="25,25,25,0">

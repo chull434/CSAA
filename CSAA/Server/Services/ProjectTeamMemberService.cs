@@ -90,11 +90,12 @@ namespace Server.Services
 
             users = users.Where(u => project.ProjectTeam.FirstOrDefault(m => m.UserId == u.Id) == null).ToList();
 
-            if(!string.IsNullOrEmpty(user.Email)) users = users.Where(u => u.Email.Contains(user.Email)).ToList();
-            if(!string.IsNullOrEmpty(user.Name))  users = users.Where(u => u.UserName.Contains(user.Name)).ToList();
-            if(user.product_owner)                users = users.Where(u => u.product_owner == user.product_owner).ToList();
-            if(user.scrum_master)                 users = users.Where(u => u.scrum_master == user.scrum_master).ToList();
-            if(user.developer)                    users = users.Where(u => u.developer == user.developer).ToList();
+            if(!string.IsNullOrEmpty(user.Email))       users = users.Where(u => u.Email.Contains(user.Email)).ToList();
+            if(!string.IsNullOrEmpty(user.Name))        users = users.Where(u => u.UserName.Contains(user.Name)).ToList();
+            if(!string.IsNullOrEmpty(user.Description)) users = users.Where(u => u.Description.Contains(user.Description)).ToList();
+            if(user.product_owner)                      users = users.Where(u => u.product_owner == user.product_owner).ToList();
+            if(user.scrum_master)                       users = users.Where(u => u.scrum_master == user.scrum_master).ToList();
+            if(user.developer)                          users = users.Where(u => u.developer == user.developer).ToList();
 
             return users.Select(u => u.Map()).ToList();
         }

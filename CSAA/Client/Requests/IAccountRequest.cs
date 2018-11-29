@@ -7,5 +7,7 @@ namespace Client.Requests
         string Register(User user);
         string Login(string text, string password);
         string Logout();
+        string Save(string id, User user);
+        User GetUser();
     }
 }

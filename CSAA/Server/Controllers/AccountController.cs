@@ -402,6 +402,27 @@ namespace Server.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        public IHttpActionResult EditProfile(string id, User user) 
+        {
+            var dataUser = UserManager.FindUserById(id);
+            dataUser.UserName = user.Name;
+            dataUser.Email = user.Email;
+            dataUser.developer = user.developer;
+            dataUser.product_owner = user.product_owner;
+            dataUser.scrum_master = user.scrum_master;
+            dataUser.Description = user.Description;
+            dataUser.Profile = user.Profile; 
+            UserManager.UpdateUser(dataUser);
+            return Ok();
+        }
+
+        [HttpGet]
+        public User GetUser()
+        {
+            return UserManager.FindUserById(User.Identity.GetUserId()).Map();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

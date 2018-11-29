@@ -1,0 +1,95 @@
+﻿<Window x:Class="Client.Views.Profile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.Views"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Title="Profile" Height="720" Width="1280" Background="#f1f1f1">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#173654" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="#ccc" BorderThickness="1" >
+                            <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property ="IsMouseOver" Value="True">
+                    <Setter Property= "Background" Value="#FF0058B9"/>
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter Property= "Background" Value="#FF032F60"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel>
+                <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Height="90" Background="#9bafb9">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="False"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
+                    <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Home}"/>
+                    <MenuItem Header="Option B" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+                    <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
+                </Menu>
+                <StackPanel x:Name="IntroText" Margin="25,25,25,0">
+                    <TextBlock x:Name="txtblk_WelcomeHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Edit Profile
+                    </TextBlock>
+                    <TextBlock x:Name="txtblk_Profile" HorizontalAlignment="Stretch" Margin="0,0,0,0" Background="#9bafb9" TextWrapping="Wrap" Padding="10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="62" Width="auto">          
+                        Please edit you profile information below<LineBreak></LineBreak><LineBreak></LineBreak>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel x:Name="TeamMembers" Margin="25,25,25,0">
+                    <TextBlock x:Name="txtblk_Edit_Profile" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Edit Profile
+                    </TextBlock>
+                    <Grid Background="#9bafb9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="86*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="46*"/>
+                            <ColumnDefinition Width="458*"/>
+                            <ColumnDefinition Width="611*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.ColumnSpan="5">
+                            <Label x:Name="lbl_Name" Content="Name:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_Email" Content="Email:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <Label x:Name="lbl_Description" Content="Description:" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold"/>
+                            <CheckBox x:Name="chk_ProductOwner" Content="Product Owner" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="172" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ProductOwner}"/>
+                            <CheckBox x:Name="chk_ScrumMaster" Content="Scrum Master" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="160" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding ScrumMaster}"/>
+                            <CheckBox x:Name="chk_Developer" Content="Developer" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Height="33" Width="127" FontSize="14" FontFamily="Calibri" FontWeight="Bold" IsChecked="{Binding Developer}"/>
+                            <Button x:Name="btn_Save" Content="Save" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding Save}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="5">
+                            <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Name}"/>
+                            <TextBox x:Name="txt_Email" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Email}"/>
+                            <TextBox x:Name="txt_Description" HorizontalAlignment="Left" Height="30" Grid.Column="1" Margin="5,10,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" BorderThickness="3" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Description}"/>
+                            <Button x:Name="btn_Upload" Content="Upload Image" FontSize="18" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding Upload}"/>
+                            <Image x:Name="img_Profile" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="150" Height="150" Source="{Binding Profile}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
+
+
+    

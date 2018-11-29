@@ -122,7 +122,7 @@ this.FeatureBackground();
                         "ProductOwner",
                         "Yes"});
             table3.AddRow(new string[] {
-                        "ScumMaster",
+                        "ScrumMaster",
                         "Yes"});
             table3.AddRow(new string[] {
                         "Developer",
@@ -148,7 +148,7 @@ this.FeatureBackground();
                         "ProductOwner",
                         "Yes"});
             table4.AddRow(new string[] {
-                        "ScumMaster",
+                        "ScrumMaster",
                         "Yes"});
             table4.AddRow(new string[] {
                         "Developer",
@@ -187,7 +187,7 @@ this.FeatureBackground();
                         "ProductOwner",
                         "Yes"});
             table5.AddRow(new string[] {
-                        "ScumMaster",
+                        "ScrumMaster",
                         "Yes"});
             table5.AddRow(new string[] {
                         "Developer",
@@ -229,7 +229,7 @@ this.FeatureBackground();
                         "ProductOwner",
                         "Yes"});
             table8.AddRow(new string[] {
-                        "ScumMaster",
+                        "ScrumMaster",
                         "Yes"});
             table8.AddRow(new string[] {
                         "Developer",

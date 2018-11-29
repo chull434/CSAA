@@ -15,7 +15,7 @@ Scenario: Login
 		| Email        | testuser@localhost.com |
 		| Password     | password               |
 		| ProductOwner | Yes                    |
-		| ScumMaster   | Yes                    |
+		| ScrumMaster  | Yes                    |
 		| Developer    | Yes                    |
 
 	When I enter the following:
@@ -38,7 +38,7 @@ Scenario: Login Failed - Email
 		| Email        | testuser@localhost.com |
 		| Password     | password               |
 		| ProductOwner | Yes                    |
-		| ScumMaster   | Yes                    |
+		| ScrumMaster  | Yes                    |
 		| Developer    | Yes                    |
 
 	When I enter the following:
@@ -65,7 +65,7 @@ Scenario: Login Failed - Password
 		| Email        | testuser@localhost.com |
 		| Password     | Pa$$w0rd               |
 		| ProductOwner | Yes                    |
-		| ScumMaster   | Yes                    |
+		| ScrumMaster  | Yes                    |
 		| Developer    | Yes                    |
 
 	When I enter the following:
