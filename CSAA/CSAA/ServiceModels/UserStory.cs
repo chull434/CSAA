@@ -9,6 +9,7 @@ namespace CSAA.ServiceModels
         public string Title { get; set; }
         public string Description { get; set; }
         public int StoryPoints { get; set; }
+        public int Priority { get; set; }
         public List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
 
         public UserStory()
@@ -22,6 +23,7 @@ namespace CSAA.ServiceModels
             Description = description;
             ProjectId = projectId;
             StoryPoints = 0;
+            Priority = 0;
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
         }
     }
