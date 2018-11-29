@@ -31,5 +31,16 @@ namespace CSAA.DataModels
             this.StartDate = StartDate;
             this.EndDate = EndDate;
         }
+
+        public ServiceModels.Sprint Map()
+        {
+            return new ServiceModels.Sprint
+            {
+                Id = Id.ToString(),
+                Title = Title,
+                StartDate = StartDate,
+                EndDate = EndDate
+            };
+        }
     }
 }

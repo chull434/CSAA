@@ -37,6 +37,7 @@ namespace CSAA.DataModels
             {
                 ProjectUserStories = ProjectUserStories.Select(m => m.Map()).ToList(),
                 ProjectTeam = ProjectTeam.Select(m => m.Map()).ToList(),
+                Sprints = Sprints.Select(s => s.Map()).ToList(),
                 Id = Id.ToString()
             };
         }

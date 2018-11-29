@@ -207,11 +207,13 @@
     <Compile Include="App_Start\IApplicationUserManager.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Data\SprintRepository.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Data\UserRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\API\AcceptanceTestController.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
+    <Compile Include="Areas\API\SprintController.cs" />
     <Compile Include="Areas\API\UserController.cs" />
     <Compile Include="Areas\API\UserStoryController.cs" />
     <Compile Include="App_Data\UserStoryRepository.cs" />
@@ -238,6 +240,10 @@
     <Compile Include="Migrations\201811290324594_AddingProfile.cs" />
     <Compile Include="Migrations\201811290324594_AddingProfile.Designer.cs">
       <DependentUpon>201811290324594_AddingProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811290408274_AddingSprints.cs" />
+    <Compile Include="Migrations\201811290408274_AddingSprints.Designer.cs">
+      <DependentUpon>201811290408274_AddingSprints.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
@@ -301,10 +307,12 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\IProjectTeamMemberService.cs" />
+    <Compile Include="Services\ISprintService.cs" />
     <Compile Include="Services\IUserStoryService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ProjectTeamMemberService.cs" />
     <Compile Include="App_Data\Repository.cs" />
+    <Compile Include="Services\SprintService.cs" />
     <Compile Include="Services\UserStoryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -429,6 +437,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811290324594_AddingProfile.resx">
       <DependentUpon>201811290324594_AddingProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811290408274_AddingSprints.resx">
+      <DependentUpon>201811290408274_AddingSprints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

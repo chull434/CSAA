@@ -1,10 +1,12 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using System.Collections.Generic;
 using Client.Requests;
 using Client.Views;
 using CSAA.Enums;
 using CSAA.ServiceModels;
 using Project = CSAA.ServiceModels.Project;
+using Sprint = CSAA.ServiceModels.Sprint;
 
 namespace Client.ViewModels
 {
@@ -13,6 +15,7 @@ namespace Client.ViewModels
         readonly IAccountRequest AccountRequest;
         readonly IProjectRequest ProjectRequest;
         readonly IProjectTeamMemberRequest ProjectTeamMemberRequest;
+        readonly ISprintRequest SprintRequest;
         readonly IHttpClient HttpClient;
 
         string projectId;
@@ -34,6 +37,9 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _viewBacklog;
         public ICommand ViewBacklog => _viewBacklog;
+
+        private readonly DelegateCommand _newSprint;
+        public ICommand NewSprint => _newSprint;
 
         string _projectTitle;
         public string ProjectTitle
@@ -106,7 +112,28 @@ namespace Client.ViewModels
             }
         }
 
+        List<Sprint> _sprintList = new List<Sprint>();
+        public List<Sprint> SprintList
+        {
+            get => _sprintList;
+            set
+            {
+                //value.ForEach(m => m.OnRoleChange = OnUserRoleChange);
+                SetProperty(ref _sprintList, value);
+            }
+        }
+
+        Sprint _selectedSprint = new Sprint();
+        public Sprint SelectedSprint
+        {
+            set
+            {
+                OnOpenSprint(value.Id);
+            }
+        }
+
         public bool IsProjectManager { get; set; }
+        public bool IsScumMaster { get; set; }
 
         public ProjectViewModel(IHttpClient httpClient, string projectId)
         {
@@ -114,6 +141,7 @@ namespace Client.ViewModels
             AccountRequest = new AccountRequest(httpClient);
             ProjectRequest = new ProjectRequest(httpClient);
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(HttpClient);
+            SprintRequest = new SprintRequest(HttpClient);
             GetProject(projectId);
 
             _home = new DelegateCommand(OnHome);
@@ -122,19 +150,22 @@ namespace Client.ViewModels
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
             _searchTeamMember = new DelegateCommand(OnSearchTeamMember);
             _viewBacklog = new DelegateCommand(OnViewBacklog);
+            _newSprint = new DelegateCommand(OnNewSprint);
         }
 
-        public ProjectViewModel(IAccountRequest accountRequest, IProjectRequest projectRequest, IProjectTeamMemberRequest projectTeamMemberRequest, string Id)
+        public ProjectViewModel(IAccountRequest accountRequest, IProjectRequest projectRequest, IProjectTeamMemberRequest projectTeamMemberRequest, ISprintRequest sprintRequest, string Id)
         {
             AccountRequest = accountRequest;
             ProjectRequest = projectRequest;
             ProjectTeamMemberRequest = projectTeamMemberRequest;
+            SprintRequest = sprintRequest;
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveProject = new DelegateCommand(OnSaveProject);
             _addTeamMember = new DelegateCommand(OnAddTeamMember);
             _searchTeamMember = new DelegateCommand(OnSearchTeamMember);
             _viewBacklog = new DelegateCommand(OnViewBacklog);
+            _newSprint = new DelegateCommand(OnNewSprint);
             projectId = Id;
         }
 
@@ -144,7 +175,9 @@ namespace Client.ViewModels
             var project = ProjectRequest.GetProject(projectId);
             ProjectTitle = project.Title;
             MemberList = project.ProjectTeam;
+            SprintList = project.Sprints;
             IsProjectManager = project.IsProjectManager;
+            IsScumMaster = project.IsScrumMaster;
         }
 
         private void OnLogout(object commandParameter)
@@ -204,6 +237,17 @@ namespace Client.ViewModels
         private void OnViewBacklog(object commandParameter)
         {
             ChangeView(new ProductBacklog(HttpClient, projectId));
+        }
+
+        private void OnNewSprint(object commandParameter)
+        {
+            var sprintId = SprintRequest.CreateSprint(new Sprint("Sprint 1", projectId, DateTime.Today, DateTime.Today.AddDays(14)));
+            ChangeView(new Views.Sprint(HttpClient, sprintId, projectId));
+        }
+
+        private void OnOpenSprint(string sprintId)
+        {
+            ChangeView(new Views.Sprint(HttpClient, sprintId, projectId));
         }
     }
 }
