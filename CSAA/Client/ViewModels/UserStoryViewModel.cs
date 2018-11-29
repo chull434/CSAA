@@ -184,6 +184,11 @@ namespace Client.ViewModels
             UserStoryPoints = userStory.StoryPoints;
             UserStoryPriority = userStory.Priority;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
+            if (userStory.SprintId != null)
+            {
+                IsScrumMaster = false;
+                CanEdit = false;
+            }
         }
 
         private void OnSaveUserStory(object commandParameter)
