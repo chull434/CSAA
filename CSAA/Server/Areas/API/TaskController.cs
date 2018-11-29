@@ -18,6 +18,8 @@ namespace Server.Areas.API
         private ServerDbContext context;
         private IRepository<Task> repository;
         private IRepository<UserStory> userStoryRepository;
+        private IRepository<Project> projectRepository;
+        private IRepository<Sprint> sprintRepository;
         private ITaskService service;
 
         public TaskController()
@@ -25,7 +27,9 @@ namespace Server.Areas.API
             context = new ServerDbContext();
             repository = new TaskRepository(context);
             userStoryRepository = new UserStoryRepository(context);
-            service = new TaskService(repository, userStoryRepository);
+            projectRepository = new ProjectRepository(context);
+            sprintRepository = new SprintRepository(context);
+            service = new TaskService(repository, userStoryRepository, projectRepository, sprintRepository);
         }
 
         public TaskController(ITaskService service)
@@ -42,7 +46,7 @@ namespace Server.Areas.API
         [HttpGet]
         public ServiceModel.Task Get(string id)
         {
-            return service.GetTask(id);
+            return service.GetTask(id, User.Identity.GetUserId());
         }
 
         [HttpPost]

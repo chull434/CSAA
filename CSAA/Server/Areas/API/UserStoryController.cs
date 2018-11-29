@@ -45,7 +45,7 @@ namespace Server.Areas.API
         [HttpGet]
         public ServiceModel.UserStory Get(string id)
         {
-            return service.GetUserStory(id);
+            return service.GetUserStory(id, User.Identity.GetUserId());
         }
 
         [HttpPost]

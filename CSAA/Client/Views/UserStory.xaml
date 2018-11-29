@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="ToolWindow"
-        Title="Project" Height="1000" Width="1280" Background="#f1f1f1">
+        Title="UserStory" Height="1000" Width="1280" Background="#f1f1f1">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#173654" />
@@ -103,67 +103,7 @@
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-
                 <StackPanel Margin="25,25,25,0" Grid.Column="0" IsEnabled="{Binding IsProductOwner}">
-                    <TextBlock x:Name="txtblk_Tasks" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="25,10,10,10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                        Tasks
-                    </TextBlock>
-                    <Grid  Background="#9bafb9">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                            
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Title" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Description" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Assigned To" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="Est. Hrs" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="4" Text="Hrs Remaining" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="5" Text="Hrs Worked" />
-                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="6" Text="Completed" />
-                    </Grid>
-                    <ListBox Name="lb_Tasks" ItemsSource="{Binding TaskList}" SelectedItem="{Binding SelectedTask}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox x:Name="txt_TaskTitle" HorizontalAlignment="Stretch" Height="30" Grid.Column="0" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Title}"/>
-                                    <TextBox x:Name="txt_TaskDescription" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Description}" AcceptsReturn="True"/>
-                                    <TextBox x:Name="txt_TaskAssginedTo" HorizontalAlignment="Stretch" Height="30" Grid.Column="2" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserIdAssignedTo}"/>
-                                    <TextBox x:Name="txt_TaskHoursRemaining" HorizontalAlignment="Stretch" Height="30" Grid.Column="3" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding EstimatedHours}"/>
-                                    <TextBox x:Name="txt_TaskHoursWorked" HorizontalAlignment="Stretch" Height="30" Grid.Column="4" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding EstimatedHoursRemaining}"/>
-                                    <TextBox x:Name="txt_TaskHoursEstimated" HorizontalAlignment="Stretch" Height="30" Grid.Column="5" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding HoursWorked}"/>
-                                    <CheckBox x:Name="chkBx_TaskCompleted" Margin="5,10,25,10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="6" IsChecked="{Binding Completed}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="7*"/>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="btn_DeleteTask" Background="#691717" Content="Delete" Margin="22.5,0,22.5,0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" IsEnabled="{Binding ElementName=lb_Tasks, Path=SelectedItems.Count}" Command="{Binding DeleteTask}"/>
-                        <Button x:Name="btn_AddTask" Grid.Column="1" Content="Add" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTask}"/>
-                    </Grid>
-                </StackPanel>
-                
-                
-                
-                <StackPanel Margin="25,25,25,0" Grid.Column="0" IsEnabled="{Binding CanEdit}">
                     <TextBlock x:Name="txtblk_AcceptanceTests" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="25,10,10,10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
                         Acceptance Tests
                     </TextBlock>
@@ -200,6 +140,61 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btn_DeleteAcceptanceTest" Background="#691717" Content="Delete" Margin="22.5,0,22.5,0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" FontSize="18" IsEnabled="{Binding ElementName=lb_AcceptanceTests, Path=SelectedItems.Count}" Command="{Binding DeleteAcceptanceTest}"/>
                         <Button x:Name="btn_AddAcceptanceTest" Grid.Column="1" Content="Add" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddAcceptanceTest}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="25,25,25,0" Grid.Column="0">
+                    <TextBlock x:Name="txtblk_Tasks" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="25,10,10,10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
+                        Tasks
+                    </TextBlock>
+                    <Grid  Background="#9bafb9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Title" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Description" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Assigned To" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="Est. Hrs" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="4" Text="Hrs Remaining" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="5" Text="Hrs Worked" />
+                        <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="6" Text="Completed" />
+                    </Grid>
+                    <ListBox Name="lb_Tasks" ItemsSource="{Binding TaskList}" SelectedItem="{Binding SelectedTask}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="txt_TaskTitle" HorizontalAlignment="Stretch" Height="30" Grid.Column="0" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Title}"/>
+                                    <TextBlock x:Name="txt_TaskDescription" Background="White" HorizontalAlignment="Stretch" Height="130" Grid.Column="1" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding Description}"/>
+                                    <TextBlock x:Name="txt_TaskAssginedTo" HorizontalAlignment="Stretch" Height="30" Grid.Column="2" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding UserIdAssignedTo}"/>
+                                    <TextBlock x:Name="txt_TaskHoursRemaining" HorizontalAlignment="Stretch" Height="30" Grid.Column="3" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding EstimatedHours}"/>
+                                    <TextBlock x:Name="txt_TaskHoursWorked" HorizontalAlignment="Stretch" Height="30" Grid.Column="4" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding EstimatedHoursRemaining}"/>
+                                    <TextBlock x:Name="txt_TaskHoursEstimated" HorizontalAlignment="Stretch" Height="30" Grid.Column="5" Margin="5,10,25,10" TextWrapping="Wrap" VerticalAlignment="Top"   FontSize="18" FontFamily="Calibri" FontWeight="Bold" Text="{Binding HoursWorked}"/>
+                                    <CheckBox x:Name="chkBx_TaskCompleted" Margin="5,10,25,10" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="6" IsChecked="{Binding Completed}" IsEnabled="False"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btn_AddTask" Grid.Column="1" Content="Add" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding AddTask}" IsEnabled="{Binding InSprintTeam}"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>

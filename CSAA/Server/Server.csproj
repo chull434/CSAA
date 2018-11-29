@@ -265,9 +265,9 @@
     <Compile Include="Migrations\201811292102339_AddingMarketValue.Designer.cs">
       <DependentUpon>201811292102339_AddingMarketValue.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811291730397_AddingTasks.cs" />
-    <Compile Include="Migrations\201811291730397_AddingTasks.Designer.cs">
-      <DependentUpon>201811291730397_AddingTasks.cs</DependentUpon>
+    <Compile Include="Migrations\201811292143463_AddingTasks.cs" />
+    <Compile Include="Migrations\201811292143463_AddingTasks.Designer.cs">
+      <DependentUpon>201811292143463_AddingTasks.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
@@ -483,8 +483,8 @@
     <EmbeddedResource Include="Migrations\201811292102339_AddingMarketValue.resx">
       <DependentUpon>201811292102339_AddingMarketValue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811291730397_AddingTasks.resx">
-      <DependentUpon>201811291730397_AddingTasks.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811292143463_AddingTasks.resx">
+      <DependentUpon>201811292143463_AddingTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

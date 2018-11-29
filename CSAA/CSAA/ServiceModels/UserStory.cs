@@ -16,6 +16,8 @@ namespace CSAA.ServiceModels
         public List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
         public List<Task> UserStoryTasks { get; set; }
 
+        public bool InSprintTeam { get; set; }
+
         public UserStory()
         {
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
@@ -26,9 +28,6 @@ namespace CSAA.ServiceModels
             Title = title;
             Description = description;
             ProjectId = projectId;
-            StoryPoints = 0;
-            MarketValue = 0;
-            Priority = 0;
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
             UserStoryTasks = new List<Task>();
         }

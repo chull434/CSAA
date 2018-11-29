@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CSAA.Enums;
 using ServiceModel = CSAA.ServiceModels;
 
 namespace Server.Services
@@ -26,9 +27,19 @@ namespace Server.Services
             return repository.GetAll().Select(m => m.Map()).ToList();
         }
 
-        public ServiceModel.UserStory GetUserStory(string UserStoryId)
+        public ServiceModel.UserStory GetUserStory(string UserStoryId, string userId)
         {
-            return repository.GetByID(UserStoryId).Map();
+            var userStory = repository.GetByID(UserStoryId).Map();
+            if (userStory.SprintId != null)
+            {
+                var member = projectRepository.GetByID(userStory.ProjectId).ProjectTeam .FirstOrDefault(m => m.UserId == userId);
+                if (member != null && (member.HasRole(Role.ScrumMaster) || member.HasRole(Role.Developer)))
+                {
+                    var sprint = sprintRepository.GetByID(userStory.SprintId);
+                    userStory.InSprintTeam = sprint.SprintTeam.FirstOrDefault(m => m.ProjectTeamMemberId == member.Id) != null;
+                }
+            }
+            return userStory;
         }
 
         public string CreateUserStory(ServiceModel.UserStory userStory)

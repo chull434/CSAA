@@ -13,7 +13,7 @@ namespace Server.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201811291730397_AddingTasks"; }
+            get { return "201811292143463_AddingTasks"; }
         }
         
         string IMigrationMetadata.Source

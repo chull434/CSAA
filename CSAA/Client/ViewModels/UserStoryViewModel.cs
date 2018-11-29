@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Client.Requests;
 using Client.Views;
 using CSAA.ServiceModels;
+using Task = CSAA.ServiceModels.Task;
 using UserStory = CSAA.ServiceModels.UserStory;
 
 namespace Client.ViewModels
@@ -41,9 +42,6 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _addTask;
         public ICommand AddTask => _addTask;
-
-        private readonly DelegateCommand _deleteTask;
-        public ICommand DeleteTask => _deleteTask;
 
         string projectId;
         string userStoryId;
@@ -83,16 +81,10 @@ namespace Client.ViewModels
             set => SetProperty(ref _userStoryMarketValue, value);
         }
 
-        int _userStoryPriority;
-        public int UserStoryPriority
-        {
-            get => _userStoryPriority;
-            set => SetProperty(ref _userStoryPriority, value);
-        }
-
         public bool IsScrumMaster { get; set; }
         public bool IsProductOwner { get; set; }
         public bool CanSave { get; set; }
+        public bool InSprintTeam { get; set; }
 
         private string _selectedAcceptanceTestId { get; set; }
         public AcceptanceTest SelectedAcceptanceTest
@@ -102,18 +94,6 @@ namespace Client.ViewModels
                 if (value != null)
                 { 
                     _selectedAcceptanceTestId = value.Id;
-                }
-            }
-        }
-
-        private string _selectedTaskId { get; set; }
-        public AcceptanceTest SelectedTask
-        {
-            set
-            {
-                if (value != null)
-                {
-                    _selectedTaskId = value.Id;
                 }
             }
         }
@@ -129,21 +109,17 @@ namespace Client.ViewModels
             }
         }
 
-        List<Task> _TaskList = new List<Task>();
+        List<Task> _taskList = new List<Task>();
         public List<Task> TaskList
         {
-            get => _TaskList;
-            set
-            {
-                value.ForEach(m => m.OnValueChange = OnTaskChange);
-                SetProperty(ref _TaskList, value);
-            }
+            get => _taskList;
+            set => SetProperty(ref _taskList, value);
         }
 
-        public UserStoryViewModel()
+        Task _selectedTask = new Task();
+        public Task SelectedTask
         {
-            _home = new DelegateCommand(OnHome);
-            _logout = new DelegateCommand(OnLogout);
+            set => OnSelectTask(value.Id);
         }
 
         public UserStoryViewModel(IHttpClient httpClient, string userStoryId, string projectId)
@@ -164,17 +140,7 @@ namespace Client.ViewModels
             _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
             _deleteAcceptanceTest = new DelegateCommand(OnDeleteAcceptanceTest);
             _addAcceptanceTest = new DelegateCommand(OnAddAcceptanceTest);
-            _deleteTask = new DelegateCommand(OnDeleteTask);
             _addTask = new DelegateCommand(OnAddTask);
-        }
-
-        private void GetProject(string projectId)
-        {
-            this.projectId = projectId;
-            var project = ProjectRequest.GetProject(projectId);           
-            IsProductOwner = project.IsProductOwner;
-            IsScrumMaster = project.IsScrumMaster;
-            CanSave = IsProductOwner || IsScrumMaster;
         }
 
         public UserStoryViewModel(IAccountRequest accountRequest, IUserStoryRequest userStoryRequest, IProjectRequest projectRequest, string userStoryId, string projectId)
@@ -209,6 +175,16 @@ namespace Client.ViewModels
             ChangeView(new ProductBacklog(HttpClient, projectId));
         }
 
+        private void GetProject(string projectId)
+        {
+            this.projectId = projectId;
+            var project = ProjectRequest.GetProject(projectId);
+            IsProductOwner = project.IsProductOwner;
+            IsScrumMaster = project.IsScrumMaster;
+            CanSave = IsProductOwner || IsScrumMaster;
+            InSprintTeam = false;
+        }
+
         private void GetUserStory(string userStoryId)
         {
             this.userStoryId = userStoryId;
@@ -217,7 +193,6 @@ namespace Client.ViewModels
             UserStoryDescription = userStory.Description;
             SprintTitle = userStory.SprintTitle;
             UserStoryPoints = userStory.StoryPoints;
-            UserStoryPriority = userStory.Priority;
             UserStoryMarketValue = userStory.MarketValue;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
             TaskList = userStory.UserStoryTasks;
@@ -226,12 +201,13 @@ namespace Client.ViewModels
                 IsProductOwner = false;
                 IsScrumMaster = false;
                 CanSave = false;
+                InSprintTeam = userStory.InSprintTeam;
             }
         }
 
         private void OnSaveUserStory(object commandParameter)
         {
-            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, Priority = UserStoryPriority, MarketValue = UserStoryMarketValue});
+            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, MarketValue = UserStoryMarketValue});
             GetUserStory(userStoryId);
         }
 
@@ -249,19 +225,9 @@ namespace Client.ViewModels
 
         private void OnAddTask(object commandParameter)
         {
-           TaskRequest.CreateTask(new Task("Task Title", "Description goes here...", userStoryId));
-           GetUserStory(userStoryId);
+           var taskId = TaskRequest.CreateTask(new Task("Task Title", "Description goes here...", userStoryId));
+           ChangeView(new Views.Task(HttpClient, taskId, userStoryId, projectId));
         } 
-
-        public void OnTaskChange(Task task)
-        {
-            task.OnValueChange = null;
-
-            TaskRequest.UpdateTask(task.Id, task);
-            GetProject(projectId);
-
-            task.OnValueChange = OnTaskChange;
-        }
 
         public void OnAcceptanceTestChange(AcceptanceTest acceptanceTest)
         {
@@ -269,6 +235,7 @@ namespace Client.ViewModels
 
             AcceptanceTestRequest.UpdateAcceptanceTest(acceptanceTest.Id, acceptanceTest);
             GetProject(projectId);
+            GetUserStory(userStoryId);
 
             acceptanceTest.OnValueChange = OnAcceptanceTestChange;
         }
@@ -279,10 +246,9 @@ namespace Client.ViewModels
             GetUserStory(userStoryId);
         }
 
-        private void OnDeleteTask(object commandParameter)
+        private void OnSelectTask(string taskId)
         {
-            TaskRequest.DeleteTask(_selectedTaskId);
-            GetUserStory(userStoryId);
+            ChangeView(new Views.Task(HttpClient, taskId, userStoryId, projectId));
         }
     }
 }

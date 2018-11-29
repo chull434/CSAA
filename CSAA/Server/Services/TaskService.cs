@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CSAA.Enums;
 using ServiceModel = CSAA.ServiceModels;
 
 namespace Server.Services
@@ -12,11 +13,15 @@ namespace Server.Services
     {
         private IRepository<Task> repository;
         private IRepository<UserStory> userStoryRepository;
+        private IRepository<Project> projectRepository;
+        private IRepository<Sprint> sprintRepository;
 
-        public TaskService(IRepository<Task> repository, IRepository<UserStory> userStoryRepository)
+        public TaskService(IRepository<Task> repository, IRepository<UserStory> userStoryRepository, IRepository<Project> projectRepository, IRepository<Sprint> sprintRepository)
         {
             this.repository = repository;
             this.userStoryRepository = userStoryRepository;
+            this.projectRepository = projectRepository;
+            this.sprintRepository = sprintRepository;
         }
 
         public List<ServiceModel.Task> GetAllTasks()
@@ -24,9 +29,20 @@ namespace Server.Services
             return repository.GetAll().Select(m => m.Map()).ToList();
         }
 
-        public ServiceModel.Task GetTask(string TaskId)
+        public ServiceModel.Task GetTask(string TaskId, string userId)
         {
-            return repository.GetByID(TaskId).Map();
+            var task = repository.GetByID(TaskId).Map();
+            var userStory = userStoryRepository.GetByID(task.UserStoryId).Map();
+            if (userStory.SprintId != null)
+            {
+                var member = projectRepository.GetByID(userStory.ProjectId).ProjectTeam.FirstOrDefault(m => m.UserId == userId);
+                if (member != null && (member.HasRole(Role.ScrumMaster) || member.HasRole(Role.Developer)))
+                {
+                    var sprint = sprintRepository.GetByID(userStory.SprintId);
+                    task.InSprintTeam = sprint.SprintTeam.FirstOrDefault(m => m.ProjectTeamMemberId == member.Id) != null;
+                }
+            }
+            return task;
         }
 
         public string CreateTask(ServiceModel.Task task)
