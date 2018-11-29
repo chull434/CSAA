@@ -54,6 +54,13 @@ namespace Client.ViewModels
             set => SetProperty(ref _userStoryDescription, value);
         }
 
+        string _sprintTitle;
+        public string SprintTitle
+        {
+            get => _sprintTitle;
+            set => SetProperty(ref _sprintTitle, value);
+        }
+
         int _userStoryPoints;
         public int UserStoryPoints
         {
@@ -173,6 +180,7 @@ namespace Client.ViewModels
             var userStory = UserStoryRequest.GetUserStoryById(userStoryId);
             UserStoryTitle = userStory.Title;
             UserStoryDescription = userStory.Description;
+            SprintTitle = userStory.SprintTitle;
             UserStoryPoints = userStory.StoryPoints;
             UserStoryPriority = userStory.Priority;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
