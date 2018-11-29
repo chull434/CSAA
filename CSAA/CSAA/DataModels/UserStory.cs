@@ -19,6 +19,8 @@ namespace CSAA.DataModels
 
         public int StoryPoints { get; set; }
 
+        public int Priority { get; set; }
+
         public virtual Project Project { get; set; }
 
         public virtual List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
@@ -34,6 +36,7 @@ namespace CSAA.DataModels
             Title = title;
             Description = description;
             StoryPoints = 0;
+            Priority = 0;
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
         }
 
@@ -44,6 +47,7 @@ namespace CSAA.DataModels
                 UserStoryAcceptanceTests = UserStoryAcceptanceTests.Select(m => m.Map()).ToList(),
                 Id = Id.ToString(),
                 StoryPoints = StoryPoints,
+                Priority = Priority,
             };
         }
     }
