@@ -215,7 +215,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
-                    <StackPanel Margin="25,25,25,0" Grid.Column="1">
+                    <StackPanel Margin="25,25,25,0" Grid.Column="1" IsEnabled="{Binding IsScrumMaster}">
                         <TextBlock HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto"><Run Text="Project User Stories"/></TextBlock>
                         <Grid  Background="#9bafb9">
                             <Grid.ColumnDefinitions>
