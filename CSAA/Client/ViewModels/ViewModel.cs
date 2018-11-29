@@ -26,8 +26,8 @@ namespace Client.ViewModels
 
             var currentView = App.Current.MainWindow;
             App.Current.MainWindow = newView;
-            currentView.Close();
             newView.Show();
+            currentView.Close();
         }
     }
 }
