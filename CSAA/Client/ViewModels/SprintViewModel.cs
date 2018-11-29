@@ -8,6 +8,7 @@ using Client.Requests;
 using Client.Views;
 using CSAA.ServiceModels;
 using Sprint = CSAA.ServiceModels.Sprint;
+using UserStory = CSAA.ServiceModels.UserStory;
 
 namespace Client.ViewModels
 {
@@ -17,6 +18,7 @@ namespace Client.ViewModels
         readonly IAccountRequest AccountRequest;
         readonly IProjectTeamMemberRequest ProjectTeamMemberRequest;
         readonly ISprintTeamMemberRequest SprintTeamMemberRequest;
+        readonly IUserStoryRequest UserStoryRequest;
         readonly IHttpClient HttpClient;
 
         string sprintId;
@@ -123,6 +125,32 @@ namespace Client.ViewModels
             set => OnAddToSprint(value);
         }
 
+        List<UserStory> _sprintUserStoryList = new List<UserStory>();
+        public List<UserStory> SprintUserStoryList
+        {
+            get => _sprintUserStoryList;
+            set => SetProperty(ref _sprintUserStoryList, value);
+        }
+
+        UserStory _selectedSprintUserStory = new UserStory();
+        public UserStory SelectedSprintUserStory
+        {
+            set => OnOpenUserStory(value);
+        }
+
+        List<UserStory> _userStoryList = new List<UserStory>();
+        public List<UserStory> UserStoryList
+        {
+            get => _userStoryList;
+            set => SetProperty(ref _userStoryList, value);
+        }
+
+        UserStory _selectedUserStory = new UserStory();
+        public UserStory SelectedUserStory
+        {
+            set => OnAddUserStoryToSprint(value);
+        }
+
         public bool IsScrumMaster { get; set; }
 
         public SprintViewModel(IHttpClient httpClient, string sprintId, string projectId)
@@ -132,6 +160,7 @@ namespace Client.ViewModels
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(HttpClient);
             SprintTeamMemberRequest = new SprintTeamMemberRequest(HttpClient);
             SprintRequest = new SprintRequest(HttpClient);
+            UserStoryRequest = new UserStoryRequest(httpClient);
             GetSprint(sprintId);
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
@@ -141,12 +170,13 @@ namespace Client.ViewModels
             this.projectId = projectId;
         }
 
-        public SprintViewModel(IAccountRequest accountRequest, IProjectTeamMemberRequest projectTeamMemberRequest, ISprintRequest sprintRequest, ISprintTeamMemberRequest sprintTeamMemberRequest, string sprintId, string projectId)
+        public SprintViewModel(IAccountRequest accountRequest, IProjectTeamMemberRequest projectTeamMemberRequest, ISprintRequest sprintRequest, ISprintTeamMemberRequest sprintTeamMemberRequest, IUserStoryRequest userStoryRequest, string sprintId, string projectId)
         {
             AccountRequest = accountRequest;
             ProjectTeamMemberRequest = projectTeamMemberRequest;
             SprintRequest = sprintRequest;
             SprintTeamMemberRequest = sprintTeamMemberRequest;
+            UserStoryRequest = userStoryRequest;
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveSprint = new DelegateCommand(OnSaveSprint);
@@ -164,6 +194,8 @@ namespace Client.ViewModels
             StartDate = sprint.StartDate;
             EndDate = sprint.EndDate;
             MemberList = sprint.SprintTeam;
+            SprintUserStoryList = sprint.SprintUserStories.OrderBy(o => o.Priority).ToList();
+            UserStoryList = sprint.ProjectUserStories.OrderBy(o => o.Priority).ToList();
             IsScrumMaster = sprint.IsScrumMaster;
         }
 
@@ -215,6 +247,19 @@ namespace Client.ViewModels
             SprintTeamMemberRequest.AddSprintTeamMember(new SprintTeamMember(sprintId, user.ProjectTeamMemberId));
             GetSprint(sprintId);
             SearchTeamMember.Execute(null);
+        }
+
+        public void OnOpenUserStory(UserStory userStory)
+        {
+            ChangeView(new Views.UserStory(HttpClient, userStory.Id, projectId));
+        }
+
+        public void OnAddUserStoryToSprint(UserStory userStory)
+        {
+            if (userStory == null) return;
+            userStory.SprintId = sprintId;
+            UserStoryRequest.UpdateUserStory(userStory.Id, userStory);
+            GetSprint(sprintId);
         }
     }
 }

@@ -255,6 +255,10 @@
     <Compile Include="Migrations\201811291620523_AddingSprintTeamMembers.Designer.cs">
       <DependentUpon>201811291620523_AddingSprintTeamMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811291911345_AddingSprintUserStories.cs" />
+    <Compile Include="Migrations\201811291911345_AddingSprintUserStories.Designer.cs">
+      <DependentUpon>201811291911345_AddingSprintUserStories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
     <Compile Include="Services\EmailService.cs" />
@@ -460,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811291620523_AddingSprintTeamMembers.resx">
       <DependentUpon>201811291620523_AddingSprintTeamMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811291911345_AddingSprintUserStories.resx">
+      <DependentUpon>201811291911345_AddingSprintUserStories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
