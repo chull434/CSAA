@@ -12,7 +12,7 @@ Background:
 		| Email        | testuser@localhost.com |
 		| Password     | password               |
 		| ProductOwner | Yes                    |
-		| ScumMaster   | Yes                    |
+		| ScrumMaster  | Yes                    |
 		| Developer    | Yes                    |
 
 	When I enter the following:

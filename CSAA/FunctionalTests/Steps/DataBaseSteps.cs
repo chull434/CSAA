@@ -39,7 +39,7 @@ namespace FunctionalTests.Steps
             var email = dictionary["Email"];
             var password = dictionary["Password"];
             var productOwner = dictionary["ProductOwner"].ToBoolean();
-            var scumMaster = dictionary["ScumMaster"].ToBoolean();
+            var scrumMaster = dictionary["ScrumMaster"].ToBoolean();
             var developer = dictionary["Developer"].ToBoolean();
             var passwordHash = new PasswordHasher().HashPassword(password);
             var securityStamp = Guid.NewGuid().ToString();
@@ -49,7 +49,7 @@ namespace FunctionalTests.Steps
                 Email = email,
                 PasswordHash = passwordHash,
                 product_owner = productOwner,
-                scrum_master = scumMaster,
+                scrum_master = scrumMaster,
                 developer = developer,
                 SecurityStamp = securityStamp
             };
@@ -69,12 +69,12 @@ namespace FunctionalTests.Steps
             var email = dictionary["Email"];
             var password = dictionary["Password"];
             var productOwner = dictionary["ProductOwner"].ToBoolean();
-            var scumMaster = dictionary["ScumMaster"].ToBoolean();
+            var scrumMaster = dictionary["ScrumMaster"].ToBoolean();
             var developer = dictionary["Developer"].ToBoolean();
             var user = context.Users.FirstOrDefault(u => u.UserName == username && 
                                                          u.Email == email && 
                                                          u.product_owner == productOwner && 
-                                                         u.scrum_master == scumMaster && 
+                                                         u.scrum_master == scrumMaster && 
                                                          u.developer == developer);
             Assert.IsNotNull(user);
         }

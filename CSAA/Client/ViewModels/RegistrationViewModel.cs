@@ -17,7 +17,7 @@ namespace Client.ViewModels
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public bool ProductOwner { get; set; }
-        public bool ScumMaster { get; set; }
+        public bool ScrumMaster { get; set; }
         public bool Developer { get; set; }
 
         string _passwordError;
@@ -83,7 +83,7 @@ namespace Client.ViewModels
                 Email = Email,
                 Password = Password,
                 product_owner = ProductOwner,
-                scrum_master = ScumMaster,
+                scrum_master = ScrumMaster,
                 developer = Developer
             };
             var errorMessage = AccountRequest.Register(user);

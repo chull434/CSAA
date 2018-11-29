@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.Designer.cs">
       <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811290324594_AddingProfile.cs" />
+    <Compile Include="Migrations\201811290324594_AddingProfile.Designer.cs">
+      <DependentUpon>201811290324594_AddingProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
     <Compile Include="Services\EmailService.cs" />
@@ -422,6 +426,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811281540129_AddingAcceptanceTestCompletedBool.resx">
       <DependentUpon>201811281540129_AddingAcceptanceTestCompletedBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811290324594_AddingProfile.resx">
+      <DependentUpon>201811290324594_AddingProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

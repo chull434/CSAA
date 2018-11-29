@@ -4,6 +4,8 @@ namespace CSAA.ServiceModels
 {
     public class User
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -12,8 +14,10 @@ namespace CSAA.ServiceModels
         public bool scrum_master { get; set; }
         public bool developer { get; set; }
 
-        public delegate void OnChange(User user);
+        public string Description { get; set; }
+        public string Profile { get; set; }
 
+        public delegate void OnChange(User user);  
         public OnChange OnRoleChange;
 
         private Role _role;

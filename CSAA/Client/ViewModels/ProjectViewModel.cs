@@ -31,9 +31,9 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _searchTeamMember;
         public ICommand SearchTeamMember => _searchTeamMember;
+
         private readonly DelegateCommand _viewBacklog;
         public ICommand ViewBacklog => _viewBacklog;
-
 
         string _projectTitle;
         public string ProjectTitle
@@ -47,6 +47,13 @@ namespace Client.ViewModels
         {
             get => _email;
             set => SetProperty(ref _email, value);
+        }
+
+        string _description;
+        public string Description
+        {
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         string _userName;
@@ -169,6 +176,7 @@ namespace Client.ViewModels
             {
                 Name = UserName,
                 Email = Email,
+                Description = Description,
                 product_owner = ProductOwner,
                 scrum_master = ScrumMaster,
                 developer = Developer
