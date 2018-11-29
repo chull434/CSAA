@@ -16,7 +16,6 @@ namespace Server.Models
         public string Description { get; set; }
         public byte[] UserImage { get; set; }
 
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager,
             string authenticationType)
         {
@@ -30,6 +29,7 @@ namespace Server.Models
         {
             return new User()
             {
+                Id = Id,
                 Name = UserName,
                 Email = Email,
                 Description = Description,

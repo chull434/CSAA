@@ -76,6 +76,7 @@ namespace Client.ViewModels
             ProjectRequest = projectRequest;
             ProjectTeamMemberRequest = projectTeamMemberRequest;
             _logout = new DelegateCommand(OnLogout);
+            _editProfile = new DelegateCommand(OnEditProfile);
             _createProject = new DelegateCommand(OnCreateProject);
         }
 
@@ -87,11 +88,7 @@ namespace Client.ViewModels
 
         private void OnEditProfile(object commandParameter)
         {
-            var profile = new Profile(HttpClient);
-            var home = App.Current.MainWindow;
-            App.Current.MainWindow = profile;
-            home.Close();
-            profile.Show();
+            ChangeView(new Profile(HttpClient));
         }
 
         private void OnCreateProject(object commandParameter)

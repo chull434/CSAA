@@ -106,13 +106,13 @@ namespace Client.Requests
 
         private async Task<string> SaveAsync(string id, User user)
         {
-            var response = await client.PutAsJsonAsync("api/Account/EditProfile/" + id, user).ConfigureAwait(false);
+            var response = await client.PutAsJsonAsync("api/Account/" + id, user).ConfigureAwait(false);
             return await CheckResponse(response).ConfigureAwait(false);
         }
 
         private async Task<User> GetUserAsync()
         {
-            var response = await client.GetAsync("api/Account/GetUser").ConfigureAwait(false);
+            var response = await client.GetAsync("api/Account").ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
             {

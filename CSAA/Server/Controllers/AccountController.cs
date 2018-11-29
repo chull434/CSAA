@@ -412,12 +412,12 @@ namespace Server.Controllers
             dataUser.product_owner = user.product_owner;
             dataUser.scrum_master = user.scrum_master;
             dataUser.Description = user.Description;
-            dataUser.UserImage = user.UserImage;
-            
-
+            dataUser.UserImage = user.UserImage; 
+            UserManager.UpdateUser(dataUser);
             return Ok();
         }
 
+        [HttpGet]
         public User GetUser()
         {
             return UserManager.FindUserById(User.Identity.GetUserId()).Map();
