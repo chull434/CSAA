@@ -14,6 +14,8 @@ namespace Client.ViewModels
         readonly IUserStoryRequest UserStoryRequest; 
         readonly IProjectRequest ProjectRequest;
         readonly IAcceptanceTestRequest AcceptanceTestRequest;
+        readonly ITaskRequest TaskRequest;
+
         readonly IHttpClient HttpClient;       
 
         private readonly DelegateCommand _home;
@@ -36,6 +38,12 @@ namespace Client.ViewModels
 
         private readonly DelegateCommand _addAcceptanceTest;
         public ICommand AddAcceptanceTest => _addAcceptanceTest;
+
+        private readonly DelegateCommand _addTask;
+        public ICommand AddTask => _addTask;
+
+        private readonly DelegateCommand _deleteTask;
+        public ICommand DeleteTask => _deleteTask;
 
         string projectId;
         string userStoryId;
@@ -90,6 +98,18 @@ namespace Client.ViewModels
             }
         }
 
+        private string _selectedTaskId { get; set; }
+        public AcceptanceTest SelectedTask
+        {
+            set
+            {
+                if (value != null)
+                {
+                    _selectedTaskId = value.Id;
+                }
+            }
+        }
+
         List<AcceptanceTest> _AcceptanceTestList = new List<AcceptanceTest>();
         public List<AcceptanceTest> AcceptanceTestList
         {
@@ -98,6 +118,17 @@ namespace Client.ViewModels
             {
                 value.ForEach(m => m.OnValueChange = OnAcceptanceTestChange);
                 SetProperty(ref _AcceptanceTestList, value);
+            }
+        }
+
+        List<Task> _TaskList = new List<Task>();
+        public List<Task> TaskList
+        {
+            get => _TaskList;
+            set
+            {
+                value.ForEach(m => m.OnValueChange = OnTaskChange);
+                SetProperty(ref _TaskList, value);
             }
         }
 
@@ -114,6 +145,7 @@ namespace Client.ViewModels
             UserStoryRequest = new UserStoryRequest(httpClient);
             ProjectRequest = new ProjectRequest(httpClient);
             AcceptanceTestRequest = new AcceptanceTestRequest(httpClient);
+            TaskRequest = new TaskRequest(httpClient);
             GetProject(projectId);
             GetUserStory(userStoryId);
 
@@ -124,6 +156,8 @@ namespace Client.ViewModels
             _deleteUserStory = new DelegateCommand(OnDeleteUserStory);
             _deleteAcceptanceTest = new DelegateCommand(OnDeleteAcceptanceTest);
             _addAcceptanceTest = new DelegateCommand(OnAddAcceptanceTest);
+            _deleteTask = new DelegateCommand(OnDeleteTask);
+            _addTask = new DelegateCommand(OnAddTask);
         }
 
         private void GetProject(string projectId)
@@ -176,6 +210,7 @@ namespace Client.ViewModels
             UserStoryPoints = userStory.StoryPoints;
             UserStoryPriority = userStory.Priority;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
+            TaskList = userStory.UserStoryTasks;
         }
 
         private void OnSaveUserStory(object commandParameter)
@@ -194,11 +229,22 @@ namespace Client.ViewModels
         {
             AcceptanceTestRequest.CreateAcceptanceTest(new AcceptanceTest("Accecptance Test Title", "Description goes here...", userStoryId));
             GetUserStory(userStoryId);
-        }
+        } 
 
-        private void OnSaveAcceptanceTests(object commandParameter)
+        private void OnAddTask(object commandParameter)
         {
-            AcceptanceTestList.ForEach(m => m.Title = m.Title);
+           TaskRequest.CreateTask(new Task("Task Title", "Description goes here...", userStoryId));
+           GetUserStory(userStoryId);
+        } 
+
+        public void OnTaskChange(Task task)
+        {
+            task.OnValueChange = null;
+
+            TaskRequest.UpdateTask(task.Id, task);
+            GetProject(projectId);
+
+            task.OnValueChange = OnTaskChange;
         }
 
         public void OnAcceptanceTestChange(AcceptanceTest acceptanceTest)
@@ -214,6 +260,12 @@ namespace Client.ViewModels
         private void OnDeleteAcceptanceTest(object commandParameter)
         {
             AcceptanceTestRequest.DeleteAcceptanceTest(_selectedAcceptanceTestId);
+            GetUserStory(userStoryId);
+        }
+
+        private void OnDeleteTask(object commandParameter)
+        {
+            TaskRequest.DeleteTask(_selectedTaskId);
             GetUserStory(userStoryId);
         }
     }

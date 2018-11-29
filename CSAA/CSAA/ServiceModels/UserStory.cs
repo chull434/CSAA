@@ -11,6 +11,7 @@ namespace CSAA.ServiceModels
         public int StoryPoints { get; set; }
         public int Priority { get; set; }
         public List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
+        public List<Task> UserStoryTasks { get; set; }
 
         public UserStory()
         {
@@ -25,6 +26,7 @@ namespace CSAA.ServiceModels
             StoryPoints = 0;
             Priority = 0;
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
+            UserStoryTasks = new List<Task>();
         }
     }
 }

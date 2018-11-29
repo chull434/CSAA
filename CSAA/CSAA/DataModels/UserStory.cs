@@ -25,6 +25,8 @@ namespace CSAA.DataModels
 
         public virtual List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
 
+        public virtual List<Task> UserStoryTasks { get; set; }
+
         public UserStory()
         {
             Id = Guid.NewGuid();
@@ -38,6 +40,7 @@ namespace CSAA.DataModels
             StoryPoints = 0;
             Priority = 0;
             UserStoryAcceptanceTests = new List<AcceptanceTest>();
+            UserStoryTasks = new List<Task>();
         }
 
         public ServiceModels.UserStory Map()
@@ -45,6 +48,7 @@ namespace CSAA.DataModels
             return new ServiceModels.UserStory(Title, Description, ProjectId.ToString())
             {
                 UserStoryAcceptanceTests = UserStoryAcceptanceTests.Select(m => m.Map()).ToList(),
+                UserStoryTasks = UserStoryTasks.Select(m => m.Map()).ToList(),
                 Id = Id.ToString(),
                 StoryPoints = StoryPoints,
                 Priority = Priority,
