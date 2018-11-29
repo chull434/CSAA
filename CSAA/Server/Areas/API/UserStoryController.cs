@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class UserStoryController : ApiController
     {
         private ServerDbContext context;

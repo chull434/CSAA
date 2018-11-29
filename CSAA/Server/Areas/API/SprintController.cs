@@ -10,6 +10,7 @@ using ServiceModel = CSAA.ServiceModels;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class SprintController : ApiController
     {
         private ServerDbContext context;
