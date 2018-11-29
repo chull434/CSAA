@@ -16,6 +16,7 @@ namespace Client.ViewModels
         readonly ISprintRequest SprintRequest;
         readonly IAccountRequest AccountRequest;
         readonly IProjectTeamMemberRequest ProjectTeamMemberRequest;
+        readonly ISprintTeamMemberRequest SprintTeamMemberRequest;
         readonly IHttpClient HttpClient;
 
         string sprintId;
@@ -99,13 +100,12 @@ namespace Client.ViewModels
             set => SetProperty(ref _developer, value);
         }
 
-        List<ProjectTeamMember> _memberList = new List<ProjectTeamMember>();
-        public List<ProjectTeamMember> MemberList
+        List<SprintTeamMember> _memberList = new List<SprintTeamMember>();
+        public List<SprintTeamMember> MemberList
         {
             get => _memberList;
             set
             {
-                //value.ForEach(m => m.OnRoleChange = OnProjectTeamMemberRoleChange);
                 SetProperty(ref _memberList, value);
             }
         }
@@ -114,11 +114,13 @@ namespace Client.ViewModels
         public List<User> UserList
         {
             get => _userList;
-            set
-            {
-                //value.ForEach(m => m.OnRoleChange = OnUserRoleChange);
-                SetProperty(ref _userList, value);
-            }
+            set => SetProperty(ref _userList, value);
+        }
+
+        User _selectedUser = new User();
+        public User SelectedUser
+        {
+            set => OnAddToSprint(value);
         }
 
         public bool IsScrumMaster { get; set; }
@@ -128,6 +130,7 @@ namespace Client.ViewModels
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
             ProjectTeamMemberRequest = new ProjectTeamMemberRequest(HttpClient);
+            SprintTeamMemberRequest = new SprintTeamMemberRequest(HttpClient);
             SprintRequest = new SprintRequest(HttpClient);
             GetSprint(sprintId);
             _home = new DelegateCommand(OnHome);
@@ -138,11 +141,12 @@ namespace Client.ViewModels
             this.projectId = projectId;
         }
 
-        public SprintViewModel(IAccountRequest accountRequest, IProjectTeamMemberRequest projectTeamMemberRequest, ISprintRequest sprintRequest, string sprintId, string projectId)
+        public SprintViewModel(IAccountRequest accountRequest, IProjectTeamMemberRequest projectTeamMemberRequest, ISprintRequest sprintRequest, ISprintTeamMemberRequest sprintTeamMemberRequest, string sprintId, string projectId)
         {
             AccountRequest = accountRequest;
             ProjectTeamMemberRequest = projectTeamMemberRequest;
             SprintRequest = sprintRequest;
+            SprintTeamMemberRequest = sprintTeamMemberRequest;
             _home = new DelegateCommand(OnHome);
             _logout = new DelegateCommand(OnLogout);
             _saveSprint = new DelegateCommand(OnSaveSprint);
@@ -159,6 +163,7 @@ namespace Client.ViewModels
             SprintTitle = sprint.Title;
             StartDate = sprint.StartDate;
             EndDate = sprint.EndDate;
+            MemberList = sprint.SprintTeam;
             IsScrumMaster = sprint.IsScrumMaster;
         }
 
@@ -201,7 +206,15 @@ namespace Client.ViewModels
                 scrum_master = ScrumMaster,
                 developer = Developer
             };
-            UserList = ProjectTeamMemberRequest.SearchProjectTeamMembers(projectId, user);
+            UserList = ProjectTeamMemberRequest.SearchProjectTeamMembersSprint(projectId, sprintId, user);
+        }
+
+        public void OnAddToSprint(User user)
+        {
+            if (user == null) return;
+            SprintTeamMemberRequest.AddSprintTeamMember(new SprintTeamMember(sprintId, user.ProjectTeamMemberId));
+            GetSprint(sprintId);
+            SearchTeamMember.Execute(null);
         }
     }
 }

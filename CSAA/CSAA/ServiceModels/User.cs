@@ -1,10 +1,12 @@
-﻿using CSAA.Enums;
+﻿using System.Windows.Input;
+using CSAA.Enums;
 
 namespace CSAA.ServiceModels
 {
     public class User
     {
         public string Id { get; set; }
+        public string ProjectTeamMemberId { get; set; }
 
         public string Name { get; set; }
         public string Email { get; set; }

@@ -104,18 +104,25 @@ namespace Server.Services
         {
             var users = userRepository.GetAll();
             var project = projectRepository.GetByID(projectId);
+            var sprint = project.Sprints.FirstOrDefault(s => s.Id.ToString() == sprintId);
 
             users = users.Where(u => project.ProjectTeam.FirstOrDefault(m => m.UserId == u.Id) != null).ToList();
-            users = users.Where(u => project.ProjectTeam.FirstOrDefault(m => m.UserId == u.Id) != null).ToList();
+            users = users.Where(u => project.ProjectTeam.FirstOrDefault(m => m.UserId == u.Id).RoleAssignments.FirstOrDefault(r => r.Role == Role.Developer) != null).ToList();
+            users = users.Where(u => sprint.SprintTeam.FirstOrDefault(m => m.ProjectTeamMember.UserId == u.Id) == null).ToList();
 
             if (!string.IsNullOrEmpty(user.Email)) users = users.Where(u => u.Email.Contains(user.Email)).ToList();
             if (!string.IsNullOrEmpty(user.Name)) users = users.Where(u => u.UserName.Contains(user.Name)).ToList();
-            if (!string.IsNullOrEmpty(user.Description)) users = users.Where(u => u.Description.Contains(user.Description)).ToList();
+            if (!string.IsNullOrEmpty(user.Description)) users = users.Where(u => u.Description != null && u.Description.Contains(user.Description)).ToList();
             if (user.product_owner) users = users.Where(u => u.product_owner == user.product_owner).ToList();
             if (user.scrum_master) users = users.Where(u => u.scrum_master == user.scrum_master).ToList();
             if (user.developer) users = users.Where(u => u.developer == user.developer).ToList();
 
-            return users.Select(u => u.Map()).ToList();
+            var members = users.Select(u => u.Map()).ToList();
+            foreach (var member in members)
+            {
+                member.ProjectTeamMemberId = project.ProjectTeam.FirstOrDefault(m => m.UserId == member.Id).Id.ToString();
+            }
+            return members;
         }
     }
 }

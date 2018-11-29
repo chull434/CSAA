@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace CSAA.DataModels
@@ -41,7 +42,8 @@ namespace CSAA.DataModels
                 Id = Id.ToString(),
                 Title = Title,
                 StartDate = StartDate,
-                EndDate = EndDate
+                EndDate = EndDate,
+                SprintTeam = SprintTeam.Select(m => m.Map()).ToList()
             };
         }
     }

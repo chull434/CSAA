@@ -35,6 +35,10 @@ namespace Server.Services
         public ServiceModel.Sprint GetSprint(string sprintId, string userId)
         {
             var sprint = repository.GetByID(sprintId).Map();
+            foreach (var sprintTeamMember in sprint.SprintTeam)
+            {
+                sprintTeamMember.Name = UserManager.GetUserNameById(sprintTeamMember.UserId);
+            }
             var member = repository.GetByID(sprintId).Project.ProjectTeam.FirstOrDefault(m => m.UserId == userId);
             if (member != null)
             {

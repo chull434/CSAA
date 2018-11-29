@@ -26,10 +26,7 @@ namespace Client.ViewModels
         Project _selectedProject = new Project();
         public Project SelectedProject
         {
-            set
-            {
-                OnOpenProject(value.Id);
-            }
+            set => OnOpenProject(value.Id);
         }
 
         List<Task> _assignedTasks = new List<Task>();

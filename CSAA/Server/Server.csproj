@@ -208,12 +208,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Data\SprintRepository.cs" />
+    <Compile Include="App_Data\SprintTeamMemberRepository.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Data\UserRepository.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\API\AcceptanceTestController.cs" />
     <Compile Include="Areas\API\ProjectTeamMemberController.cs" />
     <Compile Include="Areas\API\SprintController.cs" />
+    <Compile Include="Areas\API\SprintTeamMemberController.cs" />
     <Compile Include="Areas\API\UserController.cs" />
     <Compile Include="Areas\API\UserStoryController.cs" />
     <Compile Include="App_Data\UserStoryRepository.cs" />
@@ -248,6 +250,10 @@
     <Compile Include="Migrations\201811291235227_AddingUserStoryPriority.cs" />
     <Compile Include="Migrations\201811291235227_AddingUserStoryPriority.Designer.cs">
       <DependentUpon>201811291235227_AddingUserStoryPriority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811291620523_AddingSprintTeamMembers.cs" />
+    <Compile Include="Migrations\201811291620523_AddingSprintTeamMembers.Designer.cs">
+      <DependentUpon>201811291620523_AddingSprintTeamMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
@@ -312,11 +318,15 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\IProjectTeamMemberService.cs" />
     <Compile Include="Services\ISprintService.cs" />
+    <Compile Include="Services\ISprintTeamMemberService.cs" />
+    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IUserStoryService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ProjectTeamMemberService.cs" />
     <Compile Include="App_Data\Repository.cs" />
     <Compile Include="Services\SprintService.cs" />
+    <Compile Include="Services\SprintTeamMemberService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserStoryService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -447,6 +457,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811291235227_AddingUserStoryPriority.resx">
       <DependentUpon>201811291235227_AddingUserStoryPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811291620523_AddingSprintTeamMembers.resx">
+      <DependentUpon>201811291620523_AddingSprintTeamMembers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
