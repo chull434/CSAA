@@ -7,6 +7,7 @@ using Server.App_Data;
 using Server.Services;
 using System;
 using System.Collections.Generic;
+using CSAA.Enums;
 
 namespace UnitTests.Server.Services.ProjectServiceTests
 {
@@ -63,21 +64,25 @@ namespace UnitTests.Server.Services.ProjectServiceTests
     public class when_I_call_GetProjects : Context
     {
         static List<ServiceModel.Project> result;
+        static string userId;
 
         Establish context = () =>
         {
-            var projects = new List<Project> { new Project(), new Project(), new Project() };
+            userId = new Guid().ToString();
+            var project = new Project();
+            project.ProjectTeam.Add(new ProjectTeamMember(userId, project, Role.ProjectManager));
+            var projects = new List<Project> { project, new Project(), new Project() };
             Repository.GetAll().Returns(projects);
         };
 
         Because of = () =>
         {
-            result = ProjectService.GetProjects();
+            result = ProjectService.GetProjects(userId);
         };
             
         It returns_projects = () =>
         {
-            result.Count.ShouldEqual(3);
+            result.Count.ShouldEqual(1);
         };
     }
 
