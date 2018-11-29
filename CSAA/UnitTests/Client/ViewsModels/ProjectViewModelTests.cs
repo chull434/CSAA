@@ -19,6 +19,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
         public static IAccountRequest AccountRequest;
         public static IProjectRequest ProjectRequest;
         public static IProjectTeamMemberRequest ProjectTeamMemberRequest;
+        public static ISprintRequest SprintRequest;
         public static string Id;
 
         Establish context = () =>
@@ -28,7 +29,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
             AccountRequest = Substitute.For<IAccountRequest>();
             ProjectRequest = Substitute.For<IProjectRequest>();
             ProjectTeamMemberRequest = Substitute.For<IProjectTeamMemberRequest>();
-            ViewModel = new ProjectViewModel(AccountRequest, ProjectRequest, ProjectTeamMemberRequest, Id);
+            ViewModel = new ProjectViewModel(AccountRequest, ProjectRequest, ProjectTeamMemberRequest, SprintRequest, Id);
         };
     }
 
@@ -73,7 +74,7 @@ namespace UnitTests.Client.ViewsModels.ProjectViewModelTests
 
         Because of = () =>
         {
-            viewModel = new ProjectViewModel(AccountRequest, ProjectRequest, ProjectTeamMemberRequest, Id);
+            viewModel = new ProjectViewModel(AccountRequest, ProjectRequest, ProjectTeamMemberRequest, SprintRequest, Id);
         };
 
         It creates_a_viewModel = () =>
