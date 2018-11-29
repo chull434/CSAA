@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Client.Views"
         mc:Ignorable="d"
         WindowState="Maximized"
-        WindowStyle="None"
+        WindowStyle="ToolWindow"
         Title="Home" Height="720" Width="1280" Background="#f1f1f1">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
