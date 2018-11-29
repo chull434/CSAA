@@ -11,6 +11,7 @@ namespace CSAA.DataModels
         public string Title { get; set; }
         public virtual List<ProjectTeamMember> ProjectTeam { get; set; }
         public virtual List<UserStory> ProjectUserStories { get; set; }
+        public virtual List<Sprint> Sprints { get; set; }
 
         public Project()
         {
@@ -18,6 +19,7 @@ namespace CSAA.DataModels
             Title = "My Project";
             ProjectTeam = new List<ProjectTeamMember>();
             ProjectUserStories = new List<UserStory>();
+            Sprints = new List<Sprint>();
         }
 
         public Project(string Title)
@@ -26,6 +28,7 @@ namespace CSAA.DataModels
             this.Title = Title;
             ProjectTeam = new List<ProjectTeamMember>();
             ProjectUserStories = new List<UserStory>();
+            Sprints = new List<Sprint>();
         }
 
         public ServiceModels.Project Map()
