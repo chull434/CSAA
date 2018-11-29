@@ -73,10 +73,12 @@
     <Compile Include="Requests\IHttpClient.cs" />
     <Compile Include="Requests\IProjectRequest.cs" />
     <Compile Include="Requests\IProjectTeamMemberRequest.cs" />
+    <Compile Include="Requests\ISprintRequest.cs" />
     <Compile Include="Requests\IUserStoryRequest.cs" />
     <Compile Include="Requests\ProjectRequest.cs" />
     <Compile Include="Requests\ProjectTeamMemberRequest.cs" />
     <Compile Include="Requests\Request.cs" />
+    <Compile Include="Requests\SprintRequest.cs" />
     <Compile Include="Requests\UserStoryRequest.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ProductBacklogViewModel.cs" />
+    <Compile Include="ViewModels\SprintViewModel.cs" />
     <Compile Include="ViewModels\UserStoryViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\Profile.xaml.cs">
@@ -96,6 +99,9 @@
     </Compile>
     <Compile Include="Views\ProductBacklog.xaml.cs">
       <DependentUpon>ProductBacklog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sprint.xaml.cs">
+      <DependentUpon>Sprint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Project.xaml.cs">
       <DependentUpon>Project.xaml</DependentUpon>
@@ -132,6 +138,10 @@
     <Page Include="Views\ProductBacklog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Sprint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Project.xaml">
       <SubType>Designer</SubType>
