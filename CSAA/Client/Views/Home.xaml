@@ -41,9 +41,7 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <Image x:Name="image" HorizontalAlignment="Left" Height="75" Margin="20,0,15,0" VerticalAlignment="Top" Width="75" Source="Images/Kongu.png"/>
-                <MenuItem Header="Home" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Edit Profile" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding EditProfile}"/> 
-                <MenuItem Header="Option C" DockPanel.Dock="Left" Margin="0,0,10,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
                 <MenuItem Header="Create Project" DockPanel.Dock="left" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding CreateProject}"/>
                 <MenuItem Header="Logout" DockPanel.Dock="Right"  Margin="0,0,25,0" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Command="{Binding Logout}"/>
             </Menu>
@@ -99,41 +97,6 @@
                     </ListBox>
                 </StackPanel>
             </Grid>
-            <StackPanel x:Name="TeamMembers" Margin="25,25,25,0">
-                <TextBlock x:Name="txtblk_TeamMemberHeader" HorizontalAlignment="Stretch"  Background="#173654" Foreground="White" Padding="10" TextWrapping="Wrap" FontFamily="Calibri" FontWeight="Bold" FontSize="18" VerticalAlignment="Top" Height="AUTO" Width="auto">
-                    My Team Members
-                </TextBlock>
-                <Grid  Background="#9bafb9">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Padding="10,5,0,5" TextDecorations="Underline" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="Name" />
-                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="Email" />
-                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="Roles" />
-                    <TextBlock Padding="10,5,0,5" FontFamily="Calibri" TextDecorations="Underline" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="Project" />
-                </Grid>
-                <ListBox Name="lb_ProjectTeamMembers" ItemsSource="{Binding MemberList}" Background="#9bafb9" HorizontalContentAlignment="Stretch" >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Text="{Binding UserName}" />
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="1" Text="{Binding UserEmail}" />
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="2" Text="{Binding Roles}" />
-                                <TextBlock Padding="10,5,0,5" FontFamily="Calibri" FontWeight="Bold" FontSize="18" Grid.Column="3" Text="{Binding ProjectTitle}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
         </StackPanel>
     </Grid>
 
