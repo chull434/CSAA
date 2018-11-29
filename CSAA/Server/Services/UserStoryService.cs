@@ -12,11 +12,13 @@ namespace Server.Services
     {
         private IRepository<UserStory> repository;
         private IRepository<Project> projectRepository;       
+        private IRepository<Sprint> sprintRepository;       
 
-        public UserStoryService(IRepository<UserStory> repository, IRepository<Project> projectRepository)
+        public UserStoryService(IRepository<UserStory> repository, IRepository<Project> projectRepository, IRepository<Sprint> sprintRepository)
         {
             this.repository = repository;
             this.projectRepository = projectRepository;
+            this.sprintRepository = sprintRepository;
         }
 
         public List<ServiceModel.UserStory> GetAllUserStories()
@@ -46,6 +48,7 @@ namespace Server.Services
             dataUserStory.Description = userStory.Description;
             dataUserStory.StoryPoints = userStory.StoryPoints;
             dataUserStory.Priority = userStory.Priority;
+            if (userStory.SprintId != null) dataUserStory.Sprint = sprintRepository.GetByID(userStory.SprintId);
             repository.Save();
         }
 

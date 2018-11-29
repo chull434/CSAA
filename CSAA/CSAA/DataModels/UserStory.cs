@@ -13,6 +13,9 @@ namespace CSAA.DataModels
         [ForeignKey("Project")]
         public Guid ProjectId { get; set; }
 
+        [ForeignKey("Sprint")]
+        public Guid? SprintId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -22,6 +25,8 @@ namespace CSAA.DataModels
         public int Priority { get; set; }
 
         public virtual Project Project { get; set; }
+
+        public virtual Sprint Sprint { get; set; }
 
         public virtual List<AcceptanceTest> UserStoryAcceptanceTests { get; set; }
 
@@ -42,13 +47,19 @@ namespace CSAA.DataModels
 
         public ServiceModels.UserStory Map()
         {
-            return new ServiceModels.UserStory(Title, Description, ProjectId.ToString())
+            var userStory = new ServiceModels.UserStory(Title, Description, ProjectId.ToString())
             {
                 UserStoryAcceptanceTests = UserStoryAcceptanceTests.Select(m => m.Map()).ToList(),
                 Id = Id.ToString(),
                 StoryPoints = StoryPoints,
                 Priority = Priority,
             };
+            if (SprintId != null)
+            {
+                userStory.SprintId = SprintId.ToString();
+                userStory.SprintTitle = Sprint.Title;
+            }
+            return userStory;
         }
     }
 }

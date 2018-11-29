@@ -13,12 +13,16 @@ namespace CSAA.ServiceModels
         public DateTime EndDate { get; set; }
 
         public List<SprintTeamMember> SprintTeam { get; set; }
+        public List<UserStory> SprintUserStories { get; set; }
+        public List<UserStory> ProjectUserStories { get; set; }
 
         public bool IsScrumMaster { get; set; }
 
         public Sprint()
         {
             SprintTeam = new List<SprintTeamMember>();
+            SprintUserStories = new List<UserStory>();
+            ProjectUserStories = new List<UserStory>();
         }
 
         public Sprint(string Tile, string ProjectId, DateTime StartDate, DateTime EndDate)
@@ -28,6 +32,8 @@ namespace CSAA.ServiceModels
             this.StartDate = StartDate;
             this.EndDate = EndDate;
             SprintTeam = new List<SprintTeamMember>();
+            SprintUserStories = new List<UserStory>();
+            ProjectUserStories = new List<UserStory>();
         }
     }
 }
