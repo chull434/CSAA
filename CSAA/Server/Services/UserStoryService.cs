@@ -47,6 +47,7 @@ namespace Server.Services
             dataUserStory.Title = userStory.Title;
             dataUserStory.Description = userStory.Description;
             dataUserStory.StoryPoints = userStory.StoryPoints;
+            dataUserStory.MarketValue = userStory.MarketValue;
             dataUserStory.Priority = userStory.Priority;
             if (userStory.SprintId != null) dataUserStory.Sprint = sprintRepository.GetByID(userStory.SprintId);
             repository.Save();

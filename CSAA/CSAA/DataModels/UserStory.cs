@@ -22,6 +22,8 @@ namespace CSAA.DataModels
 
         public int StoryPoints { get; set; }
 
+        public int MarketValue { get; set; }
+
         public int Priority { get; set; }
 
         public virtual Project Project { get; set; }
@@ -53,6 +55,7 @@ namespace CSAA.DataModels
                 Id = Id.ToString(),
                 StoryPoints = StoryPoints,
                 Priority = Priority,
+                MarketValue = MarketValue
             };
             if (SprintId != null)
             {
