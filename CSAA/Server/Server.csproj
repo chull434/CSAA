@@ -245,6 +245,10 @@
     <Compile Include="Migrations\201811290408274_AddingSprints.Designer.cs">
       <DependentUpon>201811290408274_AddingSprints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811291235227_AddingUserStoryPriority.cs" />
+    <Compile Include="Migrations\201811291235227_AddingUserStoryPriority.Designer.cs">
+      <DependentUpon>201811291235227_AddingUserStoryPriority.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\AcceptanceTestService.cs" />
     <Compile Include="Services\IAcceptanceTestService.cs" />
     <Compile Include="Services\EmailService.cs" />
@@ -440,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811290408274_AddingSprints.resx">
       <DependentUpon>201811290408274_AddingSprints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811291235227_AddingUserStoryPriority.resx">
+      <DependentUpon>201811291235227_AddingUserStoryPriority.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

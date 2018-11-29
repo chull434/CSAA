@@ -34,6 +34,7 @@ namespace Server.Services
             var dataUserStory = new UserStory(userStory.Title, userStory.Description);
             dataUserStory.Project = projectRepository.GetByID(userStory.ProjectId);
             repository.Insert(dataUserStory);
+            dataUserStory.Priority = (dataUserStory.Project.ProjectUserStories.Count());
             repository.Save();
             return dataUserStory.Id.ToString();
         }
@@ -44,6 +45,7 @@ namespace Server.Services
             dataUserStory.Title = userStory.Title;
             dataUserStory.Description = userStory.Description;
             dataUserStory.StoryPoints = userStory.StoryPoints;
+            dataUserStory.Priority = userStory.Priority;
             repository.Save();
         }
 
