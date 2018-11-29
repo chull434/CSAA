@@ -25,7 +25,7 @@ Scenario: Register
 	And I check the following:
 		| Field        | Value |
 		| ProductOwner | Yes   |
-		| ScumMaster   | Yes   |
+		| ScrumMaster  | Yes   |
 		| Developer    | Yes   |
 
 	And I click "Register"
@@ -36,7 +36,7 @@ Scenario: Register
 		| Email        | testuser@localhost.com |
 		| Password     | password               |
 		| ProductOwner | Yes                    |
-		| ScumMaster   | Yes                    |
+		| ScrumMaster  | Yes                    |
 		| Developer    | Yes                    |
 
 	Then I am on the "Login" page
@@ -49,7 +49,7 @@ Scenario: Register - Failed
 		| Email        | testuser@localhost.com |
 		| Password     | password               |
 		| ProductOwner | Yes                    |
-		| ScumMaster   | Yes                    |
+		| ScrumMaster  | Yes                    |
 		| Developer    | Yes                    |
 
 	When I enter the following:
@@ -66,7 +66,7 @@ Scenario: Register - Failed
 	And I check the following:
 		| Field        | Value |
 		| ProductOwner | Yes   |
-		| ScumMaster   | Yes   |
+		| ScrumMaster  | Yes   |
 		| Developer    | Yes   |
 
 	And I click "Register"

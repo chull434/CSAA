@@ -26,7 +26,7 @@ namespace Client.ViewModels
         public string Email { get; set; }
         public string Description { get; set; }
         public bool ProductOwner { get; set; }
-        public bool ScumMaster { get; set; }
+        public bool ScrumMaster { get; set; }
         public bool Developer { get; set; }
 
         BitmapImage _profile;
@@ -87,7 +87,7 @@ namespace Client.ViewModels
                 Email = Email,
                 Description = Description,
                 product_owner = ProductOwner,
-                scrum_master = ScumMaster,
+                scrum_master = ScrumMaster,
                 developer = Developer,
                 Profile = Profile.UriSource.AbsolutePath
             };
@@ -116,7 +116,7 @@ namespace Client.ViewModels
             Email = user.Email;
             Description = user.Description;
             ProductOwner = user.product_owner;
-            ScumMaster = user.scrum_master;
+            ScrumMaster = user.scrum_master;
             Developer = user.developer;
             if (user.Profile != null) Profile = new BitmapImage(new Uri(user.Profile));
         }

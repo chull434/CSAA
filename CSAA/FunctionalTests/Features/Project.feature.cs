@@ -88,7 +88,7 @@ namespace FunctionalTests.Features
                         "ProductOwner",
                         "Yes"});
             table1.AddRow(new string[] {
-                        "ScumMaster",
+                        "ScrumMaster",
                         "Yes"});
             table1.AddRow(new string[] {
                         "Developer",
@@ -176,7 +176,7 @@ this.FeatureBackground();
                         "ProductOwner",
                         "Yes"});
             table5.AddRow(new string[] {
-                        "ScumMaster",
+                        "ScrumMaster",
                         "Yes"});
             table5.AddRow(new string[] {
                         "Developer",
