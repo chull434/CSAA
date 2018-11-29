@@ -61,6 +61,13 @@ namespace Client.ViewModels
             set => SetProperty(ref _userStoryPoints, value);
         }
 
+        int _userStoryPriority;
+        public int UserStoryPriority
+        {
+            get => _userStoryPriority;
+            set => SetProperty(ref _userStoryPriority, value);
+        }
+
         public bool IsScrumMaster { get; set; }
         public bool IsProductOwner { get; set; }
 
@@ -167,12 +174,13 @@ namespace Client.ViewModels
             UserStoryTitle = userStory.Title;
             UserStoryDescription = userStory.Description;
             UserStoryPoints = userStory.StoryPoints;
+            UserStoryPriority = userStory.Priority;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
         }
 
         private void OnSaveUserStory(object commandParameter)
         {
-            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) {StoryPoints = UserStoryPoints});
+            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, Priority = UserStoryPriority });
             GetUserStory(userStoryId);
         }
 

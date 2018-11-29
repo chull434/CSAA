@@ -115,8 +115,8 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btn_MoveUp" Grid.Column="0" Content="Move Up" FontSize="18" HorizontalAlignment="left" Margin="25,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding MoveUp}"/>
-                    <Button x:Name="btn_MoveDown" Grid.Column="0" Content="Move Down" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" Command="{Binding MoveDown}"/>
+                    <Button x:Name="btn_MoveUp" Grid.Column="0" Content="Move Up" FontSize="18" HorizontalAlignment="left" Margin="25,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" IsEnabled="{Binding ElementName=lb_UserStoryList, Path=SelectedItems.Count}" Command="{Binding MoveUp}"/>
+                    <Button x:Name="btn_MoveDown" Grid.Column="0" Content="Move Down" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" IsEnabled="{Binding ElementName=lb_UserStoryList, Path=SelectedItems.Count}" Command="{Binding MoveDown}"/>
                     <Button x:Name="btn_OpenUserStory" Grid.Column="1" Content="Open User Story" FontSize="18" HorizontalAlignment="Right" Margin="5,25,25,25" VerticalAlignment="Top" Width="149" Height="40" BorderThickness="2" FontFamily="Calibri" FontWeight="Bold" IsEnabled="{Binding ElementName=lb_UserStoryList, Path=SelectedItems.Count}" Command="{Binding OpenUserStory}"/>
                 </Grid>
             </StackPanel>
