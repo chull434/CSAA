@@ -109,20 +109,12 @@ namespace Client.Requests
             return string.Empty;
         }
 
-
         private async Task<string> ResetPasswordAsync(string email)
         {
             var response = await client.GetAsync("api/Account/ResetPassword?email=" + email).ConfigureAwait(false);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorMessage = await response.Content.ReadAsAsync<LoginErrorMessage>().ConfigureAwait(false);
-                return errorMessage.error_description;
-            }
-
-            return string.Empty;
+            var result = await CheckResponse(response).ConfigureAwait(false);
+            return "";
         }
-
 
         private async Task<string> SaveAsync(string id, User user)
         {

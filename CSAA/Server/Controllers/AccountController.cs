@@ -424,6 +424,7 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("ResetPassword")]
         public string ResetPassword(string email)
         {
