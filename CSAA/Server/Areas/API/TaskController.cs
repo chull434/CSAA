@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Server.Areas.API
 {
+    [Authorize]
     public class TaskController : ApiController
     {
         private ServerDbContext context;
@@ -21,6 +22,13 @@ namespace Server.Areas.API
         private IRepository<Project> projectRepository;
         private IRepository<Sprint> sprintRepository;
         private ITaskService service;
+
+        private IApplicationUserManager _userManager;
+        public IApplicationUserManager UserManager
+        {
+            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            set => _userManager = value;
+        }
 
         public TaskController()
         {
@@ -46,6 +54,7 @@ namespace Server.Areas.API
         [HttpGet]
         public ServiceModel.Task Get(string id)
         {
+            service.SetApplicationUserManager(UserManager);
             return service.GetTask(id, User.Identity.GetUserId());
         }
 
@@ -58,7 +67,7 @@ namespace Server.Areas.API
         [HttpPut]
         public void Put(string id, ServiceModel.Task task)
         {
-            service.UpdateTask(id, task);
+            service.UpdateTask(id, task, User.Identity.GetUserId());
         }
 
         [HttpDelete]

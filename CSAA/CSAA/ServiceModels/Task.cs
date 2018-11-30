@@ -8,12 +8,14 @@
 
         public string Title { get; set; }
         public string Description { get; set; }
+        public string AssignedTo { get; set; }
         public int EstimatedHours { get; set; }
         public int EstimatedHoursRemaining { get; set; }
         public int HoursWorked { get; set; }
         public bool Completed { get; set; }
 
         public bool InSprintTeam { get; set; }
+        public bool IsDeveloperInSprintTeam { get; set; }
 
         public Task()
         {
@@ -25,11 +27,6 @@
             Title = title;
             Description = description;
             UserStoryId = userStoryId;
-            UserIdAssignedTo = "";
-            HoursWorked = 0;
-            EstimatedHours = 0;
-            EstimatedHoursRemaining = 0;
-            Completed = false;
         }
     }
 }

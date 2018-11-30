@@ -14,5 +14,6 @@ namespace Server.Services
         string CreateUserStory(UserStory userStory);
         void UpdateUserStory(string userStoryId, UserStory userStory);
         void DeleteUserStory(string userStoryId);
+        void SetApplicationUserManager(IApplicationUserManager applicationUserManager);
     }
 }

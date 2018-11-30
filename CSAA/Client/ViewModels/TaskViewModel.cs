@@ -28,11 +28,15 @@ namespace Client.ViewModels
         private readonly DelegateCommand _saveTask;
         public ICommand SaveTask => _saveTask;
 
+        private readonly DelegateCommand _assignTaskToSelf;
+        public ICommand AssignTaskToSelf => _assignTaskToSelf;
+
         string projectId;
         string userStoryId;
         string taskId;
 
         public bool InSprintTeam { get; set; }
+        public bool IsDeveloperInSprintTeam { get; set; }
 
         string _taskTitle;
         public string TaskTitle
@@ -46,6 +50,13 @@ namespace Client.ViewModels
         {
             get => _taskDescription;
             set => SetProperty(ref _taskDescription, value);
+        }
+
+        string _taskAssignedTo;
+        public string TaskAssignedTo
+        {
+            get => _taskAssignedTo;
+            set => SetProperty(ref _taskAssignedTo, value);
         }
 
         int _taskEstimatedHours;
@@ -89,6 +100,7 @@ namespace Client.ViewModels
             _back = new DelegateCommand(OnBack);
             _deleteTask = new DelegateCommand(OnDeleteTask);
             _saveTask = new DelegateCommand(OnSaveTask);
+            _assignTaskToSelf = new DelegateCommand(OnAssignTaskToSelf);
         }
 
         public TaskViewModel(IAccountRequest accountRequest, ITaskRequest taskRequest, string taskId, string userStoryId, string projectId)
@@ -103,6 +115,7 @@ namespace Client.ViewModels
             _back = new DelegateCommand(OnBack);
             _deleteTask = new DelegateCommand(OnDeleteTask);
             _saveTask = new DelegateCommand(OnSaveTask);
+            _assignTaskToSelf = new DelegateCommand(OnAssignTaskToSelf);
         }
 
         private void GetTask(string taskId)
@@ -111,11 +124,13 @@ namespace Client.ViewModels
             var task = TaskRequest.GetTaskById(taskId);
             TaskTitle = task.Title;
             TaskDescription = task.Description;
+            TaskAssignedTo = task.AssignedTo;
             TaskEstimatedHours = task.EstimatedHours;
             TaskEstimatedHoursRemaining = task.EstimatedHoursRemaining;
             TaskHoursWorked = task.HoursWorked;
             TaskCompleted = task.Completed;
             InSprintTeam = task.InSprintTeam;
+            IsDeveloperInSprintTeam = task.IsDeveloperInSprintTeam;
         }
 
         private void OnLogout(object commandParameter)
@@ -150,6 +165,22 @@ namespace Client.ViewModels
                 EstimatedHoursRemaining = TaskEstimatedHoursRemaining,
                 HoursWorked = TaskHoursWorked,
                 Completed = TaskCompleted
+            };
+            TaskRequest.UpdateTask(taskId, task);
+            GetTask(taskId);
+        }
+
+        private void OnAssignTaskToSelf(object commandParameter)
+        {
+            var task = new Task
+            {
+                Title = TaskTitle,
+                Description = TaskDescription,
+                EstimatedHours = TaskEstimatedHours,
+                EstimatedHoursRemaining = TaskEstimatedHoursRemaining,
+                HoursWorked = TaskHoursWorked,
+                Completed = TaskCompleted,
+                UserIdAssignedTo = "me"
             };
             TaskRequest.UpdateTask(taskId, task);
             GetTask(taskId);

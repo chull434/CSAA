@@ -40,11 +40,6 @@ namespace CSAA.DataModels
             Id = Guid.NewGuid();           
             Title = title;
             Description = description;
-            UserIdAssignedTo = "";
-            EstimatedHours = EstimatedHours;
-            EstimatedHoursRemaining = EstimatedHoursRemaining;
-            HoursWorked = HoursWorked;
-            Completed = false;
         }
 
         public ServiceModels.Task Map()

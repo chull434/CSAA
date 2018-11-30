@@ -13,13 +13,22 @@ namespace Server.Services
     {
         private IRepository<UserStory> repository;
         private IRepository<Project> projectRepository;       
-        private IRepository<Sprint> sprintRepository;       
+        private IRepository<Sprint> sprintRepository;
+        private IApplicationUserManager UserManager;
 
         public UserStoryService(IRepository<UserStory> repository, IRepository<Project> projectRepository, IRepository<Sprint> sprintRepository)
         {
             this.repository = repository;
             this.projectRepository = projectRepository;
             this.sprintRepository = sprintRepository;
+        }
+
+        public UserStoryService(IRepository<UserStory> repository, IRepository<Project> projectRepository, IRepository<Sprint> sprintRepository, IApplicationUserManager UserManager)
+        {
+            this.repository = repository;
+            this.projectRepository = projectRepository;
+            this.sprintRepository = sprintRepository;
+            this.UserManager = UserManager;
         }
 
         public List<ServiceModel.UserStory> GetAllUserStories()
@@ -38,6 +47,10 @@ namespace Server.Services
                     var sprint = sprintRepository.GetByID(userStory.SprintId);
                     userStory.InSprintTeam = sprint.SprintTeam.FirstOrDefault(m => m.ProjectTeamMemberId == member.Id) != null;
                 }
+            }
+            foreach (var task in userStory.UserStoryTasks)
+            {
+                if (!string.IsNullOrEmpty(task.UserIdAssignedTo)) task.AssignedTo = UserManager.GetUserNameById(task.UserIdAssignedTo);
             }
             return userStory;
         }
@@ -68,6 +81,11 @@ namespace Server.Services
         {
             repository.Delete(userStoryId);
             repository.Save();
+        }
+
+        public void SetApplicationUserManager(IApplicationUserManager applicationUserManager)
+        {
+            UserManager = applicationUserManager;
         }
     }
 }

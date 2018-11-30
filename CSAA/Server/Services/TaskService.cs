@@ -15,6 +15,7 @@ namespace Server.Services
         private IRepository<UserStory> userStoryRepository;
         private IRepository<Project> projectRepository;
         private IRepository<Sprint> sprintRepository;
+        private IApplicationUserManager UserManager;
 
         public TaskService(IRepository<Task> repository, IRepository<UserStory> userStoryRepository, IRepository<Project> projectRepository, IRepository<Sprint> sprintRepository)
         {
@@ -22,6 +23,15 @@ namespace Server.Services
             this.userStoryRepository = userStoryRepository;
             this.projectRepository = projectRepository;
             this.sprintRepository = sprintRepository;
+        }
+
+        public TaskService(IRepository<Task> repository, IRepository<UserStory> userStoryRepository, IRepository<Project> projectRepository, IRepository<Sprint> sprintRepository, IApplicationUserManager UserManager)
+        {
+            this.repository = repository;
+            this.userStoryRepository = userStoryRepository;
+            this.projectRepository = projectRepository;
+            this.sprintRepository = sprintRepository;
+            this.UserManager = UserManager;
         }
 
         public List<ServiceModel.Task> GetAllTasks()
@@ -40,8 +50,10 @@ namespace Server.Services
                 {
                     var sprint = sprintRepository.GetByID(userStory.SprintId);
                     task.InSprintTeam = sprint.SprintTeam.FirstOrDefault(m => m.ProjectTeamMemberId == member.Id) != null;
+                    task.IsDeveloperInSprintTeam = task.InSprintTeam && member.HasRole(Role.Developer);
                 }
             }
+            if (!string.IsNullOrEmpty(task.UserIdAssignedTo)) task.AssignedTo = UserManager.GetUserNameById(task.UserIdAssignedTo);
             return task;
         }
 
@@ -54,7 +66,7 @@ namespace Server.Services
             return dataTask.Id.ToString();
         }
 
-        public void UpdateTask(string taskId, ServiceModel.Task task)
+        public void UpdateTask(string taskId, ServiceModel.Task task, string userId)
         {
             var dataTask = repository.GetByID(taskId);
             dataTask.Title = task.Title;
@@ -63,7 +75,10 @@ namespace Server.Services
             dataTask.EstimatedHours = task.EstimatedHours;
             dataTask.EstimatedHoursRemaining = task.EstimatedHoursRemaining;
             dataTask.HoursWorked = task.HoursWorked;
-            dataTask.UserIdAssignedTo = task.UserIdAssignedTo;
+            if (task.UserIdAssignedTo == "me")
+            {
+                dataTask.UserIdAssignedTo = userId;
+            }
             repository.Save();
         }
 
@@ -71,6 +86,11 @@ namespace Server.Services
         {
             repository.Delete(taskId);
             repository.Save();
+        }
+
+        public void SetApplicationUserManager(IApplicationUserManager applicationUserManager)
+        {
+            UserManager = applicationUserManager;
         }
     }
 }

@@ -20,7 +20,14 @@ namespace Server.Areas.API
         private IRepository<UserStory> repository;
         private IRepository<Project> projectRepository;
         private IRepository<Sprint> sprintRepository;
-        private IUserStoryService service;    
+        private IUserStoryService service;
+
+        private IApplicationUserManager _userManager;
+        public IApplicationUserManager UserManager
+        {
+            get => _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            set => _userManager = value;
+        }
 
         public UserStoryController()
         {
@@ -45,6 +52,7 @@ namespace Server.Areas.API
         [HttpGet]
         public ServiceModel.UserStory Get(string id)
         {
+            service.SetApplicationUserManager(UserManager);
             return service.GetUserStory(id, User.Identity.GetUserId());
         }
 
