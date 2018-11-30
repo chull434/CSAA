@@ -74,6 +74,13 @@ namespace Client.ViewModels
             set => SetProperty(ref _userStoryPoints, value);
         }
 
+        int _userStoryPriority;
+        public int UserStoryPriority
+        {
+            get => _userStoryPriority;
+            set => SetProperty(ref _userStoryPriority, value);
+        }
+
         int _userStoryMarketValue;
         public int UserStoryMarketValue
         {
@@ -193,6 +200,7 @@ namespace Client.ViewModels
             UserStoryDescription = userStory.Description;
             SprintTitle = userStory.SprintTitle;
             UserStoryPoints = userStory.StoryPoints;
+            UserStoryPriority = userStory.Priority;
             UserStoryMarketValue = userStory.MarketValue;
             AcceptanceTestList = userStory.UserStoryAcceptanceTests;
             TaskList = userStory.UserStoryTasks;
@@ -207,7 +215,7 @@ namespace Client.ViewModels
 
         private void OnSaveUserStory(object commandParameter)
         {
-            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, MarketValue = UserStoryMarketValue});
+            UserStoryRequest.UpdateUserStory(userStoryId, new UserStory(UserStoryTitle, UserStoryDescription, projectId) { StoryPoints = UserStoryPoints, Priority = UserStoryPriority, MarketValue = UserStoryMarketValue});
             GetUserStory(userStoryId);
         }
 
