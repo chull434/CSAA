@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Windows.Input;
 using Client.Requests;
 using Client.Views;
 using CSAA.ServiceModels;
@@ -11,7 +12,6 @@ namespace Client.ViewModels
         readonly IAccountRequest AccountRequest;
 
         public string Email { get; set; }
-        public string Password { get; set; }
 
         string _emailErrors;
         public string EmailError
@@ -48,7 +48,9 @@ namespace Client.ViewModels
 
             var ModelStateValid = EmptyFieldValidation();
             if (!ModelStateValid) return;
-
+            ModelStateValid = EmailValidation();
+            if (!ModelStateValid) return;
+            AccountRequest.ResetPassword(Email);
 
             ChangeView(new Login(HttpClient));
         }
@@ -67,6 +69,21 @@ namespace Client.ViewModels
             return true;
         }
 
+        private bool EmailValidation()
+        {
+            if (!CheckEmailIsValid(Email))
+            {
+                EmailError = "Invalid email.";
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckEmailIsValid(string email)
+        {
+            return new EmailAddressAttribute().IsValid(email);
+        }
 
         private void OnLogin(object commandParameter)
         {

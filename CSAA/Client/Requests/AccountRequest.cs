@@ -48,6 +48,11 @@ namespace Client.Requests
             return GetUserAsync().GetAwaiter().GetResult();
         }
 
+        public string ResetPassword(string email)
+        {
+            return ResetPasswordAsync(email).GetAwaiter().GetResult();
+        }
+
         #endregion
 
         #region Private Methods
@@ -103,6 +108,21 @@ namespace Client.Requests
 
             return string.Empty;
         }
+
+
+        private async Task<string> ResetPasswordAsync(string email)
+        {
+            var response = await client.GetAsync("api/Account/ResetPassword?email=" + email).ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsAsync<LoginErrorMessage>().ConfigureAwait(false);
+                return errorMessage.error_description;
+            }
+
+            return string.Empty;
+        }
+
 
         private async Task<string> SaveAsync(string id, User user)
         {

@@ -9,5 +9,6 @@ namespace Client.Requests
         string Logout();
         string Save(string id, User user);
         User GetUser();
+        string ResetPassword(string email);
     }
 }
