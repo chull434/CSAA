@@ -111,9 +111,9 @@ namespace Client.ViewModels
 
         private void GetTasks()
         {
-            AssignedTasks.Add(new Task { Title = "Task 1", Project = "Project A" });
-            AssignedTasks.Add(new Task { Title = "Task 2", Project = "Project A" });
-            AssignedTasks.Add(new Task { Title = "Task 3", Project = "Project A" });
+            //AssignedTasks.Add(new Task { Title = "Task 1", Project = "Project A" });
+            //AssignedTasks.Add(new Task { Title = "Task 2", Project = "Project A" });
+            //AssignedTasks.Add(new Task { Title = "Task 3", Project = "Project A" });
         }
     }
 }

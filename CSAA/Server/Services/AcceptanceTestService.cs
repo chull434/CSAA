@@ -38,9 +38,9 @@ namespace Server.Services
             return dataAcceptanceTest.Id.ToString();
         }
 
-        public void UpdateAcceptanceTest(string userStoryId, ServiceModel.AcceptanceTest acceptanceTest)
+        public void UpdateAcceptanceTest(string acceptanceTestId, ServiceModel.AcceptanceTest acceptanceTest)
         {
-            var dataAcceptanceTest = repository.GetByID(userStoryId);
+            var dataAcceptanceTest = repository.GetByID(acceptanceTestId);
             dataAcceptanceTest.Title = acceptanceTest.Title;
             dataAcceptanceTest.Criteria = acceptanceTest.Criteria;
             dataAcceptanceTest.Completed = acceptanceTest.Completed;

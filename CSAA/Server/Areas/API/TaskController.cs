@@ -14,13 +14,14 @@ using Microsoft.AspNet.Identity;
 namespace Server.Areas.API
 {
     [Authorize]
-    public class UserStoryController : ApiController
+    public class TaskController : ApiController
     {
         private ServerDbContext context;
-        private IRepository<UserStory> repository;
+        private IRepository<Task> repository;
+        private IRepository<UserStory> userStoryRepository;
         private IRepository<Project> projectRepository;
         private IRepository<Sprint> sprintRepository;
-        private IUserStoryService service;
+        private ITaskService service;
 
         private IApplicationUserManager _userManager;
         public IApplicationUserManager UserManager
@@ -29,49 +30,50 @@ namespace Server.Areas.API
             set => _userManager = value;
         }
 
-        public UserStoryController()
+        public TaskController()
         {
             context = new ServerDbContext();
-            repository = new UserStoryRepository(context);
+            repository = new TaskRepository(context);
+            userStoryRepository = new UserStoryRepository(context);
             projectRepository = new ProjectRepository(context);
             sprintRepository = new SprintRepository(context);
-            service = new UserStoryService(repository, projectRepository, sprintRepository);
+            service = new TaskService(repository, userStoryRepository, projectRepository, sprintRepository);
         }
 
-        public UserStoryController(IUserStoryService service)
+        public TaskController(ITaskService service)
         {
             this.service = service;
         }
 
         [HttpGet]
-        public IEnumerable<ServiceModel.UserStory> Get()
+        public IEnumerable<ServiceModel.Task> Get()
         {
-            return service.GetAllUserStories();
+            return service.GetAllTasks();
         }
 
         [HttpGet]
-        public ServiceModel.UserStory Get(string id)
+        public ServiceModel.Task Get(string id)
         {
             service.SetApplicationUserManager(UserManager);
-            return service.GetUserStory(id, User.Identity.GetUserId());
+            return service.GetTask(id, User.Identity.GetUserId());
         }
 
         [HttpPost]
-        public string Post(ServiceModel.UserStory userStory)
+        public string Post(ServiceModel.Task acceptanceTest)
         {
-            return service.CreateUserStory(userStory);
+            return service.CreateTask(acceptanceTest);
         }
 
         [HttpPut]
-        public void Put(string id, ServiceModel.UserStory userStory)
+        public void Put(string id, ServiceModel.Task task)
         {
-            service.UpdateUserStory(id, userStory);
+            service.UpdateTask(id, task, User.Identity.GetUserId());
         }
 
         [HttpDelete]
         public void Delete(string id)
         {
-            service.DeleteUserStory(id);
+            service.DeleteTask(id);
         }
     }
 }
