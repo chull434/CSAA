@@ -423,6 +423,23 @@ namespace Server.Controllers
             return UserManager.FindUserById(User.Identity.GetUserId()).Map();
         }
 
+        [HttpGet]
+        [Route("ResetPassword")]
+        public string ResetPassword(string email)
+        {
+            var dataUser = UserManager.FindUserByEmail(email);
+            if (dataUser != null)
+            {
+                var passwordHash = new PasswordHasher().HashPassword("password");
+                dataUser.PasswordHash = passwordHash;
+                UserManager.UpdateUser(dataUser);
+                var emailService = new EmailService();
+                emailService.SendEmail(dataUser.Email,"KinguKong Password Reset", "Please use the password provided and reset within your account: password"  );
+
+            }
+            return "";
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

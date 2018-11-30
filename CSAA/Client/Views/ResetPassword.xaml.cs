@@ -17,15 +17,14 @@ using Client.ViewModels;
 namespace Client.Views
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for ResetPassword.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class ResetPassword : Window
     {
-        public Login(IHttpClient client)
+        public ResetPassword(IHttpClient client)
         {
-            DataContext = new LoginViewModel(client);
+            DataContext = new ResetPasswordViewModel(client);
             InitializeComponent();
         }
-
     }
 }
