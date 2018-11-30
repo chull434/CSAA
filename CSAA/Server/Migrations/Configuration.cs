@@ -57,6 +57,18 @@ namespace Server.Migrations
             Project.ProjectTeam.Add(new ProjectTeamMember(userId, Project, Role.ProjectManager));
             context.Projects.AddOrUpdate(Project);
             context.SaveChanges();
+
+            var UserStory = new UserStory("User Story One", "User Story Oen Description") { ProjectId = Project.Id, StoryPoints = 10, Priority = 1, MarketValue = 10 };
+            Project.ProjectUserStories.Add(UserStory);
+            context.UserStories.AddOrUpdate(UserStory);
+            context.Projects.AddOrUpdate(Project);
+            context.SaveChanges();
+
+            var Project2 = new Project("Project 2");
+            var userId2 = context.Users.FirstOrDefault(u => u.Email == "testuser2@localhost.com").Id;
+            Project2.ProjectTeam.Add(new ProjectTeamMember(userId2, Project2, Role.ProjectManager));
+            context.Projects.AddOrUpdate(Project2);
+            context.SaveChanges();
         }
     }
 }
