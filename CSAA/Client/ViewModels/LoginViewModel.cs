@@ -32,12 +32,16 @@ namespace Client.ViewModels
         private readonly DelegateCommand _register;
         public ICommand Register => _register;
 
+        private readonly DelegateCommand _resetPassword;
+        public ICommand ResetPassword => _resetPassword;
+
         public LoginViewModel(IHttpClient httpClient)
         {
             HttpClient = httpClient;
             AccountRequest = new AccountRequest(httpClient);
             _login = new DelegateCommand(OnLogin);
             _register = new DelegateCommand(OnRegister);
+            _resetPassword = new DelegateCommand(OnResetPassword);
         }
 
         public LoginViewModel(IAccountRequest accountRequest)
@@ -45,11 +49,17 @@ namespace Client.ViewModels
             AccountRequest = accountRequest;
             _login = new DelegateCommand(OnLogin);
             _register = new DelegateCommand(OnRegister);
+            _resetPassword = new DelegateCommand(OnResetPassword);
         }
 
         private void OnRegister(object commandParameter)
         {
             ChangeView(new Registration(HttpClient));
+        }
+
+        private void OnResetPassword(object commandParameter)
+        {
+            ChangeView(new ResetPassword(HttpClient));
         }
 
         private void OnLogin(object commandParameter)

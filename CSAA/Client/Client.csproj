@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ProductBacklogViewModel.cs" />
+    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\SprintViewModel.cs" />
     <Compile Include="ViewModels\UserStoryViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
@@ -103,6 +104,9 @@
     </Compile>
     <Compile Include="Views\ProductBacklog.xaml.cs">
       <DependentUpon>ProductBacklog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Sprint.xaml.cs">
       <DependentUpon>Sprint.xaml</DependentUpon>
@@ -140,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductBacklog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResetPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

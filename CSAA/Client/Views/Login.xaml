@@ -48,6 +48,7 @@
         <Label x:Name="lbl_Title_login" Content="Welcome to KinguKongu Login" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="43" Width="315" FontSize="24" FontFamily="Calibri" FontWeight="Bold"/>
         <Label x:Name="lbl_EmailError" Content="{Binding EmailError}" HorizontalAlignment="Left" Margin="179,191,0,0" VerticalAlignment="Top" Width="275" Height="34" FontFamily="Calibri" FontWeight="Bold" Foreground="Red" FontSize="14"/>
         <Label x:Name="lbl_PasswordError" Content="{Binding PasswordError}" HorizontalAlignment="Left" Margin="179,265,0,0" VerticalAlignment="Top" Width="275" Height="28" FontFamily="Calibri" Foreground = "Red" FontSize="14" FontWeight="Bold"/>
+        <Button Content="Reset Password" HorizontalAlignment="Left" Margin="423,238,0,0" VerticalAlignment="Top" Width="88" Background="Transparent" FontFamily="Calibri" Command="{Binding ResetPassword, Mode=OneWay}"/>
     </Grid>
 
 </Window>
